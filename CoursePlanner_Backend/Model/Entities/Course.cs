@@ -9,7 +9,9 @@
         public String Subject { get; set; }
         public int Course_Number { get; set; }
         public List<Feature> Features { get; set; }
-        public List<Campus> campuses { get; set; }
-        public List<Course> prerequisites { get; set; }
+        public List<Campus> Campuses { get; set; }
+        public List<Course> Prerequisites { get; set; }
+        public List<Course> Requirements { get; set; }
+        public List<Class> Classes { get; set; }
     }
 }

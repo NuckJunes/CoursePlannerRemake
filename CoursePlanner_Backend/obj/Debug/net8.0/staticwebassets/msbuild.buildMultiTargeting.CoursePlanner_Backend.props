@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CoursePlanner_Backend.props" />
+</Project>
