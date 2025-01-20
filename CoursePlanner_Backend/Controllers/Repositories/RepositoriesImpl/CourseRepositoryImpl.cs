@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 {
-    public class CourseRepositoryImpl : CourseRepository
+    public class CourseRepositoryImpl : ICourseRepository
     {
         private readonly ApplicationDbContext appDbContext;
 
@@ -14,7 +14,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             this.appDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<Course>> GetAllCourses()
+        public async Task<ActionResult<IEnumerable<Course>>> GetAllCourses()
         {
             return await appDbContext.Courses.ToListAsync();
         }

@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 {
-    public class CourseServiceImpl : CourseService
+    public class CourseServiceImpl : ICourseService
     {
-        private CourseRepository courseRepository;
+        private ICourseRepository courseRepository;
 
-        public CourseServiceImpl(CourseRepository courseRepository)
+        public CourseServiceImpl(ICourseRepository courseRepository)
         {
             this.courseRepository = courseRepository;
         }
 
-        public async Task<IEnumerable<Course>> GetCourses()
+        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
             return await courseRepository.GetAllCourses();
         }

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlanner_Backend.Controllers.Repositories
 {
-    public interface CourseRepository
+    public interface ICourseRepository
     {
-        Task<IEnumerable<Course>> GetAllCourses();
+        Task<ActionResult<IEnumerable<Course>>> GetAllCourses();
     }
 }

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlanner_Backend.Controllers.Services
 {
-    public interface CourseService
+    public interface ICourseService
     {
-        Task<IEnumerable<Course>> GetCourses();
+        Task<ActionResult<IEnumerable<Course>>> GetCourses();
     }
 }

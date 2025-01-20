@@ -9,15 +9,15 @@ namespace CoursePlanner_Backend.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private CourseService courseService;
+        private ICourseService courseService;
 
-        public CourseController(CourseService courseService)
+        public CourseController(ICourseService courseService)
         {
             this.courseService = courseService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Course>> GetCourses()
+        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
             return await courseService.GetCourses();
         }
