@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CoursePlanner_Backend.Controllers.Services;
 using CoursePlanner_Backend.Model.Entities;
+using CoursePlanner_Backend.Model.DTOs;
 
 namespace CoursePlanner_Backend.Controllers
 {
@@ -20,6 +21,18 @@ namespace CoursePlanner_Backend.Controllers
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
             return await courseService.GetCourses();
+        }
+
+        [HttpPost("/add")]
+        public async Task<ActionResult<Course>> AddCourse(CourseRequestDTO courseRequestDTO)
+        {
+            return await courseService.AddCourse(courseRequestDTO);
+        }
+
+        [HttpPatch("/update/{id}")]
+        public async Task<ActionResult<Course>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id)
+        {
+            return await courseService.UpdateCourse(courseRequestDTO, id);
         }
     }
 }

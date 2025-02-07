@@ -53,10 +53,20 @@ namespace CoursePlanner_Backend.Data
                 .WithMany(e => e.Requirements);
 
             modelBuilder.Entity<Course>().HasData(
-                new Course {Id = 1,  Name = "Computer Science Entry", Description = "A entry level course", Credit_Hours = 1, Subject = "CSE", Course_Number = 102, Classes = new List<Class>(), Campuses = new List<Campus>(), Features = new List<Feature>(), Prerequisites = new List<Course>() } );
+                new Course {Id = 1,  Name = "Computer Science Entry", Description = "A entry level course", Credit_Hours = 1.0, Subject = "CSE", Course_Number = 102, Classes = new List<Class>(), Campuses = new List<Campus>(), Features = new List<Feature>(), Prerequisites = new List<Course>() } );
 
             modelBuilder.Entity<User>().HasData(
                 new User {Id = 1, Username = "Username", Password = "Password", Email = "Email@Email.com", schedules = new List<Schedule>()});
+
+            modelBuilder.Entity<Campus>().HasData(
+                new Campus { Id = 1, Name = "Hamilton", Courses = new List<Course>() },
+                new Campus { Id = 2, Name = "Luxembourg", Courses = new List<Course>()},
+                new Campus { Id = 3, Name = "Middletown", Courses = new List<Course>()},
+                new Campus { Id = 4, Name = "Oxford", Courses = new List<Course>()},
+                new Campus { Id = 5, Name = "West Chester", Courses = new List<Course>()});
+
+            modelBuilder.Entity<Feature>().HasData(
+                new Feature { Id = 1, Name = "Advanced Writing", Short_Name = "PA", Courses = new List<Course>() });
         }
     }
 }

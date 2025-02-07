@@ -5,6 +5,8 @@ namespace CoursePlanner_Backend.Controllers.Repositories
 {
     public interface ICourseRepository
     {
+        Task<ActionResult<Course>> AddCourse(Course course);
         Task<ActionResult<IEnumerable<Course>>> GetAllCourses();
+        Task<ActionResult<Course>> GetById(int id);
     }
 }
