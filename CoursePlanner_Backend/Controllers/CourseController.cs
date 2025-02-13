@@ -6,7 +6,7 @@ using CoursePlanner_Backend.Model.DTOs;
 
 namespace CoursePlanner_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -17,22 +17,28 @@ namespace CoursePlanner_Backend.Controllers
             this.courseService = courseService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        [HttpGet("/Courses")]
+        public async Task<ActionResult<IEnumerable<CourseResponseDTO>>> GetCourses()
         {
             return await courseService.GetCourses();
         }
 
-        [HttpPost("/add")]
-        public async Task<ActionResult<Course>> AddCourse(CourseRequestDTO courseRequestDTO)
+        [HttpPost("/Course")]
+        public async Task<ActionResult<CourseResponseDTO>> AddCourse(CourseRequestDTO courseRequestDTO)
         {
             return await courseService.AddCourse(courseRequestDTO);
         }
 
-        [HttpPatch("/update/{id}")]
-        public async Task<ActionResult<Course>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id)
+        [HttpPatch("/Course/{id}")]
+        public async Task<ActionResult<CourseResponseDTO>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id)
         {
             return await courseService.UpdateCourse(courseRequestDTO, id);
+        }
+
+        [HttpDelete("/Course/{id}")]
+        public async Task<ActionResult<CourseResponseDTO>> DeleteCourse(int id)
+        {
+            return await courseService.DeleteCourse(id);
         }
     }
 }

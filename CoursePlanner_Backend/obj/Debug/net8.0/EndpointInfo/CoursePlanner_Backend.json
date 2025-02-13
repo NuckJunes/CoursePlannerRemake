@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Course": {
+    "/Courses": {
       "get": {
         "tags": [
           "Course"
@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Course"
+                    "$ref": "#/components/schemas/CourseResponseDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Course"
+                    "$ref": "#/components/schemas/CourseResponseDTO"
                   }
                 }
               },
@@ -34,14 +34,16 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Course"
+                    "$ref": "#/components/schemas/CourseResponseDTO"
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
+    "/Course": {
       "post": {
         "tags": [
           "Course"
@@ -50,17 +52,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Course"
+                "$ref": "#/components/schemas/CourseRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Course"
+                "$ref": "#/components/schemas/CourseRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Course"
+                "$ref": "#/components/schemas/CourseRequestDTO"
               }
             }
           }
@@ -71,17 +73,114 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Course"
+                  "$ref": "#/components/schemas/CourseResponseDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Course"
+                  "$ref": "#/components/schemas/CourseResponseDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Course"
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Course/{id}": {
+      "patch": {
+        "tags": [
+          "Course"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponseDTO"
                 }
               }
             }
@@ -92,7 +191,7 @@
   },
   "components": {
     "schemas": {
-      "Campus": {
+      "CampusDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -102,42 +201,61 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
           },
-          "courses": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "credit_hours": {
+            "type": "number",
+            "format": "double"
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "course_Number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "featureIds": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Course"
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "campusIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "preReqIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Class": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/Schedule"
-          },
-          "course": {
-            "$ref": "#/components/schemas/Course"
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "semester": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Course": {
+      "CourseResponseDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -152,9 +270,9 @@
             "type": "string",
             "nullable": true
           },
-          "credit_Hours": {
-            "type": "integer",
-            "format": "int32"
+          "credit_hours": {
+            "type": "number",
+            "format": "double"
           },
           "subject": {
             "type": "string",
@@ -164,45 +282,31 @@
             "type": "integer",
             "format": "int32"
           },
-          "features": {
+          "featureDTOs": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Feature"
+              "$ref": "#/components/schemas/FeatureDTO"
             },
             "nullable": true
           },
-          "campuses": {
+          "campusDTOs": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Campus"
+              "$ref": "#/components/schemas/CampusDTO"
             },
             "nullable": true
           },
-          "prerequisites": {
+          "preReqDTOs": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
-          },
-          "requirements": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
-          },
-          "classes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Class"
+              "$ref": "#/components/schemas/PrereqDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Feature": {
+      "FeatureDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -212,22 +316,11 @@
           "name": {
             "type": "string",
             "nullable": true
-          },
-          "short_Name": {
-            "type": "string",
-            "nullable": true
-          },
-          "courses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Schedule": {
+      "PrereqDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -236,45 +329,6 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "classes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Class"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "username": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "schedules": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Schedule"
-            },
             "nullable": true
           }
         },

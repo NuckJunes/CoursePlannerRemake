@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddTransient<ICourseService, CourseServiceImpl>();
 builder.Services.AddTransient<ICourseRepository, CourseRepositoryImpl>();
+builder.Services.AddTransient<ICampusRepository, CampusRepositoryImpl>();
+builder.Services.AddTransient<IFeatureRepository, FeatureRepositoryImpl>();
 
 
 var app = builder.Build();

@@ -17,7 +17,11 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 
         public async Task<ActionResult<IEnumerable<Course>>> GetAllCourses()
         {
-            return await appDbContext.Courses.ToListAsync();
+            return await appDbContext.Courses
+                .Include(course => course.Campuses)
+                .Include(course => course.Features)
+                .Include(course => course.Prerequisites)
+                .ToListAsync();
         }
 
         public async Task<ActionResult<Course>> AddCourse(Course course)
@@ -30,6 +34,25 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
         public async Task<ActionResult<Course>> GetById(int id)
         {
             return await appDbContext.Courses.FirstOrDefaultAsync(i => i.Id == id); 
+        }
+
+        public async Task<ActionResult<Course>> UpdateCourse(Course course)
+        {
+            appDbContext.Courses.Attach(course);
+            appDbContext.Entry(course).State = EntityState.Modified;
+            return new ActionResult<Course>(course);
+        }
+
+        public async Task<ActionResult<Course>> DeleteCourse(int id)
+        {
+            Course courseToDelete = appDbContext.Courses
+                .Include(course => course.Campuses)
+                .Include(course => course.Features)
+                .Include(course => course.Prerequisites)
+                .FirstOrDefault(i => i.Id == id);
+            appDbContext.Courses.Remove(courseToDelete);
+            await appDbContext.SaveChangesAsync();
+            return new ActionResult<Course>(courseToDelete);
         }
     }
 }

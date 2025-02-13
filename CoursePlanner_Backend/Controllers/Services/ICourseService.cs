@@ -6,8 +6,9 @@ namespace CoursePlanner_Backend.Controllers.Services
 {
     public interface ICourseService
     {
-        Task<ActionResult<Course>> AddCourse(CourseRequestDTO courseRequestDto);
-        Task<ActionResult<IEnumerable<Course>>> GetCourses();
-        Task<ActionResult<Course>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id);
+        Task<ActionResult<CourseResponseDTO>> AddCourse(CourseRequestDTO courseRequestDto);
+        Task<ActionResult<CourseResponseDTO>> DeleteCourse(int id);
+        Task<ActionResult<IEnumerable<CourseResponseDTO>>> GetCourses();
+        Task<ActionResult<CourseResponseDTO>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id);
     }
 }
