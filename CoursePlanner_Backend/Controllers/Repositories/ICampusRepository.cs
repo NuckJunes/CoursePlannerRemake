@@ -5,6 +5,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories
 {
     public interface ICampusRepository
     {
+        Task<ActionResult<IEnumerable<Campus>>> GetAllCampuses();
         Task<ActionResult<Campus>> GetById(int id);
     }
 }

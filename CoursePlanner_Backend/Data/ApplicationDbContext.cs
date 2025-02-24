@@ -67,6 +67,8 @@ namespace CoursePlanner_Backend.Data
 
             modelBuilder.Entity<Feature>().HasData(
                 new Feature { Id = 1, Name = "Advanced Writing", Short_Name = "PA", Courses = new List<Course>() });
+
+            
         }
     }
 }

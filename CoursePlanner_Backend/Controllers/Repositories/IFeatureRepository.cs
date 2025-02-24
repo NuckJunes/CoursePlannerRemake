@@ -5,6 +5,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories
 {
     public interface IFeatureRepository
     {
+        Task<ActionResult<IEnumerable<Feature>>> GetAllFeatures();
         Task<ActionResult<Feature>> GetById(int id);
     }
 }

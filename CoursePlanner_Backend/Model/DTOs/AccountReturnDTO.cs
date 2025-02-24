@@ -9,5 +9,14 @@ namespace CoursePlanner_Backend.Model.DTOs
         public String Email { get; set; }
         public String Password { get; set; }
         public List<Schedule> Schedules { get; set; }
+
+        public void ConvertToDTO(User user)
+        {
+            this.Email = user.Email;
+            this.Password = user.Password;
+            this.Username = user.Username;
+            this.Id = user.Id;
+            this.Schedules = user.schedules;
+        }
     }
 }

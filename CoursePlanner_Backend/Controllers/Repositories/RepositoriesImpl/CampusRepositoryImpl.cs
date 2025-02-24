@@ -15,6 +15,11 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             this.appDbContext = appDbContext;
         }
 
+        public async Task<ActionResult<IEnumerable<Campus>>> GetAllCampuses()
+        {
+            return await this.appDbContext.Campuses.ToListAsync();
+        }
+
         public async Task<ActionResult<Campus>> GetById(int id)
         {
             return await this.appDbContext.Campuses.FirstOrDefaultAsync(i => i.Id == id);

@@ -31,7 +31,7 @@ namespace CoursePlanner_Backend.Model.DTOs
             //loop through these
             foreach (Feature feature in course.Features)
             {
-                this.FeatureDTOs.Add(new FeatureDTO { Id = feature.Id, Name = feature.Name });
+                this.FeatureDTOs.Add(new FeatureDTO { Id = feature.Id, Name = feature.Name, Short_name = feature.Short_Name});
             }
             foreach (Campus campus in course.Campuses)
             {

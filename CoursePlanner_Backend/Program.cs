@@ -15,8 +15,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddTransient<ICourseService, CourseServiceImpl>();
 builder.Services.AddTransient<ICourseRepository, CourseRepositoryImpl>();
+builder.Services.AddTransient<ICampusService, CampusServiceImpl>();
 builder.Services.AddTransient<ICampusRepository, CampusRepositoryImpl>();
+builder.Services.AddTransient<IFeatureService, FeatureServiceImpl>();
 builder.Services.AddTransient<IFeatureRepository, FeatureRepositoryImpl>();
+builder.Services.AddTransient<IAccountService, AccountServiceImpl>();
+builder.Services.AddTransient<IAccountRepository, AccountRepositoryImpl>();
+builder.Services.AddTransient<IScheduleService, ScheduleServiceImpl>();
+builder.Services.AddTransient<IScheduleRepository, ScheduleRepositoryImpl>();
+builder.Services.AddTransient<IClassRepository, ClassRepositoryImpl>();
 
 
 var app = builder.Build();
