@@ -10,12 +10,13 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
         public IScheduleRepository scheduleRepository;
         public ICourseRepository courseRepository;
         public IClassRepository classRepository;
-
-        public ScheduleServiceImpl(IScheduleRepository scheduleRepository, ICourseRepository courseRepository, IClassRepository classRepository)
+        public IAccountRepository accountRepository;
+        public ScheduleServiceImpl(IScheduleRepository scheduleRepository, ICourseRepository courseRepository, IClassRepository classRepository, IAccountRepository accountRepository)
         {
             this.scheduleRepository = scheduleRepository;
             this.courseRepository = courseRepository;
             this.classRepository = classRepository;
+            this.accountRepository = accountRepository;
         }
 
         public async Task<ActionResult<ScheduleResponseDTO>> CreateSchedule(ScheduleRequestDTO scheduleRequestDTO, int userId)
@@ -23,9 +24,11 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             Schedule newSchedule = new Schedule();
             newSchedule.Name = scheduleRequestDTO.Name;
             newSchedule.classes = new List<Class>();
+            ActionResult<User> u = await accountRepository.GetUser(userId);
+            newSchedule.user = u.Value;
 
             // Take all classes and add them to database with connections to course and schedule
-            foreach (ClassDTO c in scheduleRequestDTO.Classes)
+            foreach (ClassInsertDTO c in scheduleRequestDTO.Classes)
             {
                 Class newClass = new Class();
                 newClass.schedule = newSchedule;
@@ -37,12 +40,12 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
                 newClass.course = course.Value;
 
                 // Add class to db using class repository (Check for null/error)
-                ActionResult<Class> classAdded = await classRepository.AddClass(newClass);
-
+                //ActionResult<Class> classAdded = await classRepository.AddClass(newClass);
                 newSchedule.classes.Add(newClass);
             }
 
             ScheduleResponseDTO scheduleResponseDTO = new ScheduleResponseDTO();
+            newSchedule.Id = 0;
             ActionResult<Schedule> result = await scheduleRepository.CreateSchedule(newSchedule);
             scheduleResponseDTO.ConvertToDTO(result.Value); //Check for null/error here
             return new ActionResult<ScheduleResponseDTO>(scheduleResponseDTO);
@@ -61,6 +64,9 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             ActionResult<Schedule> schedule = await scheduleRepository.GetSchedule(scheduleId);
             //convert to scheduleResponseDTO
             ScheduleResponseDTO scheduleDTO = new ScheduleResponseDTO();
+            scheduleDTO.Name = schedule.Value.Name;
+            scheduleDTO.Id = schedule.Value.Id;
+            scheduleDTO.Classes = new List<ClassDTO>();
             foreach(Class c in schedule.Value.classes)
             {
                 ClassDTO classDTO = new ClassDTO();
@@ -74,33 +80,32 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
         {
             //get existing schedule
             ActionResult<Schedule> existingSchedule = await scheduleRepository.GetSchedule(scheduleId);
-            Schedule schedule = existingSchedule.Value;
-            schedule.Name = scheduleRequestDTO.Name;
+            existingSchedule.Value.Name = scheduleRequestDTO.Name;
 
             // Delete existing classes
-            foreach(Class c in existingSchedule.Value.classes)
+            foreach(Class c in existingSchedule.Value.classes.ToList())
             {
                 ActionResult<Class> d = await classRepository.DeleteClass(c);
             }
 
             // Add in new classes
-            foreach(ClassDTO c in scheduleRequestDTO.Classes)
+            foreach(ClassInsertDTO c in scheduleRequestDTO.Classes)
             {
                 Class newClass = new Class();
                 newClass.year = c.year;
-                newClass.schedule = schedule;
+                newClass.schedule = existingSchedule.Value;
                 ActionResult<Course> course = await courseRepository.GetById(c.courseId);
                 newClass.course = course.Value;
                 newClass.semester = c.semester;
-                await classRepository.AddClass(newClass);
+                ActionResult<Class> classAdded = await classRepository.AddClass(newClass);
             }
 
             // Send to Repository to Update
-            ActionResult<Schedule> result = await scheduleRepository.UpdateSchedule(schedule);
+            ActionResult<Schedule> result = await scheduleRepository.UpdateSchedule(existingSchedule.Value);
 
             // Convert to a scheduleResponseDTO to return
             ScheduleResponseDTO scheduleResponseDTO = new ScheduleResponseDTO();
-            scheduleResponseDTO.ConvertToDTO(schedule);
+            scheduleResponseDTO.ConvertToDTO(result.Value);
             return new ActionResult<ScheduleResponseDTO>(scheduleResponseDTO);
             throw new NotImplementedException();
         }

@@ -7,6 +7,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories
     public interface IAccountRepository
     {
         Task<ActionResult<User>> CreateAccount(User newUser);
+        Task<ActionResult<User>> GetUser(int userId);
         Task<ActionResult<User>> Login(LoginRequestDTO loginRequestDTO);
     }
 }

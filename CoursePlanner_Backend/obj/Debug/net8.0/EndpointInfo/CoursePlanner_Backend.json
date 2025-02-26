@@ -360,7 +360,7 @@
         }
       }
     },
-    "/{scheduleId}": {
+    "/Schedule/{scheduleId}": {
       "get": {
         "tags": [
           "Schedule"
@@ -405,23 +405,6 @@
         ],
         "parameters": [
           {
-            "name": "Name",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Classes",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ClassDTO"
-              }
-            }
-          },
-          {
             "name": "scheduleId",
             "in": "path",
             "required": true,
@@ -431,6 +414,25 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -493,29 +495,12 @@
         }
       }
     },
-    "/{userId}": {
+    "/Schedule/{userId}": {
       "post": {
         "tags": [
           "Schedule"
         ],
         "parameters": [
-          {
-            "name": "Name",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Classes",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ClassDTO"
-              }
-            }
-          },
           {
             "name": "userId",
             "in": "path",
@@ -526,6 +511,25 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleRequestDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -666,6 +670,24 @@
             "type": "integer",
             "format": "int32"
           },
+          "semester": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "courseId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClassInsertDTO": {
+        "type": "object",
+        "properties": {
           "semester": {
             "type": "string",
             "nullable": true
@@ -882,6 +904,10 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "short_name": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -932,6 +958,23 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Class"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScheduleRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassInsertDTO"
             },
             "nullable": true
           }

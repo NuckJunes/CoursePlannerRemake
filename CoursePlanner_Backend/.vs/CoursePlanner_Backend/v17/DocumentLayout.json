@@ -3,32 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\featurecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\featurecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\repositories\\repositoriesimpl\\schedulerepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\repositories\\repositoriesimpl\\schedulerepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\repositories\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\repositories\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\services\\ischeduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\services\\ischeduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,98 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FeatureController.cs",
-              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\FeatureController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FeatureController.cs",
-              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\FeatureController.cs",
-              "RelativeToolTip": "Controllers\\FeatureController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T13:52:44.972Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T13:45:46.458Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAUwEYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T13:39:50.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "ScheduleRepositoryImpl.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\ScheduleRepositoryImpl.cs",
               "RelativeDocumentMoniker": "Controllers\\Repositories\\RepositoriesImpl\\ScheduleRepositoryImpl.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\ScheduleRepositoryImpl.cs",
               "RelativeToolTip": "Controllers\\Repositories\\RepositoriesImpl\\ScheduleRepositoryImpl.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAmwB4AAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCQAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:28:49.54Z",
+              "WhenOpened": "2025-02-25T16:03:10.764Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IScheduleRepository.cs",
-              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\IScheduleRepository.cs",
-              "RelativeDocumentMoniker": "Controllers\\Repositories\\IScheduleRepository.cs",
-              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\IScheduleRepository.cs",
-              "RelativeToolTip": "Controllers\\Repositories\\IScheduleRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:28:23.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ScheduleServiceImpl.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "RelativeDocumentMoniker": "Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "RelativeToolTip": "Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAiwDQAAABLAAAAAAAAAA==",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAwD4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T15:25:42.913Z",
+              "WhenOpened": "2025-02-25T14:11:07.487Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IScheduleService.cs",
-              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\IScheduleService.cs",
-              "RelativeDocumentMoniker": "Controllers\\Services\\IScheduleService.cs",
-              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\IScheduleService.cs",
-              "RelativeToolTip": "Controllers\\Services\\IScheduleService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABqAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ScheduleController.cs",
+              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\ScheduleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ScheduleController.cs",
+              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\ScheduleController.cs",
+              "RelativeToolTip": "Controllers\\ScheduleController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAwBwAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T16:44:32.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-25T14:20:06.254Z"
             }
           ]
         }

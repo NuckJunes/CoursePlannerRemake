@@ -22,6 +22,11 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             return newUser;
         }
 
+        public async Task<ActionResult<User>> GetUser(int userId)
+        {
+            return await appDbContext.Users.FirstOrDefaultAsync(i => i.Id == userId);
+        }
+
         public async Task<ActionResult<User>> Login(LoginRequestDTO loginRequestDTO)
         {
             return await appDbContext.Users.Include(user => user.schedules).FirstOrDefaultAsync(i => (loginRequestDTO.Username == i.Username && loginRequestDTO.Password == i.Password));

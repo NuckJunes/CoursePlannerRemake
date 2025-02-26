@@ -18,7 +18,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
         {
             appDbContext.Classes.Add(newClass);
             await appDbContext.SaveChangesAsync();
-            return newClass;
+            return new ActionResult<Class>(newClass);
         }
 
         public async Task<ActionResult<Class>> DeleteClass(Class c)

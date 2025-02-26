@@ -113,6 +113,15 @@ namespace CoursePlanner_Backend.Migrations
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Class", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("courseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("scheduleId")
                         .HasColumnType("int");
 
                     b.Property<string>("semester")
@@ -123,6 +132,10 @@ namespace CoursePlanner_Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("courseId");
+
+                    b.HasIndex("scheduleId");
 
                     b.ToTable("Classes");
                 });
@@ -199,13 +212,21 @@ namespace CoursePlanner_Backend.Migrations
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Schedules");
                 });
@@ -293,13 +314,13 @@ namespace CoursePlanner_Backend.Migrations
                 {
                     b.HasOne("CoursePlanner_Backend.Model.Entities.Course", "course")
                         .WithMany("Classes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("courseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CoursePlanner_Backend.Model.Entities.Schedule", "schedule")
                         .WithMany("classes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("scheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -312,7 +333,7 @@ namespace CoursePlanner_Backend.Migrations
                 {
                     b.HasOne("CoursePlanner_Backend.Model.Entities.User", "user")
                         .WithMany("schedules")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

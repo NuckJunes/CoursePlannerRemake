@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoursePlanner_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250107152258_Self_Reference")]
-    partial class Self_Reference
+    [Migration("20250224160358_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,11 +84,47 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Campuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Hamilton"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Luxembourg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Middletown"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Oxford"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "West Chester"
+                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Class", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("courseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("scheduleId")
                         .HasColumnType("int");
 
                     b.Property<string>("semester")
@@ -99,6 +135,10 @@ namespace CoursePlanner_Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("courseId");
+
+                    b.HasIndex("scheduleId");
 
                     b.ToTable("Classes");
                 });
@@ -114,8 +154,8 @@ namespace CoursePlanner_Backend.Migrations
                     b.Property<int>("Course_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Credit_Hours")
-                        .HasColumnType("int");
+                    b.Property<double>("Credit_Hours")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -131,6 +171,17 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Course_Number = 102,
+                            Credit_Hours = 1.0,
+                            Description = "A entry level course",
+                            Name = "Computer Science Entry",
+                            Subject = "CSE"
+                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Feature", b =>
@@ -151,18 +202,34 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Features");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Advanced Writing",
+                            Short_Name = "PA"
+                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Schedule", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Schedules");
                 });
@@ -190,6 +257,15 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "Email@Email.com",
+                            Password = "Password",
+                            Username = "Username"
+                        });
                 });
 
             modelBuilder.Entity("CampusCourse", b =>
@@ -241,13 +317,13 @@ namespace CoursePlanner_Backend.Migrations
                 {
                     b.HasOne("CoursePlanner_Backend.Model.Entities.Course", "course")
                         .WithMany("Classes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("courseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CoursePlanner_Backend.Model.Entities.Schedule", "schedule")
                         .WithMany("classes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("scheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -260,7 +336,7 @@ namespace CoursePlanner_Backend.Migrations
                 {
                     b.HasOne("CoursePlanner_Backend.Model.Entities.User", "user")
                         .WithMany("schedules")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

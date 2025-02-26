@@ -1,129 +1,5 @@
 [
   {
-    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
-    "Method": "GetSchedule",
-    "RelativePath": "{scheduleId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "scheduleId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
-    "Method": "UpdateSchedule",
-    "RelativePath": "{scheduleId}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Name",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Classes",
-        "Type": "System.Collections.Generic.List\u00601[[CoursePlanner_Backend.Model.DTOs.ClassDTO, CoursePlanner_Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "scheduleId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
-    "Method": "DeleteSchedule",
-    "RelativePath": "{scheduleId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "scheduleId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
-    "Method": "CreateSchedule",
-    "RelativePath": "{userId}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Name",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Classes",
-        "Type": "System.Collections.Generic.List\u00601[[CoursePlanner_Backend.Model.DTOs.ClassDTO, CoursePlanner_Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "CoursePlanner_Backend.Controllers.AccountController",
     "Method": "CreateAccount",
     "RelativePath": "account",
@@ -309,6 +185,120 @@
     "ReturnTypes": [
       {
         "Type": "CoursePlanner_Backend.Model.DTOs.AccountReturnDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
+    "Method": "GetSchedule",
+    "RelativePath": "Schedule/{scheduleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
+    "Method": "UpdateSchedule",
+    "RelativePath": "Schedule/{scheduleId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleRequestDTO",
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleRequestDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
+    "Method": "DeleteSchedule",
+    "RelativePath": "Schedule/{scheduleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.ScheduleController",
+    "Method": "CreateSchedule",
+    "RelativePath": "Schedule/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleRequestDTO",
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleRequestDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CoursePlanner_Backend.Model.DTOs.ScheduleResponseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",

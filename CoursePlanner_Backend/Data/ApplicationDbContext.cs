@@ -27,18 +27,15 @@ namespace CoursePlanner_Backend.Data
         {
             modelBuilder.Entity<User>()
                 .HasMany(e => e.schedules)
-                .WithOne(e => e.user)
-                .HasForeignKey(e => e.Id);
+                .WithOne(e => e.user);
 
             modelBuilder.Entity<Class>()
                 .HasOne(e => e.schedule)
-                .WithMany(e => e.classes)
-                .HasForeignKey(e => e.Id);
+                .WithMany(e => e.classes);
 
             modelBuilder.Entity<Class>()
                 .HasOne(e => e.course)
-                .WithMany(e => e.Classes)
-                .HasForeignKey(e => e.Id);
+                .WithMany(e => e.Classes);
 
             modelBuilder.Entity<Course>()
                 .HasMany(e => e.Features)

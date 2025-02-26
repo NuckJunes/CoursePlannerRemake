@@ -16,7 +16,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 
         public async Task<ActionResult<Schedule>> CreateSchedule(Schedule newSchedule)
         {
-            appDbContext.Schedules.AddAsync(newSchedule);
+            appDbContext.Schedules.Add(newSchedule);
             await appDbContext.SaveChangesAsync();
             return new ActionResult<Schedule>(newSchedule);
         }
@@ -25,6 +25,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
         {
             Schedule scheduleToDelete = appDbContext.Schedules
                 .Include(i => i.classes)
+                .ThenInclude(c => c.course)
                 .FirstOrDefault(i => i.Id == scheduleId);
             appDbContext.Remove(scheduleToDelete);
             await appDbContext.SaveChangesAsync();
@@ -33,13 +34,17 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 
         public async Task<ActionResult<Schedule>> GetSchedule(int scheduleId)
         {
-            return await appDbContext.Schedules.Include(schedule => schedule.classes).FirstOrDefaultAsync(i => i.Id == scheduleId);
+            return await appDbContext.Schedules
+                .Include(schedule => schedule.classes)
+                .ThenInclude(c => c.course)
+                .FirstOrDefaultAsync(i => i.Id == scheduleId);
         }
 
         public async Task<ActionResult<Schedule>> UpdateSchedule(Schedule schedule)
         {
-            appDbContext.Schedules.Attach(schedule);
-            appDbContext.Entry(schedule).State = EntityState.Modified;
+            //appDbContext.Schedules.Attach(schedule);
+            //appDbContext.Entry(schedule).State = EntityState.Modified;
+            await appDbContext.SaveChangesAsync();
             return new ActionResult<Schedule>(schedule);
         }
     }
