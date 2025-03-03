@@ -28,19 +28,16 @@ export class NavbarComponent {
     var loginData = false;
     this.globalData.getLoggedIn().subscribe((value) => (loginData = value));
 
-    if(loginData) {
+    const loginString = localStorage.getItem('LoggedIn');
+    const loginStorage =  loginString ? JSON.parse(loginString) : false;
+
+    if(loginStorage || loginData) {
       //we are logged in already
       this.loginProfile = "/profile";
       this.loginString = "Profile";
     } else {
-      //check if localstorage is holding our login
-      const loginString = localStorage.getItem('LoggedIn');
-      const loginStorage =  loginString ? JSON.parse(loginString) : false;
-      if(loginStorage) {
-        //we are logged in already
-        this.loginProfile = "/profile";
-        this.loginString = "Profile";
-      }
+      this.loginProfile = "/login";
+      this.loginString = "Login";
     }
    }
 }

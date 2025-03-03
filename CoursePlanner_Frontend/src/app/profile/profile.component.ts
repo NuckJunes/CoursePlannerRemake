@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { globalData } from '../../services/globalData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,4 +11,20 @@ import { NavbarComponent } from "../navbar/navbar.component";
 })
 export class ProfileComponent {
 
+  value: boolean = true;
+
+  constructor(private globalData: globalData, private router: Router){}
+
+  logOut() {
+    this.globalData.updateLoginStatus(false);
+
+    //force reset of navbar component
+    if(this.value) {
+      this.value = false;
+    } else {
+      this.value = true;
+    }
+
+    this.router.navigate(['/login']);
+  }
 }
