@@ -8,6 +8,10 @@ import { BehaviorSubject } from "rxjs";
 export class globalData {
     private loggedInSource = new BehaviorSubject<boolean>(this.loadLoginFromLocalStorage());
 
+    getLoggedIn() {
+        return this.loggedInSource;
+    }
+
     updateLoginStatus(login: boolean) {
         this.loggedInSource.next(login);
         localStorage.setItem('LoggedIn', login.toString());
