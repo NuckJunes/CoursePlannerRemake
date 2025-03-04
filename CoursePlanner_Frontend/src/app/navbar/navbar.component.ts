@@ -25,19 +25,25 @@ export class NavbarComponent {
    }
 
    updateLoginStatus() {
-    var loginData = false;
-    this.globalData.getLoggedIn().subscribe((value) => (loginData = value));
+    var accountData;
+    this.globalData.getAccount().subscribe((value) => (accountData = value));
 
-    const loginString = localStorage.getItem('LoggedIn');
-    const loginStorage =  loginString ? JSON.parse(loginString) : false;
-
-    if(loginStorage || loginData) {
-      //we are logged in already
+    //If we are already loggedin through observables
+    if(accountData !== undefined) {
       this.loginProfile = "/profile";
       this.loginString = "Profile";
     } else {
-      this.loginProfile = "/login";
-      this.loginString = "Login";
+      //If the login info is stored on localStorage
+      const accountString = localStorage.getItem('Account');
+      if(accountString !== 'undefined') {
+        this.loginProfile = "/profile";
+        this.loginString = "Profile";
+        if(accountString !== null)//this should never be null
+          this.globalData.updateAccountStatus(JSON.parse(accountString));
+      } else {
+        this.loginProfile = "/login";
+        this.loginString = "Login";
+      }
     }
    }
 }
