@@ -8,7 +8,7 @@ namespace CoursePlanner_Backend.Model.DTOs
         public String Username { get; set; }
         public String Email { get; set; }
         public String Password { get; set; }
-        public List<Schedule> Schedules { get; set; }
+        public List<ScheduleResponseDTO> Schedules { get; set; }
 
         public void ConvertToDTO(User user)
         {
@@ -16,7 +16,13 @@ namespace CoursePlanner_Backend.Model.DTOs
             this.Password = user.Password;
             this.Username = user.Username;
             this.Id = user.Id;
-            this.Schedules = user.schedules;
+            this.Schedules = new List<ScheduleResponseDTO>();
+            foreach(Schedule s in user.schedules)
+            {
+                ScheduleResponseDTO response = new ScheduleResponseDTO();
+                response.ConvertToDTO(s);
+                this.Schedules.Add(response);
+            }
         }
     }
 }
