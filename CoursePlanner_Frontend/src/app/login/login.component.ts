@@ -29,7 +29,23 @@ export class LoginComponent {
       Email: "Email@Email.com",
       Schedules: Array<ScheduleResponseDTO>()
     };
-    
+
+    var class1 = {
+      id: 1,
+      semester: "Spring",
+      year: 2,
+      courseId: 1
+    };
+
+    var newSchedule = {
+      Id: 1,
+      Name: "Schedule Test 1",
+      Classes: [class1]
+    };
+
+    this.account.Schedules.push()
+    //Everything above here will be replaced with API call at the end
+
     if(this.account !== undefined) {
       this.globalData.updateAccountStatus(this.account);
     } //else throw error

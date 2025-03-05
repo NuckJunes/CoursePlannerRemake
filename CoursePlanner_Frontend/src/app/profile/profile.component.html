@@ -3,3 +3,8 @@
 <h2>{{account.Username}}</h2>
 <h2>{{account.Password}}</h2>
 <h2>{{account.Email}}</h2>
+<ul>
+    <li *ngFor="let schedule of account.Schedules">
+        {{schedule.Name}}
+    </li>
+</ul>

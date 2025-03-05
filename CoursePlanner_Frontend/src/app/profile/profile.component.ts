@@ -4,10 +4,11 @@ import { globalData } from '../../services/globalData';
 import { Router } from '@angular/router';
 import AccountReturnDTO from '../models/AccountReturnDTO';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, NgFor],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
