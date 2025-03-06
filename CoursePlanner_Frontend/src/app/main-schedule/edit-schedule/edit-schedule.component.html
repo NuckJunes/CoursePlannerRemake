@@ -1,0 +1,7 @@
+<button (click)="close()">X</button>
+<h1>Edit Schedule</h1>
+<ul>
+    <li *ngFor="let s of schedules">
+        <button (click)="editSchedule(s)">{{s.Name}}</button>
+    </li>
+</ul>
