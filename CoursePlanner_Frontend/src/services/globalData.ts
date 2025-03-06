@@ -13,7 +13,7 @@ export class globalData {
     private accountSource = new BehaviorSubject<AccountReturnDTO | undefined>(this.loadAccountFromLocalStorage())
     account = this.accountSource.asObservable();
 
-    private courseSource = new BehaviorSubject<Array<CourseResponseDTO> | undefined>(this.loadCoursesFromLocalStorage());
+    private courseSource = new BehaviorSubject<Array<CourseResponseDTO>>(this.loadCoursesFromLocalStorage());
     courses = this.courseSource.asObservable();
 
     private scheduleSource = new BehaviorSubject<ScheduleRequestDTO | undefined>(this.loadScheduleFromLocalStorage());
@@ -43,7 +43,7 @@ export class globalData {
         localStorage.setItem('Account', JSON.stringify(account));
     }
 
-    updateCourseStatus(courses: Array<CourseResponseDTO> | undefined) {
+    updateCourseStatus(courses: Array<CourseResponseDTO>) {
         this.courseSource.next(courses);
         localStorage.setItem('Courses', JSON.stringify(courses));
     }
@@ -68,14 +68,14 @@ export class globalData {
         return undefined;
     }
 
-    private loadCoursesFromLocalStorage(): Array<CourseResponseDTO> | undefined {
+    private loadCoursesFromLocalStorage(): Array<CourseResponseDTO> {
         try {
             const coursesString = localStorage.getItem('Courses');
-            return coursesString ? JSON.parse(coursesString) : undefined;
+            return coursesString ? JSON.parse(coursesString) : [];
         } catch(error) {
 
         }
-        return undefined;
+        return [];
     }
 
     private loadScheduleFromLocalStorage(): ScheduleRequestDTO | undefined {

@@ -51,6 +51,7 @@ export class EditScheduleComponent {
       this.globalData.updateScheduleStatus(newSchedule);
       this.globalData.updateScheduleIdStatus(s.Id); // Needed for PATCH call
       this.router.navigate(['/schedule-create-edit']);
+      this.dialogRef.close();
     }
 
     close() {

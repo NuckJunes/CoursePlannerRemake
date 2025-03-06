@@ -43,7 +43,7 @@ export class LoginComponent {
       Classes: [class1]
     };
 
-    this.account.Schedules.push()
+    this.account.Schedules.push(newSchedule);
     //Everything above here will be replaced with API call at the end
 
     if(this.account !== undefined) {
