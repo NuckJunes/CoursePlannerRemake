@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <h1>Scheduler</h1>
 <mat-button-toggle-group (change)="yearChange($event)">
     <mat-button-toggle value="1">Year 1</mat-button-toggle>
@@ -15,5 +16,11 @@
 <ul>
     <li *ngFor="let c of courses">
         {{c.Subject}} {{c.Course_Number}}
+        <button (click)="delete(c.Id)">X</button>
+    </li>
+</ul>
+<ul>
+    <li *ngFor="let c of globalCourses">
+        <button (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
     </li>
 </ul>
