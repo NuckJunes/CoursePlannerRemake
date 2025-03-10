@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import AccountReturnDTO from '../models/AccountReturnDTO';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 import { NgFor } from '@angular/common';
+import ClassInsertDTO from '../models/ClassInsertDTO';
+import ScheduleRequestDTO from '../models/ScheduleRequestDTO';
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +32,32 @@ export class ProfileComponent {
     this.globalData.getAccount().subscribe((value) => (accountData = value));
     if(accountData !== undefined) {
       this.account = accountData;
+    }
+  }
+
+  editSchedule(id: number) {
+    // Find schedule by id
+    // Then convert to scheduleRequestDTO and update global data
+    // Finally, navigate to edit schedule page
+    let schedule = this.account.Schedules.find((Value) => (Value.Id === id));
+
+    if(schedule !== undefined) {
+
+      let scheduleToSend:ScheduleRequestDTO = {
+        Name: schedule.Name,
+        Classes: Array<ClassInsertDTO>()
+      }
+      schedule?.Classes.forEach(c => {
+        let newClass = {
+          semester: c.semester,
+          year: c.year,
+          courseId: c.courseId
+        };
+        scheduleToSend.Classes.push(newClass);
+      });
+
+      this.globalData.updateScheduleStatus(scheduleToSend);
+      this.globalData.updateScheduleIdStatus(id);
     }
   }
 
