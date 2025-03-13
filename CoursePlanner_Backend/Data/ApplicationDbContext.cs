@@ -22,6 +22,8 @@ namespace CoursePlanner_Backend.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Campus> Campuses { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<Major> Majors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,11 +51,19 @@ namespace CoursePlanner_Backend.Data
                 .HasMany(e => e.Prerequisites)
                 .WithMany(e => e.Requirements);
 
+            modelBuilder.Entity<Course>()
+                .HasMany(e => e.Sections)
+                .WithMany(e => e.Courses);
+
+            modelBuilder.Entity<Section>()
+                .HasOne(e => e.Major)
+                .WithMany(e => e.Sections);
+
             modelBuilder.Entity<Course>().HasData(
-                new Course {Id = 1,  Name = "Computer Science Entry", Description = "A entry level course", Credit_Hours = 1.0, Subject = "CSE", Course_Number = 102, Classes = new List<Class>(), Campuses = new List<Campus>(), Features = new List<Feature>(), Prerequisites = new List<Course>() } );
+                new Course {Id = 1,  Name = "Computer Science Entry", Description = "A entry level course", Credit_Hours = 1.0, Subject = "CSE", Course_Number = 102, Classes = new List<Class>(), Campuses = new List<Campus>(), Features = new List<Feature>(), Prerequisites = new List<Course>(), Sections = new List<Section>() } );
 
             modelBuilder.Entity<User>().HasData(
-                new User {Id = 1, Username = "Username", Password = "Password", Email = "Email@Email.com", schedules = new List<Schedule>()});
+                new User {Id = 1, Username = "Username", Password = "Password", Email = "Email@Email.com", schedules = new List<Schedule>(), Admin = false});
 
             modelBuilder.Entity<Campus>().HasData(
                 new Campus { Id = 1, Name = "Hamilton", Courses = new List<Course>() },
@@ -65,7 +75,10 @@ namespace CoursePlanner_Backend.Data
             modelBuilder.Entity<Feature>().HasData(
                 new Feature { Id = 1, Name = "Advanced Writing", Short_Name = "PA", Courses = new List<Course>() });
 
-            
+            modelBuilder.Entity<Major>().HasData(
+                new Major { Id = 1, Name = "Software Engineering", Graduate = false, College = "College of Computer Science", Credit_Min = 92.0, Credit_Max = 98.0, Sections = new List<Section>() });
+
+           
         }
     }
 }

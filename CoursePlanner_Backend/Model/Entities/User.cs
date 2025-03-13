@@ -8,5 +8,6 @@
         public string Password { get; set; }
         public string Email { get; set; }
         public List<Schedule> schedules { get; set; }
+        public Boolean Admin { get; set; }
     }
 }

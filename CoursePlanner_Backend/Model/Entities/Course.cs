@@ -13,5 +13,7 @@
         public List<Course> Prerequisites { get; set; }
         public List<Course> Requirements { get; set; }
         public List<Class> Classes { get; set; }
+
+        public List<Section> Sections { get; set; }
     }
 }
