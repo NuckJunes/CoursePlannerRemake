@@ -58,6 +58,7 @@ export class ProfileComponent {
 
       this.globalData.updateScheduleStatus(scheduleToSend);
       this.globalData.updateScheduleIdStatus(id);
+      this.router.navigate(['/schedule-create-edit'])
     }
   }
 

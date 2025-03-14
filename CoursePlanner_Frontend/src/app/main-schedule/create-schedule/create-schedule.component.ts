@@ -26,6 +26,7 @@ export class CreateScheduleComponent {
     this.globalData.updateScheduleStatus(newSchedule);
     this.globalData.updateScheduleIdStatus(-1);
     this.router.navigate(['/schedule-create-edit']);
+    this.dialogRef.close();
   }
 
   close() {

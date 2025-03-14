@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
 <h1>Schedule</h1>
-<button (click)="openCreateMenu()">Create Schedule</button>
-<button (click)="openEditMenu()">Edit Schedule</button>
+@if (loggedIn) {
+    <button (click)="openCreateMenu()">Create Schedule</button>
+    <button (click)="openEditMenu()">Edit Schedule</button>
+} @else {
+    <button matTooltip="Must be Logged In">Create Schedule</button>
+    <button matTooltip="Must be Logged In">Edit Schedule</button>
+}
 <button>Import Schedule</button>
