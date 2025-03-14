@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import AccountReturnDTO from "../app/models/AccountReturnDTO";
 import CourseResponseDTO from "../app/models/CourseResponseDTO";
 import ScheduleRequestDTO from "../app/models/ScheduleRequestDTO";
+import MajorResponseDTO from "../app/models/MajorResponseDTO";
 
 @Injectable({
     providedIn: 'root',
@@ -21,6 +22,9 @@ export class globalData {
 
     private scheduleIdSource = new BehaviorSubject<number>(this.loadScheduleIdFromLocalStorage());
     scheduleId = this.scheduleIdSource.asObservable();
+
+    private majorSource = new BehaviorSubject<Array<MajorResponseDTO>>(this.loadMajorFromLocalStorage());
+    majors = this.majorSource.asObservable();
 
     getAccount() {
         return this.accountSource;
@@ -96,5 +100,15 @@ export class globalData {
 
         }
         return -1;
+    }
+
+    private loadMajorFromLocalStorage(): Array<MajorResponseDTO> {
+        try {
+            const majorString = localStorage.getItem('Majors');
+            return majorString ? JSON.parse(majorString) : [];
+        } catch(error) {
+
+        }
+        return [];
     }
 }
