@@ -1,0 +1,64 @@
+body {
+    background-color: #C41230;
+}
+
+.selectedCourses {
+    float: left;
+    margin: 2%;
+    margin-left: 5%;
+    padding: 1%;
+    border-width: 0px;
+    border-style: none;
+    border-radius: 8px;
+    width: 50%;
+    height: 35%;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: white;
+    filter: drop-shadow(3px 3px 3px black)
+}
+
+.allCourses {
+    float: right;
+    margin: 2%;
+    margin-right: 5%;
+    padding: 1%;
+    border-width: 0px;
+    border-style: none;
+    border-radius: 8px;
+    width: 30%;
+    height: 50%;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: white;
+    filter: drop-shadow(3px 3px 3px black)
+}
+
+.changeButtons {
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    justify-content: center;
+    text-align: center;
+    width: 100%
+}
+
+li .addButton {
+    width: 90%;
+    background-color: #C41230;
+    border-radius: 5px;
+    border-width: 0px;
+    text-align: left;
+    padding: 3px;
+    padding-left: 8px;
+    padding-top: 4px;
+}
+
+
