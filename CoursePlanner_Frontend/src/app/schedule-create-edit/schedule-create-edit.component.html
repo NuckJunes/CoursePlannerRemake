@@ -5,7 +5,7 @@
     <div class="allCourses">
         <ul>
             <li *ngFor="let c of globalCourses">
-                <button class="addButton" (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
+                <button (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
             </li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
     <!-- Displays all of the currently added courses -->
     <div class="selectedCourses">
         <ul>
-        <li *ngFor="let c of courses">
+        <li *ngFor="let c of displayedCourses">
                 {{c.Subject}} {{c.Course_Number}}
                 <button (click)="delete(c.Id)">X</button>
             </li>

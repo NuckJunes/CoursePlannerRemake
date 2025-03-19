@@ -50,7 +50,7 @@ li {
     width: 100%
 }
 
-li .addButton {
+li button {
     width: 90%;
     background-color: #C41230;
     border-radius: 5px;
