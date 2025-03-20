@@ -35,4 +35,13 @@
             </li>
         </ul>
     </div>
+    <div class="majors">
+        <!-- Dropdown for selecting majors -->
+         <ul>
+            <li *ngFor="let s of displayedSections">
+                {{s.Name}} <!-- Progress bar with min/max displayed on top -->
+                <mat-progress-bar mode="determinate" value="({{s.Credit_Min / s.Credit_Max}}) * 100.0"></mat-progress-bar>
+            </li>
+         </ul>
+    </div>
 </body>

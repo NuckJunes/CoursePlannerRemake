@@ -5,22 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 {
-    public class MajorService : IMajorService
+    public class MajorServiceImpl : IMajorService
     {
         public IMajorRepository MajorRepository;
 
-        public MajorService(IMajorRepository majorRepository)
+        public MajorServiceImpl(IMajorRepository majorRepository)
         {
             MajorRepository = majorRepository;
         }
         public async Task<ActionResult<IEnumerable<MajorResponseDTO>>> GetMajors()
         {
-            IEnumerable<ActionResult<Major>> majors = await MajorRepository.GetMajors();
+            ActionResult<IEnumerable<Major>> majors = await MajorRepository.GetMajors();
             List<MajorResponseDTO> result = new List<MajorResponseDTO>();
-            foreach(var m in majors)
+            foreach(var m in majors.Value)
             {
                 MajorResponseDTO tmp = new MajorResponseDTO();
-                tmp.ConvertToDTO(m.Value);
+                tmp.ConvertToDTO(m);
                 result.Add(tmp);
             }
 

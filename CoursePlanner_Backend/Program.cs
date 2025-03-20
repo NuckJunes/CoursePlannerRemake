@@ -24,6 +24,8 @@ builder.Services.AddTransient<IAccountRepository, AccountRepositoryImpl>();
 builder.Services.AddTransient<IScheduleService, ScheduleServiceImpl>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepositoryImpl>();
 builder.Services.AddTransient<IClassRepository, ClassRepositoryImpl>();
+builder.Services.AddTransient<IMajorService, MajorServiceImpl>();
+builder.Services.AddTransient<IMajorRepository, MajorRepositoryImpl>();
 
 
 var app = builder.Build();

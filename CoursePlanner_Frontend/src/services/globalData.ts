@@ -42,6 +42,10 @@ export class globalData {
         return this.scheduleIdSource;
     }
 
+    getMajors() {
+        return this.majorSource;
+    }
+
     updateAccountStatus(account: AccountReturnDTO | undefined) {
         this.accountSource.next(account);
         localStorage.setItem('Account', JSON.stringify(account));
@@ -60,6 +64,11 @@ export class globalData {
     updateScheduleIdStatus(scheduleId: number) {
         this.scheduleIdSource.next(scheduleId);
         localStorage.setItem('ScheduleId', JSON.stringify(scheduleId));
+    }
+
+    updateMajorStatus(majors: Array<MajorResponseDTO>) {
+        this.majorSource.next(majors);
+        localStorage.setItem('Majors', JSON.stringify(majors));
     }
 
     private loadAccountFromLocalStorage(): AccountReturnDTO|undefined {

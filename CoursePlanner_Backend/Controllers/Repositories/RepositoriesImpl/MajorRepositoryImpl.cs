@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 {
-    public class MajorRepository : IMajorRepository
+    public class MajorRepositoryImpl : IMajorRepository
     {
         public ApplicationDbContext appDbContext;
 
-        public MajorRepository(ApplicationDbContext dbContext)
+        public MajorRepositoryImpl(ApplicationDbContext dbContext)
         {
             appDbContext = dbContext;
         }

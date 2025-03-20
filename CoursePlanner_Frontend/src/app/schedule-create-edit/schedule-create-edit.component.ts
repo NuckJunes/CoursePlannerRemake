@@ -6,10 +6,13 @@ import { NgFor } from '@angular/common';
 import ScheduleRequestDTO from '../models/ScheduleRequestDTO';
 import ClassInsertDTO from '../models/ClassInsertDTO';
 import { NavbarComponent } from '../navbar/navbar.component';
+import MajorResponseDTO from '../models/MajorResponseDTO';
+import SectionResponseDTO from '../models/SectionResponseDTO';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-schedule-create-edit',
-  imports: [MatButtonToggleModule, NgFor, NavbarComponent],
+  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule],
   templateUrl: './schedule-create-edit.component.html',
   styleUrl: './schedule-create-edit.component.css'
 })
@@ -35,6 +38,8 @@ export class ScheduleCreateEditComponent {
       PreReqDtos: []
     }
   ];
+  majors: Array<MajorResponseDTO> = [];
+  displayedSections: Array<SectionResponseDTO> = [];
 
   constructor(private globalData: globalData) {}
 
@@ -42,8 +47,10 @@ export class ScheduleCreateEditComponent {
     // Check globalData and Localstorage for courses 
     // If they are empty, call API and update both
     this.globalData.updateCourseStatus(this.globalCourses);
+    this.globalData.updateMajorStatus(this.majors);
     this.globalData.getSchedule().subscribe((value) => (this.schedule = value));
     this.globalData.getCourses().subscribe((value) => (this.globalCourses = value));
+    this.globalData.getMajors().subscribe((value) => (this.majors = value));
   }
 
   // Runs on Init to update courses on courseId from schedule.classes.courseId
