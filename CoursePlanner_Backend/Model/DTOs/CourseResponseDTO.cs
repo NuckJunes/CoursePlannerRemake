@@ -12,7 +12,7 @@ namespace CoursePlanner_Backend.Model.DTOs
         public int Course_Number { get; set; }
         public List<FeatureDTO> FeatureDTOs { get; set; }
         public List<CampusDTO> CampusDTOs { get; set; }
-        public List<PrereqDTO> PreReqDTOs { get; set; }
+        public String PreRequisites { get; set; }
 
         public void ConvertToDTO(Course course)
         {
@@ -23,10 +23,10 @@ namespace CoursePlanner_Backend.Model.DTOs
             this.Credit_hours = course.Credit_Hours;
             this.Subject = course.Subject;
             this.Course_Number = course.Course_Number;
+            this.PreRequisites = course.PreRequisites;
 
             this.FeatureDTOs = new List<FeatureDTO>();
             this.CampusDTOs = new List<CampusDTO>();
-            this.PreReqDTOs = new List<PrereqDTO>();
 
             //loop through these
             foreach (Feature feature in course.Features)
@@ -36,10 +36,6 @@ namespace CoursePlanner_Backend.Model.DTOs
             foreach (Campus campus in course.Campuses)
             {
                 this.CampusDTOs.Add(new CampusDTO { Id = campus.Id, Name = campus.Name });
-            }
-            foreach (Course prereq in course.Prerequisites)
-            {
-                this.PreReqDTOs.Add(new PrereqDTO { Id = prereq.Id, Name = prereq.Name });
             }
         }
     }

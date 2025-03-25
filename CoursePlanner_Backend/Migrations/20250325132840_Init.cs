@@ -2,12 +2,10 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace CoursePlanner_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +33,8 @@ namespace CoursePlanner_Backend.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Credit_Hours = table.Column<double>(type: "float", nullable: false),
                     Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Course_Number = table.Column<int>(type: "int", nullable: false)
+                    Course_Number = table.Column<int>(type: "int", nullable: false),
+                    PreRequisites = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,6 +56,23 @@ namespace CoursePlanner_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Majors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    College = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Graduate = table.Column<bool>(type: "bit", nullable: false),
+                    Credit_Min = table.Column<double>(type: "float", nullable: false),
+                    Credit_Max = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Majors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -64,7 +80,8 @@ namespace CoursePlanner_Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Admin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,29 +113,6 @@ namespace CoursePlanner_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseCourse",
-                columns: table => new
-                {
-                    PrerequisitesId = table.Column<int>(type: "int", nullable: false),
-                    RequirementsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseCourse", x => new { x.PrerequisitesId, x.RequirementsId });
-                    table.ForeignKey(
-                        name: "FK_CourseCourse_Courses_PrerequisitesId",
-                        column: x => x.PrerequisitesId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseCourse_Courses_RequirementsId",
-                        column: x => x.RequirementsId,
-                        principalTable: "Courses",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseFeature",
                 columns: table => new
                 {
@@ -143,6 +137,28 @@ namespace CoursePlanner_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sections",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Credit_Min = table.Column<double>(type: "float", nullable: false),
+                    Credit_Max = table.Column<double>(type: "float", nullable: false),
+                    MajorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sections_Majors_MajorId",
+                        column: x => x.MajorId,
+                        principalTable: "Majors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Schedules",
                 columns: table => new
                 {
@@ -158,6 +174,30 @@ namespace CoursePlanner_Backend.Migrations
                         name: "FK_Schedules_Users_userId",
                         column: x => x.userId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseSection",
+                columns: table => new
+                {
+                    CoursesId = table.Column<int>(type: "int", nullable: false),
+                    SectionsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseSection", x => new { x.CoursesId, x.SectionsId });
+                    table.ForeignKey(
+                        name: "FK_CourseSection_Courses_CoursesId",
+                        column: x => x.CoursesId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseSection_Sections_SectionsId",
+                        column: x => x.SectionsId,
+                        principalTable: "Sections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -190,33 +230,6 @@ namespace CoursePlanner_Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Campuses",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Hamilton" },
-                    { 2, "Luxembourg" },
-                    { 3, "Middletown" },
-                    { 4, "Oxford" },
-                    { 5, "West Chester" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Courses",
-                columns: new[] { "Id", "Course_Number", "Credit_Hours", "Description", "Name", "Subject" },
-                values: new object[] { 1, 102, 1.0, "A entry level course", "Computer Science Entry", "CSE" });
-
-            migrationBuilder.InsertData(
-                table: "Features",
-                columns: new[] { "Id", "Name", "Short_Name" },
-                values: new object[] { 1, "Advanced Writing", "PA" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Email", "Password", "Username" },
-                values: new object[] { 1, "Email@Email.com", "Password", "Username" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_CampusCourse_CoursesId",
                 table: "CampusCourse",
@@ -233,19 +246,24 @@ namespace CoursePlanner_Backend.Migrations
                 column: "scheduleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseCourse_RequirementsId",
-                table: "CourseCourse",
-                column: "RequirementsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseFeature_FeaturesId",
                 table: "CourseFeature",
                 column: "FeaturesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseSection_SectionsId",
+                table: "CourseSection",
+                column: "SectionsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Schedules_userId",
                 table: "Schedules",
                 column: "userId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sections_MajorId",
+                table: "Sections",
+                column: "MajorId");
         }
 
         /// <inheritdoc />
@@ -258,10 +276,10 @@ namespace CoursePlanner_Backend.Migrations
                 name: "Classes");
 
             migrationBuilder.DropTable(
-                name: "CourseCourse");
+                name: "CourseFeature");
 
             migrationBuilder.DropTable(
-                name: "CourseFeature");
+                name: "CourseSection");
 
             migrationBuilder.DropTable(
                 name: "Campuses");
@@ -270,13 +288,19 @@ namespace CoursePlanner_Backend.Migrations
                 name: "Schedules");
 
             migrationBuilder.DropTable(
-                name: "Courses");
-
-            migrationBuilder.DropTable(
                 name: "Features");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Sections");
+
+            migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Majors");
         }
     }
 }

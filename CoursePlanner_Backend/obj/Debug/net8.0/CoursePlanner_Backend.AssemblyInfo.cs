@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6e1363a15a7d206dbb38d260ca1922d25b7f11f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbdb649dd7e515887c453db5201a23a38de31c2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

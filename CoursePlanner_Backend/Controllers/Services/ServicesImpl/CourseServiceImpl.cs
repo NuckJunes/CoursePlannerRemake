@@ -48,7 +48,7 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             course.Subject = courseRequestDTO.Subject;
             course.Features = new List<Feature>();
             course.Campuses = new List<Campus>();
-            course.Prerequisites = new List<Course>();
+            course.PreRequisites = courseRequestDTO.PreRequisites;
 
             foreach (int id in courseRequestDTO.FeatureIds)
             {
@@ -60,12 +60,6 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             {
                 ActionResult<Campus> campusToAdd = await campusRepository.GetById(id);
                 course.Campuses.Add(campusToAdd.Value);
-            }
-
-            foreach (int id in courseRequestDTO.PreReqIds)
-            {
-                ActionResult<Course> preReq = await this.GetById(id);
-                course.Prerequisites.Add(preReq.Value);
             }
 
             ActionResult<Course> result = await courseRepository.AddCourse(course); //for security purposes
@@ -88,7 +82,7 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 
             course.Features = new List<Feature>();
             course.Campuses = new List<Campus>();
-            course.Prerequisites = new List<Course>();
+            course.PreRequisites = courseRequestDTO.PreRequisites;
             //Update features, campus, prereq
 
             foreach (int ID in courseRequestDTO.FeatureIds)
@@ -101,12 +95,6 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             {
                 ActionResult<Campus> campusToAdd = await campusRepository.GetById(ID);
                 course.Campuses.Add(campusToAdd.Value);
-            }
-
-            foreach (int ID in courseRequestDTO.PreReqIds)
-            {
-                ActionResult<Course> preReq = await this.GetById(id);
-                course.Prerequisites.Add(preReq.Value);
             }
 
             ActionResult<Course> result = await courseRepository.UpdateCourse(course); // for security reasons

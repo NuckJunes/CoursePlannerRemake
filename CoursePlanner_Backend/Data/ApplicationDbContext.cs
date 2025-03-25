@@ -48,10 +48,6 @@ namespace CoursePlanner_Backend.Data
                 .WithMany(e => e.Courses);
 
             modelBuilder.Entity<Course>()
-                .HasMany(e => e.Prerequisites)
-                .WithMany(e => e.Requirements);
-
-            modelBuilder.Entity<Course>()
                 .HasMany(e => e.Sections)
                 .WithMany(e => e.Courses);
 
@@ -74,7 +70,7 @@ namespace CoursePlanner_Backend.Data
                 ,Classes = new List<Class>()
                 ,Campuses = new List<Campus>() {oxford}
                 ,Features = new List<Feature>()
-                ,Prerequisites = new List<Course>()
+                ,PreRequisites = ""
                 ,Sections = new List<Section>() };
 
             Course APC231 = new Course { Id = 2, Name = "Small Group Communication"
@@ -85,7 +81,7 @@ namespace CoursePlanner_Backend.Data
                 ,Classes = new List<Class>()
                 ,Campuses = new List<Campus>() {oxford}
                 ,Features = new List<Feature>()
-                ,Prerequisites = new List<Course>()
+                ,PreRequisites = ""
                 ,Sections = new List<Section>() };
 
             Course MTH151 = new Course { Id = 3, Name = "Calculus I"
@@ -96,7 +92,7 @@ namespace CoursePlanner_Backend.Data
                 ,Classes = new List<Class>()
                 ,Campuses = new List<Campus>() {oxford}
                 ,Features = new List<Feature>()
-                ,Prerequisites = new List<Course>()
+                ,PreRequisites = ""
                 ,Sections = new List<Section>() };
 
             Course MTH231 = new Course { Id = 4, Name = "Elements of Discrete Mathematics"
@@ -107,13 +103,25 @@ namespace CoursePlanner_Backend.Data
                 ,Classes = new List<Class>()
                 ,Campuses = new List<Campus>() {oxford}
                 ,Features = new List<Feature>()
-                ,Prerequisites = new List<Course>() { MTH151}
+                ,PreRequisites = "(3)"
+                ,Sections = new List<Section>() };
+
+            //Has prereq of MTH222, MTH249/MTH251
+            Course MTH331 = new Course { Id = 5, Name = "Proof: Introduction to Higher Mathematics"
+                ,Description = "Designed to ease the transition to 400-level courses in mathematics and statistics. The emphasis of the course is on writing and analyzing mathematical proofs. Topics covered will be foundational for higher level courses and will include propositional and predicate logic, methods of proof, induction, sets, relations, and functions."
+                ,Credit_Hours = 3.0
+                ,Subject = "MTH"
+                ,Course_Number = 331
+                ,Classes = new List<Class>()
+                ,Campuses = new List<Campus>() {oxford}
+                ,Features = new List<Feature>()
+                ,PreRequisites = ""
                 ,Sections = new List<Section>() };
 
             Major software = new Major { Id = 1, Name = "Software Engineering", Graduate = false, College = "College of Computer Science", Credit_Min = 92.0, Credit_Max = 98.0, Sections = new List<Section>() };
 
             Section core = new Section { Id = 1, Name = "Core Requirements", Major = software, Credit_Min = 3, Credit_Max = 3, Courses = new List<Course>() {STC135, APC231} };
-            Section math = new Section { Id = 2, Name = "Mathematics", Major = software, Credit_Min = 7, Credit_Max = 7, Courses = new List<Course>() {MTH151, MTH231} };
+            Section math = new Section { Id = 2, Name = "Mathematics", Major = software, Credit_Min = 7, Credit_Max = 7, Courses = new List<Course>() {MTH151, MTH231, MTH331} };
 
             //modelBuilder.Entity<Campus>().HasData();
            

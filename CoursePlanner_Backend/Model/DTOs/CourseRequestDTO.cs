@@ -7,9 +7,9 @@
         public double Credit_hours { get; set; }
         public String Subject { get; set; }
         public int Course_Number { get; set; }
+        public String PreRequisites { get; set; }
         public List<int> FeatureIds { get; set; }
         public List<int> CampusIds { get; set; }
-        public List<int> PreReqIds { get; set; }
         public List<int> SectionIds { get; set; }
     }
 }

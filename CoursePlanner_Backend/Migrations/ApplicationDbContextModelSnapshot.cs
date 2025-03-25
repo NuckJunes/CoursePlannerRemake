@@ -36,21 +36,6 @@ namespace CoursePlanner_Backend.Migrations
                     b.ToTable("CampusCourse");
                 });
 
-            modelBuilder.Entity("CourseCourse", b =>
-                {
-                    b.Property<int>("PrerequisitesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequirementsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PrerequisitesId", "RequirementsId");
-
-                    b.HasIndex("RequirementsId");
-
-                    b.ToTable("CourseCourse");
-                });
-
             modelBuilder.Entity("CourseFeature", b =>
                 {
                     b.Property<int>("CoursesId")
@@ -81,33 +66,6 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Campuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Hamilton"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Luxembourg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Middletown"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Oxford"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "West Chester"
-                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Class", b =>
@@ -161,6 +119,10 @@ namespace CoursePlanner_Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PreRequisites")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -168,17 +130,6 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Course_Number = 102,
-                            Credit_Hours = 1.0,
-                            Description = "A entry level course",
-                            Name = "Computer Science Entry",
-                            Subject = "CSE"
-                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Feature", b =>
@@ -199,14 +150,6 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Features");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Advanced Writing",
-                            Short_Name = "PA"
-                        });
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Major", b =>
@@ -236,18 +179,7 @@ namespace CoursePlanner_Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Major");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            College = "College of Computer Science",
-                            Credit_Max = 98.0,
-                            Credit_Min = 92.0,
-                            Graduate = false,
-                            Name = "Software Engineering"
-                        });
+                    b.ToTable("Majors");
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.Schedule", b =>
@@ -297,7 +229,7 @@ namespace CoursePlanner_Backend.Migrations
 
                     b.HasIndex("MajorId");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("CoursePlanner_Backend.Model.Entities.User", b =>
@@ -326,16 +258,6 @@ namespace CoursePlanner_Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Admin = false,
-                            Email = "Email@Email.com",
-                            Password = "Password",
-                            Username = "Username"
-                        });
                 });
 
             modelBuilder.Entity("CourseSection", b =>
@@ -365,21 +287,6 @@ namespace CoursePlanner_Backend.Migrations
                         .WithMany()
                         .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseCourse", b =>
-                {
-                    b.HasOne("CoursePlanner_Backend.Model.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("PrerequisitesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CoursePlanner_Backend.Model.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("RequirementsId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 

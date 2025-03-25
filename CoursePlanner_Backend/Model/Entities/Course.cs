@@ -10,8 +10,7 @@
         public int Course_Number { get; set; }
         public List<Feature> Features { get; set; }
         public List<Campus> Campuses { get; set; }
-        public List<Course> Prerequisites { get; set; }
-        public List<Course> Requirements { get; set; }
+        public String PreRequisites { get; set; } //Stored as "(id || id (id && (id || id))"
         public List<Class> Classes { get; set; }
 
         public List<Section> Sections { get; set; }

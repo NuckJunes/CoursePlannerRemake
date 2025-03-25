@@ -20,6 +20,7 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             newUser.Password = accountCreateDTO.Password;
             newUser.Email = accountCreateDTO.Email;
             newUser.schedules = new List<Schedule>();
+            newUser.Admin = accountCreateDTO.Admin;
 
             ActionResult<User> result = await accountRepository.CreateAccount(newUser);
             AccountReturnDTO user = new AccountReturnDTO();
