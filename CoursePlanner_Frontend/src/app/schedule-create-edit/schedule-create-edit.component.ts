@@ -9,10 +9,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import MajorResponseDTO from '../models/MajorResponseDTO';
 import SectionResponseDTO from '../models/SectionResponseDTO';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-schedule-create-edit',
-  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule],
+  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule],
   templateUrl: './schedule-create-edit.component.html',
   styleUrl: './schedule-create-edit.component.css'
 })
@@ -26,7 +27,7 @@ export class ScheduleCreateEditComponent {
   courses: Array<CourseResponseDTO> = []; //What is selected in classes
   displayedCourses: Array<CourseResponseDTO> = []; //What is displayed from the selected
   globalCourses: Array<CourseResponseDTO> = [ //Acutal Courses that are stored
-    { 
+    { //Fake data that will be replaced with real data after API works
       Id: 1,
       Name: "Computer Science Intro",
       Description: "A intro to Computer Science",
@@ -35,10 +36,41 @@ export class ScheduleCreateEditComponent {
       Course_Number: 101,
       FeatureDTOs: [],
       CampusDTOs: [],
-      PreReqDtos: []
+      SectionIds: [1],
+      PreRequisites: ""
+    },
+    {
+      Id: 2,
+      Name: "Computer Science Intro 2",
+      Description: "A intro to Computer Science again",
+      Credit_hours: 1.0,
+      Subject: "CEC",
+      Course_Number: 102,
+      FeatureDTOs: [],
+      CampusDTOs: [],
+      SectionIds: [1],
+      PreRequisites: "(this.courses.find(i => (i.Id === 1)))"
     }
   ];
-  majors: Array<MajorResponseDTO> = [];
+  majors: Array<MajorResponseDTO> = [
+    {
+      Id: 1,
+      Name: "Software Engineering",
+      College: "College of Computer Engineering",
+      Graduate: false,
+      Credit_Min: 92.0,
+      Credit_Max: 98.0,
+      Sections: [
+        {
+          Id: 1,
+          Name: "Core",
+          Credit_Min: 2.0,
+          Credit_Max: 2.0,
+          Credit_Current: 0.0,
+          Courses: []
+        }
+      ]
+  }];
   displayedSections: Array<SectionResponseDTO> = [];
 
   constructor(private globalData: globalData) {}
@@ -124,6 +156,19 @@ export class ScheduleCreateEditComponent {
     this.classesChange();
   }
 
+  // Adds/Removes courses to be shown to users for a section, also changes its credit hours
+  updateSections(course: CourseResponseDTO, remove: boolean) {
+    this.displayedSections.forEach(s => {
+      if(remove && course.SectionIds.find(i => i === s.Id)) {
+        s.Credit_Current = s.Credit_Current - course.Credit_hours;
+        s.Courses.filter(i => (i.Id !== course.Id));
+      } else if(!remove) {
+        s.Courses.push({Id : course.Id, Name : course.Name, Description : course.Description});
+        s.Credit_Current = s.Credit_Current + course.Credit_hours;
+      }
+    });
+  }
+
   yearChange(event: MatButtonToggleChange) {
     this.year = Number(event.value);
     this.classesChange();
@@ -160,5 +205,9 @@ export class ScheduleCreateEditComponent {
 
   }
 
+  // Change displayed courses based on which major is selected
+  selectMajor(major: MajorResponseDTO) {
+    this.displayedSections = major.Sections;
+  }
   
 }

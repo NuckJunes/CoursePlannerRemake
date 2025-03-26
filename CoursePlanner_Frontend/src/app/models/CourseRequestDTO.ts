@@ -4,8 +4,8 @@ export default interface CourseRequestDTO {
     Credit_hours: number,
     Subject: string,
     Course_Number: number,
+    PreRequisites: string,
     FeatureIds: Array<number>,
     CampusIds: Array<number>,
-    PreReqIds: Array<number>,
     SectionIds: Array<number>
 }

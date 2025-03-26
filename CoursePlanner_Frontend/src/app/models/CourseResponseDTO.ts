@@ -11,5 +11,6 @@ export default interface CourseResponseDTO {
     Course_Number: number,
     FeatureDTOs: Array<FeatureDTO>,
     CampusDTOs: Array<CampusDTO>,
-    PreReqDtos: Array<PrereqDTO>
+    SectionIds: Array<number>,
+    PreRequisites: string
 }
