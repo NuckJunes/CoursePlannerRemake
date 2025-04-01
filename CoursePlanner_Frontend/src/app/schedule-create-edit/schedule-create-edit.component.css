@@ -31,7 +31,32 @@ body {
     overflow: hidden;
     overflow-y: auto;
     background-color: white;
-    filter: drop-shadow(3px 3px 3px black)
+    filter: drop-shadow(3px 3px 3px black);
+}
+
+.majors {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.majors mat-select {
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: white;
+    filter: drop-shadow(3px 3px 3px black);
+    text-align: center;
+    justify-content: center;
+    width: 30%;
+    height: 10%;
+}
+
+.sections {
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+    filter: drop-shadow(3px 3px 3px black);
+    margin: 10px;
 }
 
 .changeButtons {

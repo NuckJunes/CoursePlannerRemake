@@ -1,0 +1,19 @@
+div {
+    background-color: #C41230;
+    height: 5%;
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    padding: 1px;
+    background-color: darkred;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    margin: 3px;
+}
+
+#login {
+    float: right;
+}

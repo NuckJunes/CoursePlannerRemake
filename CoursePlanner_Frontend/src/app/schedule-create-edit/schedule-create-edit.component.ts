@@ -49,7 +49,7 @@ export class ScheduleCreateEditComponent {
       FeatureDTOs: [],
       CampusDTOs: [],
       SectionIds: [1],
-      PreRequisites: "(this.courses.find(i => (i.Id === 1)))"
+      PreRequisites: "(pc.find(i => i.courseId === 1))"
     }
   ];
   majors: Array<MajorResponseDTO> = [
@@ -112,12 +112,14 @@ export class ScheduleCreateEditComponent {
     };
 
     //Find course in global, move to courses
-    this.globalCourses.forEach(c => {
+    for(var c of this.globalCourses) {
       if(c.Id === id) {
         this.courses.push(c);
         newClass.courseId = c.Id;
+        this.updateSections(c, false);
+        break;
       }
-    });
+    }
 
     // Remove the course from global to prevent duplicates
     this.globalCourses = this.globalCourses.filter((value) => (value.Id !== id));
@@ -126,6 +128,56 @@ export class ScheduleCreateEditComponent {
     this.schedule?.Classes.push(newClass);
     this.classesChange();
   }
+
+  // requirementsCheck(preReq: string, id: number): boolean {
+  //   // Check requirements using eval()
+  //   // If false, give element a !
+  //   let c = this.classes.find(i => i.courseId === id);
+
+  //   if(c !== undefined)
+  //     var yearSemester = this.evalYearSeason(c);
+
+  //   let pc = this.classes.filter((value) => (this.evalYearSeason(value) < yearSemester))
+  //   let good = eval(preReq);
+  //   return good;
+  // }
+
+  // evalYearSeason(c: ClassInsertDTO): number {
+  //   let value = 0;
+  //   switch(c.semester) {
+  //     case "Fall":
+  //       value = value + 1;
+  //       break;
+  //     case "Winter":
+  //       value = value + 2;
+  //       break;
+  //     case "Spring":
+  //       value = value + 3;
+  //       break;
+  //     case "Summer":
+  //       value = value + 4;
+  //       break;
+  //   }
+
+  //   switch(c.year) {
+  //     case 1:
+  //       value = value + 10;
+  //       break;
+  //     case 2:
+  //       value = value + 20;
+  //       break;
+  //     case 3:
+  //       value = value + 30;
+  //       break;
+  //     case 4:
+  //       value = value + 40;
+  //       break;
+  //     case 5:
+  //       value = value + 50;
+  //       break;
+  //   }
+  //   return value;
+  // }
 
   delete(id: number) {
     //Remove the class
@@ -151,8 +203,10 @@ export class ScheduleCreateEditComponent {
     this.courses = this.courses.filter((value) => (value.Id !== id));
 
     //Add that course to the global courses 
-    if(course)
+    if(course) {
       this.globalCourses.push(course);
+      this.updateSections(course, true);
+    }
     this.classesChange();
   }
 

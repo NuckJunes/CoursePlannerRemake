@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+242ecd8c14cc9d0489ae1a3f7b42c3dee1b49fc4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+696ea238bca3fb7f149d57acac389b9be1fed5a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoursePlanner_Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
