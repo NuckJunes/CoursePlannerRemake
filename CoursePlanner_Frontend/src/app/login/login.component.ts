@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { globalData } from '../../services/globalData';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { Router } from '@angular/router';
 import AccountReturnDTO from '../models/AccountReturnDTO';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateAccountComponent } from './create-account/create-account.component';
+
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,8 @@ import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 export class LoginComponent {
 
   constructor(private globalData: globalData, private router: Router) {}
+
+  readonly dialog = inject(MatDialog);
 
   value : boolean = false;
   username: string = "username";
@@ -57,5 +62,9 @@ export class LoginComponent {
       this.value = true;
     }
     this.router.navigate(['/profile']);
+  }
+
+  createAccount() {
+      const dialogRef = this.dialog.open(CreateAccountComponent);
   }
 }

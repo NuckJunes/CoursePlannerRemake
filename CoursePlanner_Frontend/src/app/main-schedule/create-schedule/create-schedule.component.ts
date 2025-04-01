@@ -18,9 +18,9 @@ export class CreateScheduleComponent {
 
   constructor(private router: Router, private globalData: globalData) {}
 
-  createNewSchedule() {
+  createNewSchedule(name: string) {
     var newSchedule = {
-      Name: this.name,
+      Name: name,
       Classes: Array<ClassInsertDTO>()
     }
     this.globalData.updateScheduleStatus(newSchedule);
