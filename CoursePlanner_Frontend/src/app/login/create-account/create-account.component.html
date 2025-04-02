@@ -1,2 +1,14 @@
 <h1>Create Account</h1>
-<input type="text">
+<label for="email">Email</label>
+<input id="email" type="text" [value]="Email">
+
+<label for="username">Username</label>
+<input id="username" type="text" [value]="Username">
+
+<label for="password">Password</label>
+<input id="password" type="text" [value]="Password">
+
+<label for="confirm">Confirm Password</label>
+<input id="confirm" type="text" [value]="Confirm">
+
+<button (click)="create()">Create Account</button>
