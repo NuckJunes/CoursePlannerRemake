@@ -83,6 +83,7 @@ export class ScheduleCreateEditComponent {
     this.globalData.getSchedule().subscribe((value) => (this.schedule = value));
     this.globalData.getCourses().subscribe((value) => (this.globalCourses = value));
     this.globalData.getMajors().subscribe((value) => (this.majors = value));
+    this.updateCourses();
   }
 
   // Runs on Init to update courses on courseId from schedule.classes.courseId
@@ -262,6 +263,11 @@ export class ScheduleCreateEditComponent {
   // Change displayed courses based on which major is selected
   selectMajor(major: MajorResponseDTO) {
     this.displayedSections = major.Sections;
+    console.log(major);
+    //Update displayedSection credit hours with existing courses
+    this.courses.forEach(c => {
+      this.updateSections(c, false);
+    });
   }
   
 }

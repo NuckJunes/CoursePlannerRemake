@@ -38,16 +38,14 @@
     <div class="majors">
         <!-- Dropdown for selecting majors -->
          <mat-select>
-            @for (major of majors; track major) {
-                <mat-option (onSelectionChange)="selectMajor(major)">{{major.Name}}</mat-option>
-            }
+                <mat-option *ngFor="let major of majors" (click)="selectMajor(major)">{{major.Name}}</mat-option>
          </mat-select>
     </div>
     <div class="sections">
          <ul>
             <li *ngFor="let s of displayedSections">
                 {{s.Name}} <!-- Progress bar with min/max displayed on top -->
-                <mat-progress-bar mode="determinate" value="({{s.Credit_Current / s.Credit_Min}}) * 100.0"></mat-progress-bar>
+                <mat-progress-bar mode="determinate" [value]="(s.Credit_Current / s.Credit_Min) * 100.0"></mat-progress-bar>
             </li>
          </ul>
     </div>

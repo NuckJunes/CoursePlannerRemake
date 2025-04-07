@@ -36,8 +36,4 @@ export class MainScheduleComponent {
   openEditMenu(): void {
     const dialogRef = this.dialog.open(EditScheduleComponent);
   }
-
-  notLoggedIn(): void {
-
-  }
 }
