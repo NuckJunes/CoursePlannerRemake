@@ -17,6 +17,7 @@
             <mat-button-toggle value="3">Year 3</mat-button-toggle>
             <mat-button-toggle value="4">Year 4</mat-button-toggle>
             <mat-button-toggle value="5">Year 5</mat-button-toggle>
+            <mat-button-toggle value="All">All years</mat-button-toggle>
         </mat-button-toggle-group>
         <br>
         <mat-button-toggle-group (change)="semesterChange($event)">
@@ -24,6 +25,7 @@
             <mat-button-toggle value="Spring">Spring</mat-button-toggle>
             <mat-button-toggle value="Summer">Summer</mat-button-toggle>
             <mat-button-toggle value="Fall">Fall</mat-button-toggle>
+            <mat-button-toggle value="All">All Semesters</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
     <!-- Displays all of the currently added courses -->
@@ -44,7 +46,7 @@
     <div class="sections">
          <ul>
             <li *ngFor="let s of displayedSections">
-                {{s.Name}} <!-- Progress bar with min/max displayed on top -->
+                <button (click)="displayCourses(s.Courses, s.Name)">{{s.Name}}</button> <!-- Progress bar with min/max displayed on top -->
                 <mat-progress-bar mode="determinate" [value]="(s.Credit_Current / s.Credit_Min) * 100.0"></mat-progress-bar>
             </li>
          </ul>

@@ -1,24 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
-import CourseResponseDTO from '../models/CourseResponseDTO';
 import { globalData } from '../../services/globalData';
 import { NgFor } from '@angular/common';
-import ScheduleRequestDTO from '../models/ScheduleRequestDTO';
-import ClassInsertDTO from '../models/ClassInsertDTO';
 import { NavbarComponent } from '../navbar/navbar.component';
-import MajorResponseDTO from '../models/MajorResponseDTO';
-import SectionResponseDTO from '../models/SectionResponseDTO';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+import CourseResponseDTO from '../models/CourseResponseDTO';
+import CourseDTO from '../models/CourseDTO';
+import ScheduleRequestDTO from '../models/ScheduleRequestDTO';
+import ClassInsertDTO from '../models/ClassInsertDTO';
+import MajorResponseDTO from '../models/MajorResponseDTO';
+import SectionResponseDTO from '../models/SectionResponseDTO';
+import { SectionCoursesComponent } from './section-courses/section-courses.component';
 
 @Component({
   selector: 'app-schedule-create-edit',
-  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule],
+  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule, MatDialogModule],
   templateUrl: './schedule-create-edit.component.html',
   styleUrl: './schedule-create-edit.component.css'
 })
 
 export class ScheduleCreateEditComponent {
+
+  private readonly dialog = inject(MatDialog);
 
   year: number = 1;
   semester: string = "Fall";
@@ -225,12 +231,22 @@ export class ScheduleCreateEditComponent {
   }
 
   yearChange(event: MatButtonToggleChange) {
-    this.year = Number(event.value);
+    if(event.value === "All") {
+      this.year = 100;
+    }
+    else {
+      this.year = Number(event.value);
+    }
     this.classesChange();
   }
 
   semesterChange(event: MatButtonToggleChange) {
-    this.semester = event.value;
+    if(event.value === "All") {
+      this.semester = "All";
+    }
+    else {
+      this.semester = event.value;
+    }
     this.classesChange();
   }
 
@@ -239,7 +255,20 @@ export class ScheduleCreateEditComponent {
     //First get all classes associated with Year/Semester
     this.displayedCourses = [];
     if(this.schedule !== undefined) {
-      this.classes = this.schedule?.Classes.filter((value) => (value.semester === this.semester && value.year === this.year));
+      if(this.year === 100 && this.semester === "All") {
+        //Dont filter anything
+        this.classes = this.schedule?.Classes;
+      }
+      else if(this.year === 100) {
+        // Filter for all year but specific semester
+        this.classes = this.schedule?.Classes.filter((value) => (value.semester === this.semester));
+      } else if (this.semester === "All") {
+        // Filter for all semesters but specific year
+        this.classes = this.schedule?.Classes.filter((value) => (value.year === this.year));
+      } else {
+        // Filter normally
+        this.classes = this.schedule?.Classes.filter((value) => (value.semester === this.semester && value.year === this.year));
+      }
     }
     //Then get all courses that are associated with those classes to display subject/number to user
     this.classes.forEach(c => {
@@ -268,6 +297,14 @@ export class ScheduleCreateEditComponent {
     this.courses.forEach(c => {
       this.updateSections(c, false);
     });
+  }
+
+  displayCourses(courses: Array<CourseDTO>, name: string) {
+    console.log(courses);
+    console.log(name);
+    const dialogRef = this.dialog.open(SectionCoursesComponent, 
+      {data: {courses: courses, name: name}}
+    );
   }
   
 }
