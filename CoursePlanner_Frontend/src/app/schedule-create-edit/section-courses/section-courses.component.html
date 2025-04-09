@@ -1,6 +1,7 @@
-<h1>{{data.name}}</h1>
+<h1>{{data.name}} Courses Selected</h1>
 <ul>
     <li *ngFor="let c of data.courses">
-        {{c.Name}} {{c.Description}}
+        <h5>{{c.Name}}</h5>
+        <p>{{c.Description}}</p>
     </li>
 </ul>

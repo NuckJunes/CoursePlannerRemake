@@ -222,7 +222,7 @@ export class ScheduleCreateEditComponent {
     this.displayedSections.forEach(s => {
       if(remove && course.SectionIds.find(i => i === s.Id)) {
         s.Credit_Current = s.Credit_Current - course.Credit_hours;
-        s.Courses.filter(i => (i.Id !== course.Id));
+        s.Courses = s.Courses.filter(i => (i.Id !== course.Id));
       } else if(!remove) {
         s.Courses.push({Id : course.Id, Name : course.Name, Description : course.Description});
         s.Credit_Current = s.Credit_Current + course.Credit_hours;
@@ -292,7 +292,6 @@ export class ScheduleCreateEditComponent {
   // Change displayed courses based on which major is selected
   selectMajor(major: MajorResponseDTO) {
     this.displayedSections = major.Sections;
-    console.log(major);
     //Update displayedSection credit hours with existing courses
     this.courses.forEach(c => {
       this.updateSections(c, false);
@@ -300,8 +299,6 @@ export class ScheduleCreateEditComponent {
   }
 
   displayCourses(courses: Array<CourseDTO>, name: string) {
-    console.log(courses);
-    console.log(name);
     const dialogRef = this.dialog.open(SectionCoursesComponent, 
       {data: {courses: courses, name: name}}
     );
