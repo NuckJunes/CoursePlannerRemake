@@ -14,6 +14,7 @@ import ClassInsertDTO from '../models/ClassInsertDTO';
 import MajorResponseDTO from '../models/MajorResponseDTO';
 import SectionResponseDTO from '../models/SectionResponseDTO';
 import { SectionCoursesComponent } from './section-courses/section-courses.component';
+import { FilterCoursesComponent } from '../filter-courses/filter-courses.component';
 
 @Component({
   selector: 'app-schedule-create-edit',
@@ -302,6 +303,14 @@ export class ScheduleCreateEditComponent {
     const dialogRef = this.dialog.open(SectionCoursesComponent, 
       {data: {courses: courses, name: name}}
     );
+  }
+
+  openFilter() {
+    const dialogRef = this.dialog.open(FilterCoursesComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
+    })
   }
   
 }

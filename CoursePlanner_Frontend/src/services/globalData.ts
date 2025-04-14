@@ -26,6 +26,15 @@ export class globalData {
     private majorSource = new BehaviorSubject<Array<MajorResponseDTO>>(this.loadMajorFromLocalStorage());
     majors = this.majorSource.asObservable();
 
+    private subjectSource = new BehaviorSubject<Array<String>>(this.loadSubjectFromLocalStorage());
+    subjects = this.subjectSource.asObservable();
+
+    private attributeSource = new BehaviorSubject<Array<String>>(this.loadAttributesFromLocalStorage());
+    attributes = this.attributeSource.asObservable();
+
+    private campusSource = new BehaviorSubject<Array<String>>(this.loadCampusFromLocalStorage());
+    campuses = this.campusSource.asObservable();
+
     getAccount() {
         return this.accountSource;
     }
@@ -44,6 +53,18 @@ export class globalData {
 
     getMajors() {
         return this.majorSource;
+    }
+
+    getSubjects() {
+        return this.subjectSource;
+    }
+
+    getAttributes() {
+        return this.attributeSource;
+    }
+
+    getCampuses() {
+        return this.campusSource;
     }
 
     updateAccountStatus(account: AccountReturnDTO | undefined) {
@@ -69,6 +90,21 @@ export class globalData {
     updateMajorStatus(majors: Array<MajorResponseDTO>) {
         this.majorSource.next(majors);
         localStorage.setItem('Majors', JSON.stringify(majors));
+    }
+
+    updateSubjectStatus(subjects: Array<String>) {
+        this.subjectSource.next(subjects);
+        localStorage.setItem('Subjects', JSON.stringify(subjects));
+    }
+
+    updateAttributesStatus(attributes: Array<String>) {
+        this.attributeSource.next(attributes);
+        localStorage.setItem('Attributes', JSON.stringify(attributes));
+    }
+
+    updateCampusStatus(campuses: Array<String>) {
+        this.campusSource.next(campuses);
+        localStorage.setItem('Campus', JSON.stringify(campuses));
     }
 
     private loadAccountFromLocalStorage(): AccountReturnDTO|undefined {
@@ -115,6 +151,36 @@ export class globalData {
         try {
             const majorString = localStorage.getItem('Majors');
             return majorString ? JSON.parse(majorString) : [];
+        } catch(error) {
+
+        }
+        return [];
+    }
+
+    private loadSubjectFromLocalStorage(): Array<String> {
+        try {
+            const subjectString = localStorage.getItem('Subjects');
+            return subjectString ? JSON.parse(subjectString) : [];
+        } catch(error) {
+
+        }
+        return [];
+    }
+
+    private loadAttributesFromLocalStorage(): Array<String> {
+        try {
+            const attributeString = localStorage.getItem('Attributes');
+            return attributeString ? JSON.parse(attributeString) : [];
+        } catch(error) {
+
+        }
+        return [];
+    }
+
+    private loadCampusFromLocalStorage(): Array<String> {
+        try {
+            const campusString = localStorage.getItem('Campus');
+            return campusString ? JSON.parse(campusString) : [];
         } catch(error) {
 
         }

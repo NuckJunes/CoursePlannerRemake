@@ -30,6 +30,7 @@
     </div>
     <!-- Displays all of the currently added courses -->
     <div class="selectedCourses">
+        <button (click)="openFilter()">Filter</button>
         <ul>
             <li *ngFor="let c of displayedCourses">
                 {{c.Subject}} {{c.Course_Number}}

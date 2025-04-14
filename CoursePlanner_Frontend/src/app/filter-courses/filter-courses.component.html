@@ -1,0 +1,31 @@
+<p>filter-courses works!</p>
+<mat-form-field>
+    <mat-label>Subject</mat-label>
+    <mat-select multiple [formControl]="subjectSelected">
+        @for (s of subjects; track $index) {
+            <mat-option [value]="s">s</mat-option>
+        }
+    </mat-select>
+
+    <mat-label>Min</mat-label>
+    <input type="number">
+
+    <mat-label>Max</mat-label>
+    <input type="number">
+
+    <mat-label>Attributes</mat-label>
+    <mat-select multiple [formControl]="attributeSelected">
+        @for (s of attribute; track $index) {
+            <mat-option [value]="s">s</mat-option>
+        }
+    </mat-select>
+
+    <mat-label>Campus</mat-label>
+    <mat-select multiple [formControl]="campusSelected">
+        @for (s of campus; track $index) {
+            <mat-option [value]="s">s</mat-option>
+        }
+    </mat-select>
+</mat-form-field>
+<button (click)="filterReturn()">Filter</button>
+<button (click)="close()">Close</button>
