@@ -3,13 +3,14 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { ScheduleCreateEditComponent } from '../schedule-create-edit/schedule-create-edit.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { globalData } from '../../services/globalData';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
   selector: 'app-filter-courses',
-  imports: [MatDialogModule, MatSelectModule, MatFormFieldModule, ReactiveFormsModule, FormsModule],
+  imports: [MatDialogModule, MatSelectModule, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule],
   templateUrl: './filter-courses.component.html',
   styleUrl: './filter-courses.component.css'
 })
@@ -17,14 +18,18 @@ export class FilterCoursesComponent {
 
   readonly dialogRef = inject(MatDialogRef<ScheduleCreateEditComponent>);
 
-  subjects: Array<String> = [];
-  subjectSelected = new FormControl([]);
-  attribute: Array<String> = [];
-  attributeSelected = new FormControl([]);
-  campus: Array<String> = [];
-  campusSelected = new FormControl([]);
-  min = 0;
-  max = 1000;
+  fullForm = new FormGroup({
+    subjectSelected: new FormControl([]),
+    attributeSelected: new FormControl([]),
+    campusSelected: new FormControl([]),
+    min: new FormControl(0),
+    max: new FormControl(1000)
+  });
+
+  subjects: Array<String> = ["CSE", "CEC"];
+  attribute: Array<String> = ["AA", "BP"];
+  campus: Array<String> = ["Oxford", "Hamilton"];
+
 
   constructor(private globalData: globalData) {}
 
@@ -37,8 +42,10 @@ export class FilterCoursesComponent {
         this.subjects = value;
       } else {
         let tmp = localStorage.getItem('Subjects');
-        if(tmp === undefined) {
+        if(tmp === null) {
           // Call API Here
+        } else {
+          this.subjects = JSON.parse(tmp);
         }
       }
     });
@@ -48,8 +55,10 @@ export class FilterCoursesComponent {
         this.attribute = value;
       } else {
         let tmp = localStorage.getItem('Attributes');
-        if(tmp === undefined) {
+        if(tmp === null) {
           // Call API Here
+        } else {
+          this.subjects = JSON.parse(tmp);
         }
       }
     });
@@ -59,8 +68,10 @@ export class FilterCoursesComponent {
         this.attribute = value;
       } else {
         let tmp = localStorage.getItem('Campus');
-        if(tmp === undefined) {
+        if(tmp === null) {
           // Call API Here
+        } else {
+          this.subjects = JSON.parse(tmp);
         }
       }
     });
@@ -75,11 +86,11 @@ export class FilterCoursesComponent {
   // @Return Object {} returns an object with specific filter options in it
   filterReturn() {
     this.dialogRef.close({
-      subjects: this.subjectSelected,
-      attributes: this.attributeSelected,
-      campuses: this.campusSelected,
-      min: this.min,
-      max: this.max
+      subjects: this.fullForm.get('subjectSelected'),
+      attributes: this.fullForm.get('attributeSelected'),
+      campuses: this.fullForm.get('campusSelected'),
+      min: this.fullForm.get('min'),
+      max: this.fullForm.get('max')
     });
   }
 }

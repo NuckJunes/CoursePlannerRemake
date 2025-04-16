@@ -1,31 +1,30 @@
-<p>filter-courses works!</p>
-<mat-form-field>
-    <mat-label>Subject</mat-label>
-    <mat-select multiple [formControl]="subjectSelected">
+<mat-form-field [formGroup]="fullForm" (ngSubmit)="filterReturn()">
+    <label for="subjects">Subjects</label>
+    <mat-select id="subjects" multiple formControlName="subjectSelected">
         @for (s of subjects; track $index) {
             <mat-option [value]="s">s</mat-option>
         }
     </mat-select>
 
-    <mat-label>Min</mat-label>
-    <input type="number">
+    <label for="min">Min</label>
+    <input id="min" type="number" matInput formControlName="min">
 
-    <mat-label>Max</mat-label>
-    <input type="number">
+    <label for="max">Max</label>
+    <input id="max" type="number" matInput formControlName="max">
 
-    <mat-label>Attributes</mat-label>
-    <mat-select multiple [formControl]="attributeSelected">
-        @for (s of attribute; track $index) {
-            <mat-option [value]="s">s</mat-option>
+    <label for="attribute">Attributes</label>
+    <mat-select id="attribute" multiple formControlName="attributeSelected">
+        @for (a of attribute; track $index) {
+            <mat-option [value]="a">{{a}}</mat-option>
         }
     </mat-select>
 
-    <mat-label>Campus</mat-label>
-    <mat-select multiple [formControl]="campusSelected">
-        @for (s of campus; track $index) {
-            <mat-option [value]="s">s</mat-option>
+    <label for="campus">Campus</label>
+    <mat-select id="campus" multiple formControlName="campusSelected">
+        @for (c of campus; track $index) {
+            <mat-option [value]="c">{{c}}</mat-option>
         }
     </mat-select>
+    <button type="submit">Filter</button>
 </mat-form-field>
-<button (click)="filterReturn()">Filter</button>
 <button (click)="close()">Close</button>

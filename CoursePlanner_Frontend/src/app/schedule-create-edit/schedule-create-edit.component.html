@@ -3,6 +3,7 @@
     <h1>Scheduler</h1>
     <!-- Display all of the courses you can add -->
     <div class="allCourses">
+        <button (click)="openFilter()">Filter</button>
         <ul>
             <li *ngFor="let c of globalCourses">
                 <button (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
@@ -30,7 +31,6 @@
     </div>
     <!-- Displays all of the currently added courses -->
     <div class="selectedCourses">
-        <button (click)="openFilter()">Filter</button>
         <ul>
             <li *ngFor="let c of displayedCourses">
                 {{c.Subject}} {{c.Course_Number}}
