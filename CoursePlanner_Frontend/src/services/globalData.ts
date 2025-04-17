@@ -4,6 +4,8 @@ import AccountReturnDTO from "../app/models/AccountReturnDTO";
 import CourseResponseDTO from "../app/models/CourseResponseDTO";
 import ScheduleRequestDTO from "../app/models/ScheduleRequestDTO";
 import MajorResponseDTO from "../app/models/MajorResponseDTO";
+import FeatureDTO from "../app/models/FeatureDTO";
+import CampusDTO from "../app/models/CampusDTO";
 
 @Injectable({
     providedIn: 'root',
@@ -29,10 +31,10 @@ export class globalData {
     private subjectSource = new BehaviorSubject<Array<String>>(this.loadSubjectFromLocalStorage());
     subjects = this.subjectSource.asObservable();
 
-    private attributeSource = new BehaviorSubject<Array<String>>(this.loadAttributesFromLocalStorage());
+    private attributeSource = new BehaviorSubject<Array<FeatureDTO>>(this.loadAttributesFromLocalStorage());
     attributes = this.attributeSource.asObservable();
 
-    private campusSource = new BehaviorSubject<Array<String>>(this.loadCampusFromLocalStorage());
+    private campusSource = new BehaviorSubject<Array<CampusDTO>>(this.loadCampusFromLocalStorage());
     campuses = this.campusSource.asObservable();
 
     getAccount() {
@@ -97,12 +99,12 @@ export class globalData {
         localStorage.setItem('Subjects', JSON.stringify(subjects));
     }
 
-    updateAttributesStatus(attributes: Array<String>) {
+    updateAttributesStatus(attributes: Array<FeatureDTO>) {
         this.attributeSource.next(attributes);
         localStorage.setItem('Attributes', JSON.stringify(attributes));
     }
 
-    updateCampusStatus(campuses: Array<String>) {
+    updateCampusStatus(campuses: Array<CampusDTO>) {
         this.campusSource.next(campuses);
         localStorage.setItem('Campus', JSON.stringify(campuses));
     }
@@ -167,7 +169,7 @@ export class globalData {
         return [];
     }
 
-    private loadAttributesFromLocalStorage(): Array<String> {
+    private loadAttributesFromLocalStorage(): Array<FeatureDTO> {
         try {
             const attributeString = localStorage.getItem('Attributes');
             return attributeString ? JSON.parse(attributeString) : [];
@@ -177,7 +179,7 @@ export class globalData {
         return [];
     }
 
-    private loadCampusFromLocalStorage(): Array<String> {
+    private loadCampusFromLocalStorage(): Array<CampusDTO> {
         try {
             const campusString = localStorage.getItem('Campus');
             return campusString ? JSON.parse(campusString) : [];

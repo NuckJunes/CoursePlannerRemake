@@ -1,8 +1,8 @@
-<mat-form-field [formGroup]="fullForm" (ngSubmit)="filterReturn()">
+<form [formGroup]="fullForm" (ngSubmit)="filterReturn()">
     <label for="subjects">Subjects</label>
     <mat-select id="subjects" multiple formControlName="subjectSelected">
         @for (s of subjects; track $index) {
-            <mat-option [value]="s">s</mat-option>
+            <mat-option [value]="s">{{s}}</mat-option>
         }
     </mat-select>
 
@@ -26,5 +26,5 @@
         }
     </mat-select>
     <button type="submit">Filter</button>
-</mat-form-field>
+</form>
 <button (click)="close()">Close</button>

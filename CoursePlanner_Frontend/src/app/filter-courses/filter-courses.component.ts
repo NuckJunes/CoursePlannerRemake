@@ -37,44 +37,44 @@ export class FilterCoursesComponent {
   ngOnInit() {
     // Check for global data, then localstorage, otherwise pull from db
 
-    this.globalData.getSubjects().subscribe((value) => {
-      if(value !== undefined) {
-        this.subjects = value;
-      } else {
-        let tmp = localStorage.getItem('Subjects');
-        if(tmp === null) {
-          // Call API Here
-        } else {
-          this.subjects = JSON.parse(tmp);
-        }
-      }
-    });
+    // this.globalData.getSubjects().subscribe((value) => {
+    //   if(value !== undefined) {
+    //     this.subjects = value;
+    //   } else {
+    //     let tmp = localStorage.getItem('Subjects');
+    //     if(tmp === null) {
+    //       // Call API Here
+    //     } else {
+    //       this.subjects = JSON.parse(tmp);
+    //     }
+    //   }
+    // });
 
-    this.globalData.getAttributes().subscribe((value) => {
-      if(value !== undefined) {
-        this.attribute = value;
-      } else {
-        let tmp = localStorage.getItem('Attributes');
-        if(tmp === null) {
-          // Call API Here
-        } else {
-          this.subjects = JSON.parse(tmp);
-        }
-      }
-    });
+    // this.globalData.getAttributes().subscribe((value) => {
+    //   if(value !== undefined) {
+    //     this.attribute = value;
+    //   } else {
+    //     let tmp = localStorage.getItem('Attributes');
+    //     if(tmp === null) {
+    //       // Call API Here
+    //     } else {
+    //       this.subjects = JSON.parse(tmp);
+    //     }
+    //   }
+    // });
 
-    this.globalData.getCampuses().subscribe((value) => {
-      if(value !== undefined) {
-        this.attribute = value;
-      } else {
-        let tmp = localStorage.getItem('Campus');
-        if(tmp === null) {
-          // Call API Here
-        } else {
-          this.subjects = JSON.parse(tmp);
-        }
-      }
-    });
+    // this.globalData.getCampuses().subscribe((value) => {
+    //   if(value !== undefined) {
+    //     this.campus = value;
+    //   } else {
+    //     let tmp = localStorage.getItem('Campus');
+    //     if(tmp === null) {
+    //       // Call API Here
+    //     } else {
+    //       this.subjects = JSON.parse(tmp);
+    //     }
+    //   }
+    // });
   }
 
   // When x button is clicked, no data sent back
