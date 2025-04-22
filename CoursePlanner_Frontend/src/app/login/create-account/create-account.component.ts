@@ -61,10 +61,23 @@ export class CreateAccountComponent {
         },
         body: JSON.stringify(account),
       };
-      let response = await Post('login', [], options);
+      try {
+        let response = await Post('account', [], options);
+        if(!response.ok) {
+          throw new Error('Response Status: ' + response.status);
+        } else {
+          let accountResponse: AccountCreateDTO = JSON.parse(response.json());
+          if(accountResponse !== undefined) {
+            this.router.navigate(['/login']);
+          } else {
+            console.log(response.status);
+          }
+        }
+            
+      } catch(error) {
+
+      }
       //If response is an error, show user
-      console.log(response);
-      this.router.navigate(['/login']);
     }
   }
 }

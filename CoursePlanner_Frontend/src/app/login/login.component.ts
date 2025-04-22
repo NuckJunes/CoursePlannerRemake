@@ -6,6 +6,7 @@ import AccountReturnDTO from '../models/AccountReturnDTO';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { Post } from '../../services/api';
 
 
 @Component({
@@ -25,35 +26,57 @@ export class LoginComponent {
   password: string = "password";
   account: AccountReturnDTO | undefined = undefined;
 
-  login() {
+  async login() {
     //checks the username and password by calling POST login endpoint
-    this.account = {
-      Id: -1,
-      Username: "username",
-      Password: "password",
-      Email: "Email@Email.com",
-      Schedules: Array<ScheduleResponseDTO>()
+    // this.account = {
+    //   Id: -1,
+    //   Username: "username",
+    //   Password: "password",
+    //   Email: "Email@Email.com",
+    //   Schedules: Array<ScheduleResponseDTO>()
+    // };
+
+    // var class1 = {
+    //   id: 1,
+    //   semester: "Spring",
+    //   year: 2,
+    //   courseId: 1
+    // };
+
+    // var newSchedule = {
+    //   Id: 1,
+    //   Name: "Schedule Test 1",
+    //   Classes: [class1]
+    // };
+
+    // this.account.Schedules.push(newSchedule);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Username: this.username,
+        Password: this.password
+      }),
     };
+    
+    try {
+      let response = await Post('login', [], options);
+      if(!response.ok) {
+        throw new Error('Response Status: ' + response.status);
+      } else {
+        let loginResponse: AccountReturnDTO = JSON.parse(response.json());
+        if(loginResponse !== undefined) {
+          this.globalData.updateAccountStatus(loginResponse);
+          this.router.navigate(['/profile']);
+        } else {
+          console.log(response.status);
+        }
+      }
+    } catch(error) {
 
-    var class1 = {
-      id: 1,
-      semester: "Spring",
-      year: 2,
-      courseId: 1
-    };
-
-    var newSchedule = {
-      Id: 1,
-      Name: "Schedule Test 1",
-      Classes: [class1]
-    };
-
-    this.account.Schedules.push(newSchedule);
-    //Everything above here will be replaced with API call at the end
-
-    if(this.account !== undefined) {
-      this.globalData.updateAccountStatus(this.account);
-    } //else throw error
+    }
     
     //Forces reload of navbar to account for change in login to profile
     if(this.value) {
@@ -61,7 +84,6 @@ export class LoginComponent {
     } else {
       this.value = true;
     }
-    this.router.navigate(['/profile']);
   }
 
   createAccount() {

@@ -15,6 +15,8 @@ import MajorResponseDTO from '../models/MajorResponseDTO';
 import SectionResponseDTO from '../models/SectionResponseDTO';
 import { SectionCoursesComponent } from './section-courses/section-courses.component';
 import { FilterCoursesComponent } from '../filter-courses/filter-courses.component';
+import { Get } from '../../services/api';
+import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 
 @Component({
   selector: 'app-schedule-create-edit',
@@ -82,16 +84,75 @@ export class ScheduleCreateEditComponent {
 
   constructor(private globalData: globalData) {}
 
-  ngOnInit() {
-    // Check globalData and Localstorage for courses 
-    // If they are empty, call API and update both
-    this.globalData.updateCourseStatus(this.globalCourses);
-    this.globalData.updateMajorStatus(this.majors);
+  async ngOnInit() {
+    //Check observables, then localstorage, then call api
     this.globalData.getSchedule().subscribe((value) => (this.schedule = value));
+    if(this.schedule === undefined) {
+      var tmp = localStorage.getItem('Schedule');
+      if(tmp !== null) {
+        this.schedule = JSON.parse(tmp);
+      } else {
+        //This should never happen, means previous page either didn't get a schedule or 
+      }
+    }
+
     this.globalData.getCourses().subscribe((value) => (this.globalCourses = value));
+    if(this.globalCourses === undefined) {
+      var tmp = localStorage.getItem('Courses');
+      if(tmp !== null) {
+        this.globalCourses = JSON.parse(tmp);
+        this.globalData.updateCourseStatus(this.globalCourses);
+      } else {
+        //API call
+        try {
+          let response = await Get('Courses', []);
+          if(!response.ok) {
+            throw new Error('Response Status: ' + response.status);
+          } else {
+            let coursesResponse: Array<CourseResponseDTO> = JSON.parse(response.value);
+            if(coursesResponse !== undefined) {
+              this.globalData.updateCourseStatus(coursesResponse);
+              this.globalCourses = coursesResponse;
+            } else {
+              console.log(coursesResponse); //Bad request or response
+            }
+          }
+        } catch(error) {
+
+        }
+          
+      }
+    }
+
     this.globalData.getMajors().subscribe((value) => (this.majors = value));
+    if(this.majors === undefined) {
+      let tmp = localStorage.getItem('Majors');
+      if(tmp !== null) {
+        this.majors = JSON.parse(tmp);
+        this.globalData.updateMajorStatus(this.majors);
+      } else {
+        //API call
+        try {
+          let response = await Get('Majors', []);
+          if(!response.ok) {
+            throw new Error('Response Status: ' + response.status)
+          } else {
+            let majorResponse: Array<MajorResponseDTO> = JSON.parse(response);
+            if(majorResponse !== undefined) {
+              this.majors = majorResponse;
+              this.globalData.updateMajorStatus(this.majors);
+            } else {
+              console.log(majorResponse); //Bad request or response
+            }
+          }
+        } catch (error) {
+
+        }
+      }
+    }
     this.updateCourses();
   }
+  
 
   // Runs on Init to update courses on courseId from schedule.classes.courseId
   updateCourses() {
