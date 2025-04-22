@@ -10,6 +10,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories
         Task<ActionResult<Course>> DeleteCourse(int id);
         Task<ActionResult<IEnumerable<Course>>> GetAllCourses();
         Task<ActionResult<Course>> GetById(int id);
+        Task<ActionResult<IEnumerable<string>>> GetSubjects();
         Task<ActionResult<Course>> UpdateCourse(Course course);
     }
 }

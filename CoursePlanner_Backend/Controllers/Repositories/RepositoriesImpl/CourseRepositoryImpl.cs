@@ -52,5 +52,10 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             await appDbContext.SaveChangesAsync();
             return new ActionResult<Course>(courseToDelete);
         }
+
+        public async Task<ActionResult<IEnumerable<string>>> GetSubjects()
+        {
+            return await appDbContext.Courses.Select(i => i.Subject).Distinct().ToListAsync();
+        }
     }
 }

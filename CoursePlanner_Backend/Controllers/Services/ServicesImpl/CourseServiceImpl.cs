@@ -112,5 +112,10 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             response.ConvertToDTO(result.Value);
             return new ActionResult<CourseResponseDTO>(response);
         }
+
+        public  async Task<ActionResult<IEnumerable<string>>> GetSubjects()
+        {
+            return await courseRepository.GetSubjects();
+        }
     }
 }

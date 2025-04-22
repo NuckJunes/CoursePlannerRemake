@@ -40,5 +40,11 @@ namespace CoursePlanner_Backend.Controllers
         {
             return await courseService.DeleteCourse(id);
         }
+
+        [HttpGet("/Course/Subjects")]
+        public async Task<ActionResult<IEnumerable<String>>> GetSubjects()
+        {
+            return await courseService.GetSubjects();
+        }
     }
 }

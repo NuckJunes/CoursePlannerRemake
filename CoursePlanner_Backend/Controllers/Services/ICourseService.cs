@@ -9,6 +9,7 @@ namespace CoursePlanner_Backend.Controllers.Services
         Task<ActionResult<CourseResponseDTO>> AddCourse(CourseRequestDTO courseRequestDto);
         Task<ActionResult<CourseResponseDTO>> DeleteCourse(int id);
         Task<ActionResult<IEnumerable<CourseResponseDTO>>> GetCourses();
+        Task<ActionResult<IEnumerable<string>>> GetSubjects();
         Task<ActionResult<CourseResponseDTO>> UpdateCourse(CourseRequestDTO courseRequestDTO, int id);
     }
 }
