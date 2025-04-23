@@ -9,6 +9,11 @@
                 <button (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
             </li>
         </ul>
+        @if (scheduleId > 0) {
+            <button (click)="save()">Save</button>
+        } @else {
+            <button (click)="create()">Create</button>
+        }
     </div>
     <!-- Buttons to change the year/semester of added courses -->
     <div class="changeButtons">

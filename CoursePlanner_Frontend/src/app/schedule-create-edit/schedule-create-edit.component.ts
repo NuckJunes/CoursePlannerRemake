@@ -15,7 +15,7 @@ import MajorResponseDTO from '../models/MajorResponseDTO';
 import SectionResponseDTO from '../models/SectionResponseDTO';
 import { SectionCoursesComponent } from './section-courses/section-courses.component';
 import { FilterCoursesComponent } from '../filter-courses/filter-courses.component';
-import { Get } from '../../services/api';
+import { Get, Patch, Post } from '../../services/api';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 
 @Component({
@@ -81,6 +81,7 @@ export class ScheduleCreateEditComponent {
       ]
   }];
   displayedSections: Array<SectionResponseDTO> = [];
+  scheduleId: number = 0;
 
   constructor(private globalData: globalData) {}
 
@@ -148,6 +149,13 @@ export class ScheduleCreateEditComponent {
         } catch (error) {
 
         }
+      }
+    }
+    this.globalData.getScheduleId().subscribe((value) => this.scheduleId = value)
+    if(this.scheduleId === 0) {
+      let tmp = localStorage.getItem('ScheduleId');
+      if(tmp !== null) {
+        this.scheduleId = Number(tmp);
       }
     }
     this.updateCourses();
@@ -342,13 +350,75 @@ export class ScheduleCreateEditComponent {
   }
 
   // Here we save the schedule by sending a PATCH with the scheduleId and schedule
-  save() {
+  async save() {
+    try {
+      const options = {
+        method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Name: this.schedule?.Name,
+        Classes: this.classes
+      }),
+      };
+      let response = await Patch('Schedule', [this.scheduleId.toString()], options);
+      if(!response.ok) {
+        throw new Error('Response Status: ' + response.status);
+      } else {
+        //Convert from ScheduleResponse to ScheduleRequest
+        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
+        let scheduleRequest: ScheduleRequestDTO = {
+          Name: scheduleResponse.Name,
+          Classes: scheduleResponse.Classes
+        }
+        this.globalData.updateScheduleStatus(scheduleRequest);
+        //update user schedules
+        this.globalData.getAccount().subscribe((value) => {
+          value?.Schedules.forEach(s => {
+            if(s.Id === scheduleResponse.Id) {
+              s = scheduleResponse;
+            }
+          });
+          this.globalData.updateAccountStatus(value);
+        });
+        // Some alert you its successfull
+        console.log("Save Success");
+      }
+    } catch(error) {
 
+    }
   }
 
   // Here we create a new schedule by sending a POST with the schedule
-  create() {
+  async create() {
+    try{
+      const options = {
+        method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Name: this.schedule?.Name,
+        Classes: this.classes
+      }),
+      };
+      let response = await Post('Schedule', [], options);
+      if(!response.ok) {
+        throw new Error('Response Status: ' + response.status);
+      } else {
+        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
+        this.globalData.updateScheduleIdStatus(scheduleResponse.Id);
+        this.scheduleId = scheduleResponse.Id;
+        this.globalData.getAccount().subscribe((value) => {
+          value?.Schedules.push(scheduleResponse);
+        })
+        //update user schedules
+        //Alert user its successfull
+      }
+    } catch (error) {
 
+    }
   }
 
   // Change displayed courses based on which major is selected
