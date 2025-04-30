@@ -1,8 +1,8 @@
 import ScheduleResponseDTO from "./ScheduleResponseDTO"
 export default interface AccountReturnDTO {
-    Id: number,
-    Username: string,
-    Password: string,
-    Email: string,
-    Schedules: Array<ScheduleResponseDTO>
+    id: number,
+    username: string,
+    password: string,
+    email: string,
+    schedules: Array<ScheduleResponseDTO>
 };

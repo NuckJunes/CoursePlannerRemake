@@ -25,7 +25,7 @@ export class EditScheduleComponent {
       this.globalData.getAccount().subscribe((value) => 
         {
           if(value !== undefined) {
-            this.schedules = value.Schedules;
+            this.schedules = value.schedules;
           }
         });
     }

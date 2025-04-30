@@ -7,11 +7,12 @@ import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { Post } from '../../services/api';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -51,31 +52,21 @@ export class LoginComponent {
 
     // this.account.Schedules.push(newSchedule);
     const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
         Username: this.username,
         Password: this.password
-      }),
     };
     
     try {
       let response = await Post('login', [], options);
-      if(!response.ok) {
-        throw new Error('Response Status: ' + response.status);
-      } else {
-        let loginResponse: AccountReturnDTO = JSON.parse(response.json());
+        let loginResponse: AccountReturnDTO = response;
         if(loginResponse !== undefined) {
           this.globalData.updateAccountStatus(loginResponse);
           this.router.navigate(['/profile']);
         } else {
           console.log(response.status);
         }
-      }
     } catch(error) {
-
+      console.log(error);
     }
     
     //Forces reload of navbar to account for change in login to profile

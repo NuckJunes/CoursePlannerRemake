@@ -1,6 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 
-const ROOT = 'http://localHost:7268';
+const ROOT = 'https://localHost:7068/';
 
 const httpOptions = { 
     headers: new HttpHeaders({
@@ -71,10 +71,10 @@ export const Post = (endpoint: String, options: String[], optionsBody: any) => {
         url = url + '/' + element;
     });
     return fetch(url, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(optionsBody),
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         },
     })
     .then(checkStatus)

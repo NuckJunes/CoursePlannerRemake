@@ -53,29 +53,17 @@ export class CreateAccountComponent {
         Password: this.Password,
         Email: this.Email
       }
-
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(account),
-      };
       try {
-        let response = await Post('account', [], options);
-        if(!response.ok) {
-          throw new Error('Response Status: ' + response.status);
-        } else {
-          let accountResponse: AccountCreateDTO = JSON.parse(response.json());
+        let response = await Post('account', [], account);
+          let accountResponse: AccountCreateDTO = response;
           if(accountResponse !== undefined) {
             this.router.navigate(['/login']);
           } else {
-            console.log(response.status);
+            console.log(response);
           }
-        }
             
       } catch(error) {
-
+        console.log(error);
       }
       //If response is an error, show user
     }

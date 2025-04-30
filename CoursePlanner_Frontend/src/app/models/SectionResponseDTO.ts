@@ -1,9 +1,9 @@
 import CourseDTO from "./CourseDTO"
 export default interface SectionResponseDTO {
-    Id: number,
-    Name: string,
-    Credit_Min: number,
-    Credit_Max: number,
-    Courses: Array<CourseDTO>,
-    Credit_Current: number
+    id: number,
+    name: string,
+    credit_Min: number,
+    credit_Max: number,
+    courses: Array<CourseDTO>,
+    credit_Current: number
 }

@@ -18,11 +18,11 @@ export class ProfileComponent {
 
   value: boolean = true;
   account: AccountReturnDTO = {
-      Id: -1,
-      Username: "",
-      Password: "",
-      Email: "",
-      Schedules: Array<ScheduleResponseDTO>()
+      id: -1,
+      username: "",
+      password: "",
+      email: "",
+      schedules: Array<ScheduleResponseDTO>()
   };
 
   constructor(private globalData: globalData, private router: Router){}
@@ -39,7 +39,7 @@ export class ProfileComponent {
     // Find schedule by id
     // Then convert to scheduleRequestDTO and update global data
     // Finally, navigate to edit schedule page
-    let schedule = this.account.Schedules.find((Value) => (Value.Id === id));
+    let schedule = this.account.schedules.find((Value) => (Value.Id === id));
 
     if(schedule !== undefined) {
 

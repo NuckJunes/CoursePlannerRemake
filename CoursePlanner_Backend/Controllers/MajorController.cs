@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlanner_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class MajorController : ControllerBase
     {

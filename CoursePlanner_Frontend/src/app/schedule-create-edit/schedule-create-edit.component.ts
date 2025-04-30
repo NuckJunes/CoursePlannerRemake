@@ -17,6 +17,7 @@ import { SectionCoursesComponent } from './section-courses/section-courses.compo
 import { FilterCoursesComponent } from '../filter-courses/filter-courses.component';
 import { Get, Patch, Post } from '../../services/api';
 import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
+import AccountReturnDTO from '../models/AccountReturnDTO';
 
 @Component({
   selector: 'app-schedule-create-edit',
@@ -35,57 +36,18 @@ export class ScheduleCreateEditComponent {
   classes: Array<ClassInsertDTO> = []; //What is selected by the user to take
   courses: Array<CourseResponseDTO> = []; //What is selected in classes
   displayedCourses: Array<CourseResponseDTO> = []; //What is displayed from the selected
-  globalCourses: Array<CourseResponseDTO> = [ //Acutal Courses that are stored
-    { //Fake data that will be replaced with real data after API works
-      Id: 1,
-      Name: "Computer Science Intro",
-      Description: "A intro to Computer Science",
-      Credit_hours: 1.0,
-      Subject: "CEC",
-      Course_Number: 101,
-      FeatureDTOs: [],
-      CampusDTOs: [],
-      SectionIds: [1],
-      PreRequisites: ""
-    },
-    {
-      Id: 2,
-      Name: "Computer Science Intro 2",
-      Description: "A intro to Computer Science again",
-      Credit_hours: 1.0,
-      Subject: "CEC",
-      Course_Number: 102,
-      FeatureDTOs: [],
-      CampusDTOs: [],
-      SectionIds: [1],
-      PreRequisites: "(pc.find(i => i.courseId === 1))"
-    }
-  ];
-  majors: Array<MajorResponseDTO> = [
-    {
-      Id: 1,
-      Name: "Software Engineering",
-      College: "College of Computer Engineering",
-      Graduate: false,
-      Credit_Min: 92.0,
-      Credit_Max: 98.0,
-      Sections: [
-        {
-          Id: 1,
-          Name: "Core",
-          Credit_Min: 2.0,
-          Credit_Max: 2.0,
-          Credit_Current: 0.0,
-          Courses: []
-        }
-      ]
-  }];
+  globalCourses: Array<CourseResponseDTO> = []; //Acutal Courses that are stored
+  majors: Array<MajorResponseDTO> = [];
   displayedSections: Array<SectionResponseDTO> = [];
   scheduleId: number = 0;
 
   constructor(private globalData: globalData) {}
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.load();
+  }
+
+  async load() {
     //Check observables, then localstorage, then call api
     this.globalData.getSchedule().subscribe((value) => (this.schedule = value));
     if(this.schedule === undefined) {
@@ -98,7 +60,7 @@ export class ScheduleCreateEditComponent {
     }
 
     this.globalData.getCourses().subscribe((value) => (this.globalCourses = value));
-    if(this.globalCourses === undefined) {
+    if(this.globalCourses.length === 0) {
       var tmp = localStorage.getItem('Courses');
       if(tmp !== null) {
         this.globalCourses = JSON.parse(tmp);
@@ -107,17 +69,13 @@ export class ScheduleCreateEditComponent {
         //API call
         try {
           let response = await Get('Courses', []);
-          if(!response.ok) {
-            throw new Error('Response Status: ' + response.status);
-          } else {
-            let coursesResponse: Array<CourseResponseDTO> = JSON.parse(response.value);
+            let coursesResponse: Array<CourseResponseDTO> = response;
             if(coursesResponse !== undefined) {
               this.globalData.updateCourseStatus(coursesResponse);
               this.globalCourses = coursesResponse;
             } else {
               console.log(coursesResponse); //Bad request or response
             }
-          }
         } catch(error) {
 
         }
@@ -126,7 +84,7 @@ export class ScheduleCreateEditComponent {
     }
 
     this.globalData.getMajors().subscribe((value) => (this.majors = value));
-    if(this.majors === undefined) {
+    if(this.majors.length === 0) {
       let tmp = localStorage.getItem('Majors');
       if(tmp !== null) {
         this.majors = JSON.parse(tmp);
@@ -134,18 +92,14 @@ export class ScheduleCreateEditComponent {
       } else {
         //API call
         try {
-          let response = await Get('Majors', []);
-          if(!response.ok) {
-            throw new Error('Response Status: ' + response.status)
-          } else {
-            let majorResponse: Array<MajorResponseDTO> = JSON.parse(response);
+          let response = await Get('Major', []);
+            let majorResponse: Array<MajorResponseDTO> = response;
             if(majorResponse !== undefined) {
               this.majors = majorResponse;
               this.globalData.updateMajorStatus(this.majors);
             } else {
               console.log(majorResponse); //Bad request or response
             }
-          }
         } catch (error) {
 
         }
@@ -165,10 +119,10 @@ export class ScheduleCreateEditComponent {
   // Runs on Init to update courses on courseId from schedule.classes.courseId
   updateCourses() {
     this.schedule?.Classes.forEach(c => {
-      let tmp = this.globalCourses.find((value) => (value.Id === c.courseId));
+      let tmp = this.globalCourses.find((value) => (value.id === c.courseId));
       if(tmp !== undefined) {
         this.courses.push(tmp); // Add to courses to be displayed
-        this.globalCourses = this.globalCourses.filter((value) => (value.Id !== tmp.Id)); // Remove from globalCourses
+        this.globalCourses = this.globalCourses.filter((value) => (value.id !== tmp.id)); // Remove from globalCourses
       }
     });
   }
@@ -190,16 +144,16 @@ export class ScheduleCreateEditComponent {
 
     //Find course in global, move to courses
     for(var c of this.globalCourses) {
-      if(c.Id === id) {
+      if(c.id === id) {
         this.courses.push(c);
-        newClass.courseId = c.Id;
+        newClass.courseId = c.id;
         this.updateSections(c, false);
         break;
       }
     }
 
     // Remove the course from global to prevent duplicates
-    this.globalCourses = this.globalCourses.filter((value) => (value.Id !== id));
+    this.globalCourses = this.globalCourses.filter((value) => (value.id !== id));
 
     // Add new class to our classes section
     this.schedule?.Classes.push(newClass);
@@ -263,7 +217,7 @@ export class ScheduleCreateEditComponent {
     this.schedule?.Classes.forEach(c => {
       if(c.courseId === id) {
         removed = c;
-        course = this.courses.find((value) => (value.Id === c.courseId));
+        course = this.courses.find((value) => (value.id === c.courseId));
       }
     });
 
@@ -277,7 +231,7 @@ export class ScheduleCreateEditComponent {
     }
 
     //Remove the course associated with the class
-    this.courses = this.courses.filter((value) => (value.Id !== id));
+    this.courses = this.courses.filter((value) => (value.id !== id));
 
     //Add that course to the global courses 
     if(course) {
@@ -290,12 +244,12 @@ export class ScheduleCreateEditComponent {
   // Adds/Removes courses to be shown to users for a section, also changes its credit hours
   updateSections(course: CourseResponseDTO, remove: boolean) {
     this.displayedSections.forEach(s => {
-      if(remove && course.SectionIds.find(i => i === s.Id)) {
-        s.Credit_Current = s.Credit_Current - course.Credit_hours;
-        s.Courses = s.Courses.filter(i => (i.Id !== course.Id));
+      if(remove && course.sectionIds.find(i => i === s.id)) {
+        s.credit_Current = s.credit_Current - course.credit_hours;
+        s.courses = s.courses.filter(i => (i.Id !== course.id));
       } else if(!remove) {
-        s.Courses.push({Id : course.Id, Name : course.Name, Description : course.Description});
-        s.Credit_Current = s.Credit_Current + course.Credit_hours;
+        s.courses.push({Id : course.id, Name : course.name, Description : course.description});
+        s.credit_Current = s.credit_Current + course.credit_hours;
       }
     });
   }
@@ -342,7 +296,7 @@ export class ScheduleCreateEditComponent {
     }
     //Then get all courses that are associated with those classes to display subject/number to user
     this.classes.forEach(c => {
-      var course = this.courses.find(i => i.Id === c.courseId);
+      var course = this.courses.find(i => i.id === c.courseId);
       if(course !== undefined) {
         this.displayedCourses.push(course);
       }
@@ -353,21 +307,12 @@ export class ScheduleCreateEditComponent {
   async save() {
     try {
       const options = {
-        method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
         Name: this.schedule?.Name,
         Classes: this.classes
-      }),
       };
       let response = await Patch('Schedule', [this.scheduleId.toString()], options);
-      if(!response.ok) {
-        throw new Error('Response Status: ' + response.status);
-      } else {
         //Convert from ScheduleResponse to ScheduleRequest
-        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
+        let scheduleResponse: ScheduleResponseDTO = response;
         let scheduleRequest: ScheduleRequestDTO = {
           Name: scheduleResponse.Name,
           Classes: scheduleResponse.Classes
@@ -375,7 +320,7 @@ export class ScheduleCreateEditComponent {
         this.globalData.updateScheduleStatus(scheduleRequest);
         //update user schedules
         this.globalData.getAccount().subscribe((value) => {
-          value?.Schedules.forEach(s => {
+          value?.schedules.forEach(s => {
             if(s.Id === scheduleResponse.Id) {
               s = scheduleResponse;
             }
@@ -384,7 +329,6 @@ export class ScheduleCreateEditComponent {
         });
         // Some alert you its successfull
         console.log("Save Success");
-      }
     } catch(error) {
 
     }
@@ -398,32 +342,52 @@ export class ScheduleCreateEditComponent {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        Name: this.schedule?.Name,
-        Classes: this.classes
-      }),
+      body: {
+        name: this.schedule?.Name,
+        classes: this.classes
+      },
       };
-      let response = await Post('Schedule', [], options);
+      console.log(options.body);
+      let account: AccountReturnDTO = {id: 0,
+        username: "",
+        password: "",
+        email: "",
+        schedules: []
+      };
+      this.globalData.getAccount().subscribe((value) => {
+        if(value !== undefined) {
+          account = value;
+        } else {
+          const tmp = localStorage.getItem('Account');
+          if(tmp !== null) {
+            account = JSON.parse(tmp);
+          }
+        }
+      });
+      let response = await Post('Schedule', [account.id.toString()], options);
       if(!response.ok) {
         throw new Error('Response Status: ' + response.status);
       } else {
         let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
         this.globalData.updateScheduleIdStatus(scheduleResponse.Id);
         this.scheduleId = scheduleResponse.Id;
-        this.globalData.getAccount().subscribe((value) => {
-          value?.Schedules.push(scheduleResponse);
-        })
+        if(account !== undefined) {
+          account.schedules.push();
+        }
+        this.globalData.updateAccountStatus(account);
+        console.log("Created" + response);
+        
         //update user schedules
         //Alert user its successfull
       }
     } catch (error) {
-
+      console.log(error);
     }
   }
 
   // Change displayed courses based on which major is selected
   selectMajor(major: MajorResponseDTO) {
-    this.displayedSections = major.Sections;
+    this.displayedSections = major.sections;
     //Update displayedSection credit hours with existing courses
     this.courses.forEach(c => {
       this.updateSections(c, false);
@@ -442,16 +406,16 @@ export class ScheduleCreateEditComponent {
       console.log(result);
       // Filter through subjectSelected, attributeSelected, campusSelected, min, max
       this.displayedCourses.filter((value) => {
-        if(value.Course_Number < result.min || value.Course_Number > result.max) {
+        if(value.course_Number < result.min || value.course_Number > result.max) {
           return false; // Course number outside of inputted range
-        } else if(result.subjectSelected !== undefined && !result.subjectSelected.contains(value.Subject)) {
+        } else if(result.subjectSelected !== undefined && !result.subjectSelected.contains(value.subject)) {
           return false; // No selected subjects match this courses subject
         }
 
         // Checks if any attributes match
         let attributes = true;
-        for(let i = 0; i<value.FeatureDTOs.length; i++) {
-          if(result.attributeSelected.contains(value.FeatureDTOs[i])) {
+        for(let i = 0; i<value.featureDTOs.length; i++) {
+          if(result.attributeSelected.contains(value.featureDTOs[i])) {
             attributes = false;
             break;
           }
@@ -462,8 +426,8 @@ export class ScheduleCreateEditComponent {
 
         // Checks if any campuses match
         let campuses = true;
-        for(let j = 0; j<value.CampusDTOs.length; j++) {
-          if(result.campusSelected.contains(value.CampusDTOs[j])) {
+        for(let j = 0; j<value.campusDTOs.length; j++) {
+          if(result.campusSelected.contains(value.campusDTOs[j])) {
             campuses = false;
             break;
           }

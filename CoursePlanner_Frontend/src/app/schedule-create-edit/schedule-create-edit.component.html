@@ -6,7 +6,7 @@
         <button (click)="openFilter()">Filter</button>
         <ul>
             <li *ngFor="let c of globalCourses">
-                <button (click)="addClass(c.Id)">{{c.Subject}} {{c.Course_Number}}</button>
+                <button (click)="addClass(c.id)">{{c.subject}} {{c.course_Number}}</button>
             </li>
         </ul>
         @if (scheduleId > 0) {
@@ -38,22 +38,22 @@
     <div class="selectedCourses">
         <ul>
             <li *ngFor="let c of displayedCourses">
-                {{c.Subject}} {{c.Course_Number}}
-                <button (click)="delete(c.Id)">X</button>
+                {{c.subject}} {{c.course_Number}}
+                <button (click)="delete(c.id)">X</button>
             </li>
         </ul>
     </div>
     <div class="majors">
         <!-- Dropdown for selecting majors -->
          <mat-select>
-                <mat-option *ngFor="let major of majors" (click)="selectMajor(major)">{{major.Name}}</mat-option>
+                <mat-option *ngFor="let major of majors" (click)="selectMajor(major)">{{major.name}}</mat-option>
          </mat-select>
     </div>
     <div class="sections">
          <ul>
             <li *ngFor="let s of displayedSections">
-                <button (click)="displayCourses(s.Courses, s.Name)">{{s.Name}}</button> <!-- Progress bar with min/max displayed on top -->
-                <mat-progress-bar mode="determinate" [value]="(s.Credit_Current / s.Credit_Min) * 100.0"></mat-progress-bar>
+                <button (click)="displayCourses(s.courses, s.name)">{{s.name}}</button> <!-- Progress bar with min/max displayed on top -->
+                <mat-progress-bar mode="determinate" [value]="(s.credit_Current / s.credit_Min) * 100.0"></mat-progress-bar>
             </li>
          </ul>
     </div>

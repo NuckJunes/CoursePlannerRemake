@@ -5,6 +5,19 @@ using CoursePlanner_Backend.Controllers.Services.ServicesImpl;
 using CoursePlanner_Backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                      });
+    
+});
+
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -29,6 +42,9 @@ builder.Services.AddTransient<IMajorRepository, MajorRepositoryImpl>();
 
 
 var app = builder.Build();
+app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

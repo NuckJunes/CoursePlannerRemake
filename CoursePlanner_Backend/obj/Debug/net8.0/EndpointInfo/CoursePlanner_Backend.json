@@ -322,6 +322,44 @@
         }
       }
     },
+    "/Course/Subjects": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Features": {
       "get": {
         "tags": [
@@ -352,6 +390,44 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/FeatureDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Major": {
+      "get": {
+        "tags": [
+          "Major"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MajorResponseDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MajorResponseDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MajorResponseDTO"
                   }
                 }
               }
@@ -571,6 +647,9 @@
           "email": {
             "type": "string",
             "nullable": true
+          },
+          "admin": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -597,30 +676,12 @@
           "schedules": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Schedule"
+              "$ref": "#/components/schemas/ScheduleResponseDTO"
             },
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Campus": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
           },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "courses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
+          "admin": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -633,30 +694,6 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Class": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/Schedule"
-          },
-          "course": {
-            "$ref": "#/components/schemas/Course"
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "semester": {
             "type": "string",
             "nullable": true
           }
@@ -703,7 +740,7 @@
         },
         "additionalProperties": false
       },
-      "Course": {
+      "CourseDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -716,53 +753,6 @@
           },
           "description": {
             "type": "string",
-            "nullable": true
-          },
-          "credit_Hours": {
-            "type": "number",
-            "format": "double"
-          },
-          "subject": {
-            "type": "string",
-            "nullable": true
-          },
-          "course_Number": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "features": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Feature"
-            },
-            "nullable": true
-          },
-          "campuses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Campus"
-            },
-            "nullable": true
-          },
-          "prerequisites": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
-          },
-          "requirements": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
-            "nullable": true
-          },
-          "classes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Class"
-            },
             "nullable": true
           }
         },
@@ -791,6 +781,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "preRequisites": {
+            "type": "string",
+            "nullable": true
+          },
           "featureIds": {
             "type": "array",
             "items": {
@@ -807,7 +801,7 @@
             },
             "nullable": true
           },
-          "preReqIds": {
+          "sectionIds": {
             "type": "array",
             "items": {
               "type": "integer",
@@ -859,36 +853,8 @@
             },
             "nullable": true
           },
-          "preReqDTOs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PrereqDTO"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Feature": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
+          "preRequisites": {
             "type": "string",
-            "nullable": true
-          },
-          "short_Name": {
-            "type": "string",
-            "nullable": true
-          },
-          "courses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Course"
-            },
             "nullable": true
           }
         },
@@ -926,21 +892,7 @@
         },
         "additionalProperties": false
       },
-      "PrereqDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Schedule": {
+      "MajorResponseDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -951,13 +903,25 @@
             "type": "string",
             "nullable": true
           },
-          "user": {
-            "$ref": "#/components/schemas/User"
+          "college": {
+            "type": "string",
+            "nullable": true
           },
-          "classes": {
+          "graduate": {
+            "type": "boolean"
+          },
+          "credit_Min": {
+            "type": "number",
+            "format": "double"
+          },
+          "credit_Max": {
+            "type": "number",
+            "format": "double"
+          },
+          "sections": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Class"
+              "$ref": "#/components/schemas/SectionResponseDTO"
             },
             "nullable": true
           }
@@ -1002,29 +966,25 @@
         },
         "additionalProperties": false
       },
-      "User": {
+      "SectionResponseDTO": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "username": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "password": {
-            "type": "string",
-            "nullable": true
+          "credit_Min": {
+            "type": "number",
+            "format": "double"
           },
-          "email": {
-            "type": "string",
-            "nullable": true
+          "credit_Max": {
+            "type": "number",
+            "format": "double"
           },
-          "schedules": {
+          "courses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Schedule"
+              "$ref": "#/components/schemas/CourseDTO"
             },
             "nullable": true
           }

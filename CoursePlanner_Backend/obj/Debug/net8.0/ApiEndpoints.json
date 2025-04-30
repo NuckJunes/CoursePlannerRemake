@@ -130,6 +130,26 @@
   },
   {
     "ContainingType": "CoursePlanner_Backend.Controllers.CourseController",
+    "Method": "GetSubjects",
+    "RelativePath": "Course/Subjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.CourseController",
     "Method": "GetCourses",
     "RelativePath": "Courses",
     "HttpMethod": "GET",
@@ -185,6 +205,26 @@
     "ReturnTypes": [
       {
         "Type": "CoursePlanner_Backend.Model.DTOs.AccountReturnDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CoursePlanner_Backend.Controllers.MajorController",
+    "Method": "GetMajors",
+    "RelativePath": "Major",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CoursePlanner_Backend.Model.DTOs.MajorResponseDTO, CoursePlanner_Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
