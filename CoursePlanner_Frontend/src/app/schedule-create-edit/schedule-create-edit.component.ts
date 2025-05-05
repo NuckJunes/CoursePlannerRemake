@@ -338,16 +338,9 @@ export class ScheduleCreateEditComponent {
   async create() {
     try{
       const options = {
-        method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {
-        name: this.schedule?.Name,
-        classes: this.classes
-      },
+        Name: this.schedule?.Name,
+        Classes: this.classes
       };
-      console.log(options.body);
       let account: AccountReturnDTO = {id: 0,
         username: "",
         password: "",

@@ -33,6 +33,7 @@ export class ProfileComponent {
     if(accountData !== undefined) {
       this.account = accountData;
     }
+    console.log(this.account);
   }
 
   editSchedule(id: number) {

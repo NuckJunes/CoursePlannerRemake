@@ -6,5 +6,6 @@
 <ul>
     <li *ngFor="let schedule of account.schedules">
         <button (click)="editSchedule(schedule.Id)">{{schedule.Name}}</button>
+        <p>{{schedule.Name}}</p>
     </li>
 </ul>
