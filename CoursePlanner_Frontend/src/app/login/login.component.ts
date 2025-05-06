@@ -28,29 +28,6 @@ export class LoginComponent {
   account: AccountReturnDTO | undefined = undefined;
 
   async login() {
-    //checks the username and password by calling POST login endpoint
-    // this.account = {
-    //   Id: -1,
-    //   Username: "username",
-    //   Password: "password",
-    //   Email: "Email@Email.com",
-    //   Schedules: Array<ScheduleResponseDTO>()
-    // };
-
-    // var class1 = {
-    //   id: 1,
-    //   semester: "Spring",
-    //   year: 2,
-    //   courseId: 1
-    // };
-
-    // var newSchedule = {
-    //   Id: 1,
-    //   Name: "Schedule Test 1",
-    //   Classes: [class1]
-    // };
-
-    // this.account.Schedules.push(newSchedule);
     const options = {
         Username: this.username,
         Password: this.password

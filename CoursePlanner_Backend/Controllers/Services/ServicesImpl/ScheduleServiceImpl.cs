@@ -28,7 +28,7 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             newSchedule.user = u.Value;
 
             // Take all classes and add them to database with connections to course and schedule
-            foreach (ClassInsertDTO c in scheduleRequestDTO.Classes)
+            foreach (ClassDTO c in scheduleRequestDTO.Classes)
             {
                 Class newClass = new Class();
                 newClass.schedule = newSchedule;
@@ -82,22 +82,24 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             ActionResult<Schedule> existingSchedule = await scheduleRepository.GetSchedule(scheduleId);
             existingSchedule.Value.Name = scheduleRequestDTO.Name;
 
-            // Delete existing classes
-            foreach(Class c in existingSchedule.Value.classes.ToList())
+            foreach(ClassDTO c in  scheduleRequestDTO.Classes)
             {
-                ActionResult<Class> d = await classRepository.DeleteClass(c);
-            }
-
-            // Add in new classes
-            foreach(ClassInsertDTO c in scheduleRequestDTO.Classes)
-            {
-                Class newClass = new Class();
-                newClass.year = c.year;
-                newClass.schedule = existingSchedule.Value;
-                ActionResult<Course> course = await courseRepository.GetById(c.courseId);
-                newClass.course = course.Value;
-                newClass.semester = c.semester;
-                ActionResult<Class> classAdded = await classRepository.AddClass(newClass);
+                //Replace all instances of class insert dto with ClassDTO
+                ActionResult<Class> tmp = await classRepository.GetClass(c.id);
+                if (tmp != null)
+                {
+                    tmp.Value.course = courseRepository.GetById(c.id).Result.Value;
+                    tmp.Value.year = c.year;
+                    tmp.Value.semester = c.semester;
+                } else
+                {
+                    Class newClass = new Class();
+                    newClass.schedule = existingSchedule.Value;
+                    newClass.course = courseRepository.GetById(c.id).Result.Value;
+                    newClass.year = c.year;
+                    newClass.semester = c.semester;
+                    classRepository.AddClass(newClass);
+                }
             }
 
             // Send to Repository to Update

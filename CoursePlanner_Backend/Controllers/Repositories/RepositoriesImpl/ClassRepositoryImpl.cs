@@ -14,6 +14,13 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             this.appDbContext = appDbContext;
         }
 
+        public async Task<ActionResult<Class>> GetClass(int id)
+        {
+            return await appDbContext.Classes
+                .Include(c => c.course)
+                .FirstOrDefaultAsync(i => i.Id == id);
+        }
+
         public async Task<ActionResult<Class>> AddClass(Class newClass)
         {
             appDbContext.Classes.Add(newClass);
@@ -30,6 +37,12 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             await appDbContext.SaveChangesAsync();
             return c;
 
+        }
+
+        public async Task<ActionResult<Class>> UpdateClass(Class c)
+        {
+            await appDbContext.SaveChangesAsync();
+            return new ActionResult<Class>(c);
         }
     }
 }

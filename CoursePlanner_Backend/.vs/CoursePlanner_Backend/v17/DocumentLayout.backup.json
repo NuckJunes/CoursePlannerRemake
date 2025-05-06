@@ -7,16 +7,24 @@
       "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:model\\dtos\\schedulerequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\repositories\\repositoriesimpl\\classrepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\repositories\\repositoriesimpl\\classrepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\repositories\\iclassrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\repositories\\iclassrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|solutionrelative:controllers\\services\\servicesimpl\\scheduleserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8616FF9F-6260-43BD-9751-7686E8799AF0}|CoursePlanner_Backend.csproj|c:\\users\\batte\\desktop\\work\\courseplannerremake\\courseplanner_backend\\controllers\\repositories\\repositoriesimpl\\accountrepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,8 +46,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IClassRepository.cs",
+              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\IClassRepository.cs",
+              "RelativeDocumentMoniker": "Controllers\\Repositories\\IClassRepository.cs",
+              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\IClassRepository.cs",
+              "RelativeToolTip": "Controllers\\Repositories\\IClassRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T14:58:52.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClassRepositoryImpl.cs",
+              "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\ClassRepositoryImpl.cs",
+              "RelativeDocumentMoniker": "Controllers\\Repositories\\RepositoriesImpl\\ClassRepositoryImpl.cs",
+              "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\ClassRepositoryImpl.cs",
+              "RelativeToolTip": "Controllers\\Repositories\\RepositoriesImpl\\ClassRepositoryImpl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T14:45:20.817Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,27 +82,27 @@
               "RelativeDocumentMoniker": "Model\\DTOs\\ScheduleRequestDTO.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Model\\DTOs\\ScheduleRequestDTO.cs",
               "RelativeToolTip": "Model\\DTOs\\ScheduleRequestDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-01T19:31:05.365Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "ScheduleController.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\ScheduleController.cs",
               "RelativeDocumentMoniker": "Controllers\\ScheduleController.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\ScheduleController.cs",
               "RelativeToolTip": "Controllers\\ScheduleController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAwBgAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAwBgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-01T18:52:11.293Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "AccountRepositoryImpl.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\AccountRepositoryImpl.cs",
               "RelativeDocumentMoniker": "Controllers\\Repositories\\RepositoriesImpl\\AccountRepositoryImpl.cs",
@@ -80,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
@@ -88,24 +122,24 @@
               "RelativeToolTip": "Controllers\\AccountController.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T15:53:04.468Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T15:53:04.468Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "ScheduleServiceImpl.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "RelativeDocumentMoniker": "Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
               "RelativeToolTip": "Controllers\\Services\\ServicesImpl\\ScheduleServiceImpl.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAQwBYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAFcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T13:04:35.35Z"
+              "WhenOpened": "2025-04-29T13:04:35.35Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -117,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",

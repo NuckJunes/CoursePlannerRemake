@@ -160,56 +160,6 @@ export class ScheduleCreateEditComponent {
     this.classesChange();
   }
 
-  // requirementsCheck(preReq: string, id: number): boolean {
-  //   // Check requirements using eval()
-  //   // If false, give element a !
-  //   let c = this.classes.find(i => i.courseId === id);
-
-  //   if(c !== undefined)
-  //     var yearSemester = this.evalYearSeason(c);
-
-  //   let pc = this.classes.filter((value) => (this.evalYearSeason(value) < yearSemester))
-  //   let good = eval(preReq);
-  //   return good;
-  // }
-
-  // evalYearSeason(c: ClassInsertDTO): number {
-  //   let value = 0;
-  //   switch(c.semester) {
-  //     case "Fall":
-  //       value = value + 1;
-  //       break;
-  //     case "Winter":
-  //       value = value + 2;
-  //       break;
-  //     case "Spring":
-  //       value = value + 3;
-  //       break;
-  //     case "Summer":
-  //       value = value + 4;
-  //       break;
-  //   }
-
-  //   switch(c.year) {
-  //     case 1:
-  //       value = value + 10;
-  //       break;
-  //     case 2:
-  //       value = value + 20;
-  //       break;
-  //     case 3:
-  //       value = value + 30;
-  //       break;
-  //     case 4:
-  //       value = value + 40;
-  //       break;
-  //     case 5:
-  //       value = value + 50;
-  //       break;
-  //   }
-  //   return value;
-  // }
-
   delete(id: number) {
     //Remove the class
     let removed;
@@ -308,25 +258,41 @@ export class ScheduleCreateEditComponent {
     try {
       const options = {
         Name: this.schedule?.Name,
-        Classes: this.classes
+        Classes: this.schedule?.Classes
       };
       let response = await Patch('Schedule', [this.scheduleId.toString()], options);
         //Convert from ScheduleResponse to ScheduleRequest
-        let scheduleResponse: ScheduleResponseDTO = response;
+        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
         let scheduleRequest: ScheduleRequestDTO = {
-          Name: scheduleResponse.Name,
-          Classes: scheduleResponse.Classes
+          Name: scheduleResponse.name,
+          Classes: scheduleResponse.classes
         }
         this.globalData.updateScheduleStatus(scheduleRequest);
         //update user schedules
+        let account: AccountReturnDTO = {id: 0,
+          username: "",
+          password: "",
+          email: "",
+          schedules: []
+        };
         this.globalData.getAccount().subscribe((value) => {
-          value?.schedules.forEach(s => {
-            if(s.Id === scheduleResponse.Id) {
-              s = scheduleResponse;
+          if(value !== undefined) {
+            account = value;
+          } else {
+            const tmp = localStorage.getItem('Account');
+            if(tmp !== null) {
+              account = JSON.parse(tmp);
             }
-          });
-          this.globalData.updateAccountStatus(value);
+          }
         });
+        //This probably doesnt work
+        account.schedules.forEach((value) => {
+          if(value.id === scheduleResponse.id) {
+            value = scheduleResponse;
+          }
+        });
+      
+        this.globalData.updateAccountStatus(account);
         // Some alert you its successfull
         console.log("Save Success");
     } catch(error) {
@@ -362,8 +328,8 @@ export class ScheduleCreateEditComponent {
         throw new Error('Response Status: ' + response.status);
       } else {
         let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
-        this.globalData.updateScheduleIdStatus(scheduleResponse.Id);
-        this.scheduleId = scheduleResponse.Id;
+        this.globalData.updateScheduleIdStatus(scheduleResponse.id);
+        this.scheduleId = scheduleResponse.id;
         if(account !== undefined) {
           account.schedules.push();
         }

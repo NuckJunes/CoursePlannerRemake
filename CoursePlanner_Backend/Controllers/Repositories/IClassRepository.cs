@@ -7,5 +7,8 @@ namespace CoursePlanner_Backend.Controllers.Repositories
     {
         Task<ActionResult<Class>> AddClass(Class newClass);
         Task<ActionResult<Class>> DeleteClass(Class c);
+        Task<ActionResult<Class>> GetClass(int id);
+        Task<ActionResult<Class>> UpdateClass(Class c);
+        
     }
 }

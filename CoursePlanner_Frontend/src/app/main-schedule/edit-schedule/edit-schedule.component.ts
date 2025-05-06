@@ -33,12 +33,12 @@ export class EditScheduleComponent {
     editSchedule(s: ScheduleResponseDTO) {
       // Setting up new schedule to edit
       let newSchedule : ScheduleRequestDTO = { 
-        Name: s.Name,
+        Name: s.name,
         Classes: []
       }
 
       // Changing ClassDTO to ClassInsertDTO
-      s.Classes.forEach(element => {
+      s.classes.forEach(element => {
         var newClass = { 
           semester: element.semester,
           year: element.year,
@@ -49,7 +49,7 @@ export class EditScheduleComponent {
 
       // Update observables to use this Schedule
       this.globalData.updateScheduleStatus(newSchedule);
-      this.globalData.updateScheduleIdStatus(s.Id); // Needed for PATCH call
+      this.globalData.updateScheduleIdStatus(s.id); // Needed for PATCH call
       this.router.navigate(['/schedule-create-edit']);
       this.dialogRef.close();
     }

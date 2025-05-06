@@ -40,15 +40,15 @@ export class ProfileComponent {
     // Find schedule by id
     // Then convert to scheduleRequestDTO and update global data
     // Finally, navigate to edit schedule page
-    let schedule = this.account.schedules.find((Value) => (Value.Id === id));
+    let schedule = this.account.schedules.find((Value) => (Value.id === id));
 
     if(schedule !== undefined) {
 
       let scheduleToSend:ScheduleRequestDTO = {
-        Name: schedule.Name,
+        Name: schedule.name,
         Classes: Array<ClassInsertDTO>()
       }
-      schedule?.Classes.forEach(c => {
+      schedule?.classes.forEach(c => {
         let newClass = {
           semester: c.semester,
           year: c.year,
