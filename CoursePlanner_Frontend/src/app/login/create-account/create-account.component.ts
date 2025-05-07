@@ -2,18 +2,27 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../../../services/api';
 import AccountCreateDTO from '../../models/AccountCreateDTO';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-create-account',
-  imports: [],
+  imports: [MatFormFieldModule, ReactiveFormsModule],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css'
 })
 export class CreateAccountComponent {
 
+  fullForm = new FormGroup({
+    Email: new FormControl(""),
+    Username: new FormControl(""),
+    Password: new FormControl(""),
+    Confirm: new FormControl("")
+  })
+
   Email: string = "";
   Username: string  = "";
-  Password: string = "";
+  Password: string = "a";
   Confirm: string = "";
   ErrorText: string = "";
   PasswordErrorColor: string = "#C41230";
@@ -21,7 +30,28 @@ export class CreateAccountComponent {
 
   constructor(private router: Router){}
 
+  checkForm() {
+    let e = this.fullForm.get('Email');
+    let u = this.fullForm.get('Username');
+    let p = this.fullForm.get('Password');
+    let c = this.fullForm.get('Confirm');
+
+    if(e !== null && e.value !== null) {
+      this.Email = e.value;
+    }
+    if(u !== null && u.value !== null) {
+      this.Username = u.value;
+    }
+    if(p !== null && p.value !== null) {
+      this.Password = p.value;
+    }
+    if(c !== null && c.value !== null) {
+      this.Confirm = c.value;
+    }
+  }
+
   async create() {
+    this.checkForm();
     if(this.Password.length < 8) {
       // Password too short
       this.ErrorText = "Password is Too Short!";
@@ -48,6 +78,8 @@ export class CreateAccountComponent {
     }
     else {
       // Create account api call and go back to login page
+      this.ErrorText = "Good!";
+
       const account: AccountCreateDTO = {
         Username: this.Username,
         Password: this.Password,

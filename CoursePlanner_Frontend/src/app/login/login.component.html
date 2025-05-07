@@ -1,8 +1,6 @@
 <app-navbar [change]="value"></app-navbar>
 <h1>Login</h1>
-<form (submit)="login()">
-    <input type="text" [value]="username">
-    <input type="text" [value]="password">
-    <button type="submit">Login</button>
-</form>
+<input type="text" [(ngModel)]="username">
+<input type="text" [(ngModel)]="password">
+<button type="submit" (click)="login()">Login</button>
 <button (click)="createAccount()">Create Account</button>

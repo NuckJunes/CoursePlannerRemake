@@ -40,7 +40,6 @@ export class LoginComponent {
           this.globalData.updateAccountStatus(loginResponse);
           this.router.navigate(['/profile']);
         } else {
-          console.log(response.status);
         }
     } catch(error) {
       console.log(error);

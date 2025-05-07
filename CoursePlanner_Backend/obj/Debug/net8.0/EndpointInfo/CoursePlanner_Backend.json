@@ -722,24 +722,6 @@
         },
         "additionalProperties": false
       },
-      "ClassInsertDTO": {
-        "type": "object",
-        "properties": {
-          "semester": {
-            "type": "string",
-            "nullable": true
-          },
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "courseId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "CourseDTO": {
         "type": "object",
         "properties": {
@@ -938,7 +920,7 @@
           "classes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ClassInsertDTO"
+              "$ref": "#/components/schemas/ClassDTO"
             },
             "nullable": true
           }

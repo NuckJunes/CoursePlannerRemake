@@ -1,17 +1,19 @@
 <h1>Create Account</h1>
-<label for="email">Email</label>
-<input id="email" type="text" [value]="Email">
-
-<label for="username">Username</label>
-<input id="username" type="text" [value]="Username">
-
-<p>Passwords must be at least 8 characters long, and can contain any letters A-Z or numbers 0-9, or special characters ! $ # %.</p>
-
-<label for="password">Password</label>
-<input id="password" type="text" [value]="Password">
-
-<label for="confirm">Confirm Password</label>
-<input id="confirm" type="text" [value]="Confirm">
-
-<p>{{ErrorText}}</p>
-<button (click)="create()">Create Account</button>
+<form [formGroup]="fullForm" (ngSubmit)="create()">
+    <label for="email">Email</label>
+    <input id="email" type="text" matInput formControlName="Email">
+    
+    <label for="username">Username</label>
+    <input id="username" type="text" matInput formControlName="Username">
+    
+    <p>Passwords must be at least 8 characters long, and can contain any letters A-Z or numbers 0-9, or special characters ! $ # %.</p>
+    
+    <label for="password">Password</label>
+    <input id="password" type="text" matInput formControlName="Password">
+    
+    <label for="confirm">Confirm Password</label>
+    <input id="confirm" type="text" matInput formControlName="Confirm">
+    
+    <p>{{ErrorText}}</p>
+    <button type="submit">Create Account</button>
+</form>
