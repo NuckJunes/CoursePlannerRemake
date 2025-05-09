@@ -4,3 +4,7 @@
 <input type="text" [(ngModel)]="password">
 <button type="submit" (click)="login()">Login</button>
 <button (click)="createAccount()">Create Account</button>
+@if (loading) {
+    <mat-spinner></mat-spinner>
+}
+{{error}}

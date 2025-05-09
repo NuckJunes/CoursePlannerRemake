@@ -8,11 +8,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { Post } from '../../services/api';
 import { FormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarComponent, FormsModule],
+  imports: [NavbarComponent, FormsModule, MatProgressSpinnerModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -26,20 +27,26 @@ export class LoginComponent {
   username: string = "username";
   password: string = "password";
   account: AccountReturnDTO | undefined = undefined;
+  loading: boolean = false;
+  error: string = "";
 
   async login() {
     const options = {
         Username: this.username,
         Password: this.password
     };
+    this.loading = true;
+    this.error = "";
     
     try {
       let response = await Post('login', [], options);
         let loginResponse: AccountReturnDTO = response;
-        if(loginResponse !== undefined) {
+        console.log(loginResponse);
+        if(loginResponse != null) {
           this.globalData.updateAccountStatus(loginResponse);
           this.router.navigate(['/profile']);
         } else {
+          this.error = "Incorrect username or password";
         }
     } catch(error) {
       console.log(error);
@@ -51,6 +58,7 @@ export class LoginComponent {
     } else {
       this.value = true;
     }
+    this.loading = false;
   }
 
   createAccount() {

@@ -17,9 +17,25 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 
         public async Task<ActionResult<User>> CreateAccount(User newUser)
         {
-            appDbContext.Users.Add(newUser);
-            await appDbContext.SaveChangesAsync();
-            return newUser;
+            User found = await appDbContext.Users.FirstOrDefaultAsync(u => (u.Email == newUser.Email || u.Username == newUser.Username));
+            if (found == null)
+            {
+                appDbContext.Users.Add(newUser);
+                await appDbContext.SaveChangesAsync();
+                return newUser;
+            } else
+            {
+                if(found.Username.Equals(newUser.Username))
+                {
+                    found.Username = "Exists";
+                }else if(found.Email.Equals(newUser.Email))
+                {
+                    found.Email = "Exists";
+                }
+                found.Password = "";
+                found.schedules = new List<Schedule>();
+            }
+            return found;
         }
 
         public async Task<ActionResult<User>> GetUser(int userId)

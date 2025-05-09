@@ -24,7 +24,7 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 
             ActionResult<User> result = await accountRepository.CreateAccount(newUser);
             AccountReturnDTO user = new AccountReturnDTO();
-            user.ConvertToDTO(newUser);
+            user.ConvertToDTO(result.Value);
             return user;
         }
 
@@ -33,7 +33,14 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             ActionResult<User> result = await accountRepository.Login(loginRequestDTO);
             //if this user doesnt exist this action result will be error code, just return error code
             AccountReturnDTO user = new AccountReturnDTO();
-            user.ConvertToDTO(result.Value);
+            if(result.Value != null)
+            {
+                user.ConvertToDTO(result.Value);
+            } else
+            {
+                user = null;
+                return new ActionResult<AccountReturnDTO>(user);
+            }
             return new ActionResult<AccountReturnDTO>(user);
         }
     }

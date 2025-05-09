@@ -20,6 +20,8 @@ export class CreateAccountComponent {
     Confirm: new FormControl("")
   })
 
+  loading: boolean = false;
+
   Email: string = "";
   Username: string  = "";
   Password: string = "a";
@@ -78,8 +80,6 @@ export class CreateAccountComponent {
     }
     else {
       // Create account api call and go back to login page
-      this.ErrorText = "Good!";
-
       const account: AccountCreateDTO = {
         Username: this.Username,
         Password: this.Password,
@@ -88,7 +88,13 @@ export class CreateAccountComponent {
       try {
         let response = await Post('account', [], account);
           let accountResponse: AccountCreateDTO = response;
-          if(accountResponse !== undefined) {
+          if(accountResponse != null) {
+            this.ErrorText = "Good!";
+            if(accountResponse.Email === "Exists") {
+              this.ErrorText = "Email is already in use!";
+            } else if(accountResponse.Username === "Exists") {
+              this.ErrorText = "Username already in use!";
+            }
             this.router.navigate(['/login']);
           } else {
             console.log(response);
