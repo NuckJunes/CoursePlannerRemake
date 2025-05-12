@@ -362,9 +362,16 @@ export class ScheduleCreateEditComponent {
   openFilter() {
     const dialogRef = this.dialog.open(FilterCoursesComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       // Filter through subjectSelected, attributeSelected, campusSelected, min, max
-      this.displayedCourses.filter((value) => {
+      this.filterCourses(result);
+    });
+  }
+
+  filterCourses(result: any) {
+    console.log(result);
+    console.log(this.displayedCourses);
+    this.displayedCourses.filter((value) => {
+      console.log(value);
         if(value.course_Number < result.min || value.course_Number > result.max) {
           return false; // Course number outside of inputted range
         } else if(result.subjectSelected !== undefined && !result.subjectSelected.contains(value.subject)) {
@@ -395,9 +402,12 @@ export class ScheduleCreateEditComponent {
           return false; // User selected campuses, but none match courses campus locations
         }
 
+        if(!result.subjectSelected.value.contains(value.subject)) {
+          return false;
+        }
+
         return true;
-      })
-    })
+      });
   }
   
 }

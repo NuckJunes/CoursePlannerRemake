@@ -28,9 +28,11 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
                 if(found.Username.Equals(newUser.Username))
                 {
                     found.Username = "Exists";
+                    found.Email = "";
                 }else if(found.Email.Equals(newUser.Email))
                 {
                     found.Email = "Exists";
+                    found.Username = "";
                 }
                 found.Password = "";
                 found.schedules = new List<Schedule>();

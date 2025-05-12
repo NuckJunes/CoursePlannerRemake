@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../../../services/api';
 import AccountCreateDTO from '../../models/AccountCreateDTO';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import AccountReturnDTO from '../../models/AccountReturnDTO';
+import { MatDialogRef } from '@angular/material/dialog';
+import { LoginComponent } from '../login.component';
 
 @Component({
   selector: 'app-create-account',
@@ -12,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './create-account.component.css'
 })
 export class CreateAccountComponent {
+
+  readonly dialogRef = inject(MatDialogRef<LoginComponent>);
 
   fullForm = new FormGroup({
     Email: new FormControl(""),
@@ -24,7 +29,7 @@ export class CreateAccountComponent {
 
   Email: string = "";
   Username: string  = "";
-  Password: string = "a";
+  Password: string = "";
   Confirm: string = "";
   ErrorText: string = "";
   PasswordErrorColor: string = "#C41230";
@@ -87,15 +92,17 @@ export class CreateAccountComponent {
       }
       try {
         let response = await Post('account', [], account);
-          let accountResponse: AccountCreateDTO = response;
+          let accountResponse: AccountReturnDTO = response;
           if(accountResponse != null) {
             this.ErrorText = "Good!";
-            if(accountResponse.Email === "Exists") {
+            if(accountResponse.email === "Exists") {
               this.ErrorText = "Email is already in use!";
-            } else if(accountResponse.Username === "Exists") {
+            } else if(accountResponse.username === "Exists") {
               this.ErrorText = "Username already in use!";
+            } else {
+              this.dialogRef.close();
             }
-            this.router.navigate(['/login']);
+
           } else {
             console.log(response);
           }

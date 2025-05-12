@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { globalData } from '../../services/globalData';
 import { MatInputModule } from '@angular/material/input';
+import { Get } from '../../services/api';
 
 
 @Component({
@@ -33,22 +34,33 @@ export class FilterCoursesComponent {
 
   constructor(private globalData: globalData) {}
 
-  // Obtain all subjects/attributes/campuses from db
   ngOnInit() {
+    this.load();
+  }
+
+  // Obtain all subjects/attributes/campuses from db
+   async load() {
     // Check for global data, then localstorage, otherwise pull from db
 
-    // this.globalData.getSubjects().subscribe((value) => {
-    //   if(value !== undefined) {
-    //     this.subjects = value;
-    //   } else {
-    //     let tmp = localStorage.getItem('Subjects');
-    //     if(tmp === null) {
-    //       // Call API Here
-    //     } else {
-    //       this.subjects = JSON.parse(tmp);
-    //     }
-    //   }
-    // });
+     this.globalData.getSubjects().subscribe((value) => (this.subjects = value));
+     if(this.subjects.length === 0) {
+      var tmp = localStorage.getItem('Subjects');
+      if(tmp !== null) {
+        this.subjects = JSON.parse(tmp);
+      } else {
+        //call endpoint here
+        try {
+          let respones = await Get("Course", ["Subjects"]);
+          let subjectResponse: Array<string> = respones;
+          if(subjectResponse !== undefined) {
+            this.globalData.updateSubjectStatus(subjectResponse);
+            this.subjects = subjectResponse;
+          }
+        } catch(error) {
+          console.log(error);
+        }
+      }
+     }
 
     // this.globalData.getAttributes().subscribe((value) => {
     //   if(value !== undefined) {

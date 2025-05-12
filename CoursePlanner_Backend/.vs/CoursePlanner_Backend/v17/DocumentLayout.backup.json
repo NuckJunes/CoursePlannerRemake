@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Controllers\\Repositories\\RepositoriesImpl\\AccountRepositoryImpl.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Controllers\\Repositories\\RepositoriesImpl\\AccountRepositoryImpl.cs",
               "RelativeToolTip": "Controllers\\Repositories\\RepositoriesImpl\\AccountRepositoryImpl.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAACMAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAABIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T14:33:49.292Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Controllers\\Services\\ServicesImpl\\AccountServiceImpl.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAQwBsAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T13:55:18.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T13:55:18.289Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T13:07:30.934Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-20T13:07:30.934Z"
             },
             {
               "$type": "Document",
