@@ -5,7 +5,7 @@
     <div class="allCourses">
         <button (click)="openFilter()">Filter</button>
         <ul>
-            <li *ngFor="let c of globalCourses">
+            <li *ngFor="let c of addCourses">
                 <button (click)="addClass(c.id)">{{c.subject}} {{c.course_Number}}</button>
             </li>
         </ul>

@@ -34,12 +34,22 @@ export class ScheduleCreateEditComponent {
   semester: string = "Fall";
   schedule: ScheduleRequestDTO | undefined = undefined; //Where the actual classes are stored
   classes: Array<ClassInsertDTO> = []; //What is selected by the user to take
+
   courses: Array<CourseResponseDTO> = []; //What is selected in classes
-  displayedCourses: Array<CourseResponseDTO> = []; //What is displayed from the selected
+  displayedCourses: Array<CourseResponseDTO> = []; //What is displayed from the courses array
   globalCourses: Array<CourseResponseDTO> = []; //Acutal Courses that are stored
+  addCourses: Array<CourseResponseDTO> = []; //What is displayed from the global courses array
+
   majors: Array<MajorResponseDTO> = [];
   displayedSections: Array<SectionResponseDTO> = [];
   scheduleId: number = 0;
+
+  //Filter variables
+  subjects: Array<String> = [];
+  attribute: Array<String> = [];
+  campus: Array<String> = [];
+  min: number = 0;
+  max: number = 1000;
 
   constructor(private globalData: globalData) {}
 
@@ -82,6 +92,7 @@ export class ScheduleCreateEditComponent {
           
       }
     }
+    this.addCourses = this.globalCourses;
 
     this.globalData.getMajors().subscribe((value) => (this.majors = value));
     if(this.majors.length === 0) {
@@ -154,6 +165,7 @@ export class ScheduleCreateEditComponent {
 
     // Remove the course from global to prevent duplicates
     this.globalCourses = this.globalCourses.filter((value) => (value.id !== id));
+    this.addCourses = this.addCourses.filter((value) => (value.id !== id));
 
     // Add new class to our classes section
     this.schedule?.Classes.push(newClass);
@@ -186,6 +198,8 @@ export class ScheduleCreateEditComponent {
     //Add that course to the global courses 
     if(course) {
       this.globalCourses.push(course);
+      //Check if it fits filter before adding to addcourses array
+      this.filterCourses();
       this.updateSections(course, true);
     }
     this.classesChange();
@@ -360,52 +374,49 @@ export class ScheduleCreateEditComponent {
   }
 
   openFilter() {
-    const dialogRef = this.dialog.open(FilterCoursesComponent);
+    const dialogRef = this.dialog.open(FilterCoursesComponent, {data: {subjects: this.subjects, attributes: this.attribute, campus: this.campus, min: this.min, max: this.max}});
     dialogRef.afterClosed().subscribe(result => {
-      // Filter through subjectSelected, attributeSelected, campusSelected, min, max
-      this.filterCourses(result);
+      this.attribute = result.attributes.value;
+      this.campus = result.campuses.value;
+      this.subjects = result.subjects.value;
+      this.min = result.min.value;
+      this.max = result.max.value;
+      this.filterCourses();
     });
   }
 
-  filterCourses(result: any) {
-    console.log(result);
-    console.log(this.displayedCourses);
-    this.displayedCourses.filter((value) => {
-      console.log(value);
-        if(value.course_Number < result.min || value.course_Number > result.max) {
+  filterCourses() {
+    this.addCourses = this.globalCourses;
+    this.addCourses = this.addCourses.filter((value) => {
+        if(value.course_Number < this.min || value.course_Number > this.max) {
           return false; // Course number outside of inputted range
-        } else if(result.subjectSelected !== undefined && !result.subjectSelected.contains(value.subject)) {
+        } else if(this.subjects !== undefined && !this.subjects.includes(value.subject) && this.subjects.length !== 0) {
           return false; // No selected subjects match this courses subject
         }
 
         // Checks if any attributes match
         let attributes = true;
         for(let i = 0; i<value.featureDTOs.length; i++) {
-          if(result.attributeSelected.contains(value.featureDTOs[i])) {
+          if(this.attribute.includes(value.featureDTOs[i].Short_name)) {
             attributes = false;
             break;
           }
         };
-        if(attributes && result.attributeSelected.length !== 0) {
+        if(attributes && this.attribute.length !== 0) {
           return false; // User selected attributes, but none match courses attributes
         }
 
         // Checks if any campuses match
         let campuses = true;
         for(let j = 0; j<value.campusDTOs.length; j++) {
-          if(result.campusSelected.contains(value.campusDTOs[j])) {
+          if(this.campus.includes(value.campusDTOs[j].Name)) {
             campuses = false;
             break;
           }
         }
-        if(campuses && result.campusSelected.length !== 0) {
+        if(campuses && this.campus.length !== 0) {
           return false; // User selected campuses, but none match courses campus locations
         }
-
-        if(!result.subjectSelected.value.contains(value.subject)) {
-          return false;
-        }
-
         return true;
       });
   }

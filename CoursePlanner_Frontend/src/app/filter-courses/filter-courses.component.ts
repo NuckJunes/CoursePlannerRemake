@@ -7,7 +7,7 @@ import { FormControl, ReactiveFormsModule, FormsModule, FormGroup } from '@angul
 import { globalData } from '../../services/globalData';
 import { MatInputModule } from '@angular/material/input';
 import { Get } from '../../services/api';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filter-courses',
@@ -18,6 +18,8 @@ import { Get } from '../../services/api';
 export class FilterCoursesComponent {
 
   readonly dialogRef = inject(MatDialogRef<ScheduleCreateEditComponent>);
+  readonly data = inject(MAT_DIALOG_DATA);
+  
 
   fullForm = new FormGroup({
     subjectSelected: new FormControl([]),
@@ -87,6 +89,13 @@ export class FilterCoursesComponent {
     //     }
     //   }
     // });
+
+    this.fullForm.get('subjectSelected')?.setValue(this.data.subjects);
+    this.fullForm.get('attributeSelected')?.setValue(this.data.attributes);
+    this.fullForm.get('campusSelected')?.setValue(this.data.campus);
+    this.fullForm.get('min')?.setValue(this.data.min);
+    this.fullForm.get('max')?.setValue(this.data.max);
+
   }
 
   // When x button is clicked, no data sent back
