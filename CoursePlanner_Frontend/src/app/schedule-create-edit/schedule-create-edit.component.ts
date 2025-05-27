@@ -6,6 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 import CourseResponseDTO from '../models/CourseResponseDTO';
 import CourseDTO from '../models/CourseDTO';
@@ -21,7 +22,7 @@ import AccountReturnDTO from '../models/AccountReturnDTO';
 
 @Component({
   selector: 'app-schedule-create-edit',
-  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule, MatDialogModule],
+  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule, MatDialogModule, FormsModule],
   templateUrl: './schedule-create-edit.component.html',
   styleUrl: './schedule-create-edit.component.css'
 })
@@ -41,6 +42,7 @@ export class ScheduleCreateEditComponent {
   addCourses: Array<CourseResponseDTO> = []; //What is displayed from the global courses array
 
   majors: Array<MajorResponseDTO> = [];
+  majorName: string = "";
   displayedSections: Array<SectionResponseDTO> = [];
   scheduleId: number = 0;
 
@@ -124,6 +126,7 @@ export class ScheduleCreateEditComponent {
       }
     }
     this.updateCourses();
+    this.filterCourses();
   }
   
 
@@ -299,14 +302,20 @@ export class ScheduleCreateEditComponent {
             }
           }
         });
-        //This probably doesnt work
         account.schedules.forEach((value) => {
           if(value.id === scheduleResponse.id) {
             value = scheduleResponse;
           }
         });
-      
         this.globalData.updateAccountStatus(account);
+
+        if(this.schedule !== undefined) {
+          this.schedule.Classes = scheduleResponse.classes;
+          this.schedule.Name = scheduleResponse.name;
+        }
+        this.scheduleId = scheduleResponse.id;
+        this.globalData.updateScheduleIdStatus(scheduleResponse.id);
+        this.globalData.updateScheduleStatus(this.schedule);
         // Some alert you its successfull
         console.log("Save Success");
     } catch(error) {
@@ -338,21 +347,25 @@ export class ScheduleCreateEditComponent {
         }
       });
       let response = await Post('Schedule', [account.id.toString()], options);
-      if(!response.ok) {
-        throw new Error('Response Status: ' + response.status);
-      } else {
-        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
-        this.globalData.updateScheduleIdStatus(scheduleResponse.id);
-        this.scheduleId = scheduleResponse.id;
-        if(account !== undefined) {
-          account.schedules.push();
+      console.log(response);
+      let scheduleResponse: ScheduleResponseDTO = response;
+
+      if(this.schedule !== undefined) {
+          this.schedule.Classes = scheduleResponse.classes;
+          this.schedule.Name = scheduleResponse.name;
         }
-        this.globalData.updateAccountStatus(account);
-        console.log("Created" + response);
-        
-        //update user schedules
-        //Alert user its successfull
+        this.globalData.updateScheduleIdStatus(scheduleResponse.id);
+        this.globalData.updateScheduleStatus(this.schedule);
+        this.scheduleId = scheduleResponse.id;
+
+      if(account !== undefined) {
+        account.schedules.push();
       }
+      this.globalData.updateAccountStatus(account);
+      console.log("Created" + response);
+        
+      //update user schedules
+      //Alert user its successfull
     } catch (error) {
       console.log(error);
     }
@@ -361,6 +374,7 @@ export class ScheduleCreateEditComponent {
   // Change displayed courses based on which major is selected
   selectMajor(major: MajorResponseDTO) {
     this.displayedSections = major.sections;
+    this.majorName = major.name;
     //Update displayedSection credit hours with existing courses
     this.courses.forEach(c => {
       this.updateSections(c, false);

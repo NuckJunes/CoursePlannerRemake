@@ -2,6 +2,7 @@
 using CoursePlanner_Backend.Model.DTOs;
 using CoursePlanner_Backend.Model.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 {
@@ -82,23 +83,38 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             ActionResult<Schedule> existingSchedule = await scheduleRepository.GetSchedule(scheduleId);
             existingSchedule.Value.Name = scheduleRequestDTO.Name;
 
+            List<Class> extra = new List<Class>();
             foreach(ClassDTO c in  scheduleRequestDTO.Classes)
             {
                 //Replace all instances of class insert dto with ClassDTO
                 ActionResult<Class> tmp = await classRepository.GetClass(c.id);
-                if (tmp != null)
+                if (tmp.Value != null)
                 {
-                    tmp.Value.course = courseRepository.GetById(c.id).Result.Value;
+                    ActionResult<Course> value = await courseRepository.GetById(c.courseId);
+                    tmp.Value.course = value.Value;
                     tmp.Value.year = c.year;
                     tmp.Value.semester = c.semester;
+                    extra.Add(tmp.Value);
                 } else
                 {
                     Class newClass = new Class();
                     newClass.schedule = existingSchedule.Value;
-                    newClass.course = courseRepository.GetById(c.id).Result.Value;
+                    ActionResult<Course> value = await courseRepository.GetById(c.courseId);
+                    newClass.course = value.Value;
                     newClass.year = c.year;
                     newClass.semester = c.semester;
-                    classRepository.AddClass(newClass);
+                    existingSchedule.Value.classes.Add(newClass);
+                    extra.Add(newClass);
+                    //await classRepository.AddClass(newClass);
+                }
+            }
+
+            //Remove any classes in existing schedule that are not in new schedule
+            foreach(Class c in existingSchedule.Value.classes.ToList())
+            {
+                if (!extra.Contains(c))
+                {
+                    existingSchedule.Value.classes.Remove(c);
                 }
             }
 

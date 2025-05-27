@@ -40,6 +40,7 @@ export class EditScheduleComponent {
       // Changing ClassDTO to ClassInsertDTO
       s.classes.forEach(element => {
         var newClass = { 
+          id: -1,
           semester: element.semester,
           year: element.year,
           courseId: element.courseId

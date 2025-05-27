@@ -7,6 +7,7 @@ import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 import { NgFor } from '@angular/common';
 import ClassInsertDTO from '../models/ClassInsertDTO';
 import ScheduleRequestDTO from '../models/ScheduleRequestDTO';
+import ClassDTO from '../models/ClassDTO';
 
 @Component({
   selector: 'app-profile',
@@ -45,10 +46,11 @@ export class ProfileComponent {
 
       let scheduleToSend:ScheduleRequestDTO = {
         Name: schedule.name,
-        Classes: Array<ClassInsertDTO>()
+        Classes: Array<ClassDTO>()
       }
       schedule?.classes.forEach(c => {
         let newClass = {
+          id: -1,
           semester: c.semester,
           year: c.year,
           courseId: c.courseId

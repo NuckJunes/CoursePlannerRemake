@@ -4,10 +4,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { globalData } from '../../../services/globalData';
 import ClassInsertDTO from '../../models/ClassInsertDTO';
+import { FormsModule } from '@angular/forms';
+import ClassDTO from '../../models/ClassDTO';
 
 @Component({
   selector: 'app-create-schedule',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './create-schedule.component.html',
   styleUrl: './create-schedule.component.css'
 })
@@ -21,7 +23,7 @@ export class CreateScheduleComponent {
   createNewSchedule() {
     var newSchedule = {
       Name: this.name,
-      Classes: Array<ClassInsertDTO>()
+      Classes: Array<ClassDTO>()
     }
     this.globalData.updateScheduleStatus(newSchedule);
     this.globalData.updateScheduleIdStatus(-1);

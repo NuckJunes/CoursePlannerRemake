@@ -2,7 +2,9 @@
 <body>
     <h1>Scheduler</h1>
     <!-- Display all of the courses you can add -->
+     <input type="text" [value]="this.schedule?.Name">
     <div class="allCourses">
+        <h3>Courses</h3>
         <button (click)="openFilter()">Filter</button>
         <ul>
             <li *ngFor="let c of addCourses">
@@ -45,6 +47,7 @@
     </div>
     <div class="majors">
         <!-- Dropdown for selecting majors -->
+         <p>{{majorName}}</p>
          <mat-select>
                 <mat-option *ngFor="let major of majors" (click)="selectMajor(major)">{{major.name}}</mat-option>
          </mat-select>
