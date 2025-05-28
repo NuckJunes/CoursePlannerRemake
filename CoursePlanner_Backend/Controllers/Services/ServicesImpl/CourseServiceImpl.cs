@@ -10,12 +10,14 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
         private ICourseRepository courseRepository;
         private ICampusRepository campusRepository;
         private IFeatureRepository featureRepository;
+        private IMajorRepository majorRepository;
 
-        public CourseServiceImpl(ICourseRepository courseRepository, ICampusRepository campusRepository, IFeatureRepository featureRepository)
+        public CourseServiceImpl(ICourseRepository courseRepository, ICampusRepository campusRepository, IFeatureRepository featureRepository, IMajorRepository majorRepository)
         {
             this.courseRepository = courseRepository;
             this.campusRepository = campusRepository;
             this.featureRepository = featureRepository;
+            this.majorRepository = majorRepository;
         }
 
         public async Task<ActionResult<IEnumerable<CourseResponseDTO>>> GetCourses()
@@ -53,13 +55,22 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
             foreach (int id in courseRequestDTO.FeatureIds)
             {
                 ActionResult<Feature> featureToAdd = await featureRepository.GetById(id);
-                course.Features.Add(featureToAdd.Value);
+                if(featureToAdd.Value != null)
+                    course.Features.Add(featureToAdd.Value);
             }
 
             foreach (int id in courseRequestDTO.CampusIds)
             {
                 ActionResult<Campus> campusToAdd = await campusRepository.GetById(id);
-                course.Campuses.Add(campusToAdd.Value);
+                if(campusToAdd.Value != null)
+                    course.Campuses.Add(campusToAdd.Value);
+            }
+
+            foreach (int id in courseRequestDTO.SectionIds)
+            {
+                ActionResult<Section> sectionToAdd = await majorRepository.GetSection(id);
+                if(sectionToAdd.Value != null)
+                    course.Sections.Add(sectionToAdd.Value);
             }
 
             ActionResult<Course> result = await courseRepository.AddCourse(course); //for security purposes
@@ -87,14 +98,23 @@ namespace CoursePlanner_Backend.Controllers.Services.ServicesImpl
 
             foreach (int ID in courseRequestDTO.FeatureIds)
             {
-                ActionResult<Feature> featureToAdd = await featureRepository.GetById(ID);
-                course.Features.Add(featureToAdd.Value);
+                ActionResult<Feature> featureToAdd = await featureRepository.GetById(id);
+                if (featureToAdd.Value != null)
+                    course.Features.Add(featureToAdd.Value);
             }
 
             foreach (int ID in courseRequestDTO.CampusIds)
             {
-                ActionResult<Campus> campusToAdd = await campusRepository.GetById(ID);
-                course.Campuses.Add(campusToAdd.Value);
+                ActionResult<Campus> campusToAdd = await campusRepository.GetById(id);
+                if (campusToAdd.Value != null)
+                    course.Campuses.Add(campusToAdd.Value);
+            }
+
+            foreach (int ID in courseRequestDTO.SectionIds)
+            {
+                ActionResult<Section> sectionToAdd = await majorRepository.GetSection(id);
+                if (sectionToAdd.Value != null)
+                    course.Sections.Add(sectionToAdd.Value);
             }
 
             ActionResult<Course> result = await courseRepository.UpdateCourse(course); // for security reasons

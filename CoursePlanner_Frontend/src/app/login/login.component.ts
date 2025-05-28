@@ -3,7 +3,6 @@ import { globalData } from '../../services/globalData';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { Router } from '@angular/router';
 import AccountReturnDTO from '../models/AccountReturnDTO';
-import ScheduleResponseDTO from '../models/ScheduleResponseDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { Post } from '../../services/api';

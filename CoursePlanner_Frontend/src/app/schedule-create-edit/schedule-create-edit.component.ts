@@ -33,6 +33,7 @@ export class ScheduleCreateEditComponent {
 
   year: number = 1;
   semester: string = "Fall";
+  scheduleName: string = "";
   schedule: ScheduleRequestDTO | undefined = undefined; //Where the actual classes are stored
   classes: Array<ClassInsertDTO> = []; //What is selected by the user to take
 
@@ -69,6 +70,9 @@ export class ScheduleCreateEditComponent {
       } else {
         //This should never happen, means previous page either didn't get a schedule or 
       }
+    }
+    if(this.schedule !== undefined) {
+      this.scheduleName = this.schedule.Name;
     }
 
     this.globalData.getCourses().subscribe((value) => (this.globalCourses = value));
@@ -274,12 +278,12 @@ export class ScheduleCreateEditComponent {
   async save() {
     try {
       const options = {
-        Name: this.schedule?.Name,
+        Name: this.scheduleName,
         Classes: this.schedule?.Classes
       };
       let response = await Patch('Schedule', [this.scheduleId.toString()], options);
         //Convert from ScheduleResponse to ScheduleRequest
-        let scheduleResponse: ScheduleResponseDTO = JSON.parse(response.json());
+        let scheduleResponse: ScheduleResponseDTO = response;
         let scheduleRequest: ScheduleRequestDTO = {
           Name: scheduleResponse.name,
           Classes: scheduleResponse.classes
@@ -312,6 +316,7 @@ export class ScheduleCreateEditComponent {
         if(this.schedule !== undefined) {
           this.schedule.Classes = scheduleResponse.classes;
           this.schedule.Name = scheduleResponse.name;
+          this.scheduleName = scheduleResponse.name;
         }
         this.scheduleId = scheduleResponse.id;
         this.globalData.updateScheduleIdStatus(scheduleResponse.id);

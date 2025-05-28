@@ -2,7 +2,7 @@
 <body>
     <h1>Scheduler</h1>
     <!-- Display all of the courses you can add -->
-     <input type="text" [value]="this.schedule?.Name">
+     <input type="text" [(ngModel)]="scheduleName">
     <div class="allCourses">
         <h3>Courses</h3>
         <button (click)="openFilter()">Filter</button>

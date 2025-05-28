@@ -20,6 +20,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             return await appDbContext.Courses
                 .Include(course => course.Campuses)
                 .Include(course => course.Features)
+                .Include(course => course.Sections)
                 .ToListAsync();
         }
 
@@ -32,7 +33,11 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
 
         public async Task<ActionResult<Course>> GetById(int id)
         {
-            return await appDbContext.Courses.FirstOrDefaultAsync(i => i.Id == id); 
+            return await appDbContext.Courses
+                .Include(course => course.Campuses)
+                .Include(course => course.Features)
+                .Include(course => course.Sections)
+                .FirstOrDefaultAsync(i => i.Id == id); 
         }
 
         public async Task<ActionResult<Course>> UpdateCourse(Course course)
@@ -47,6 +52,7 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
             Course courseToDelete = appDbContext.Courses
                 .Include(course => course.Campuses)
                 .Include(course => course.Features)
+                .Include(course => course.Sections)
                 .FirstOrDefault(i => i.Id == id);
             appDbContext.Courses.Remove(courseToDelete);
             await appDbContext.SaveChangesAsync();

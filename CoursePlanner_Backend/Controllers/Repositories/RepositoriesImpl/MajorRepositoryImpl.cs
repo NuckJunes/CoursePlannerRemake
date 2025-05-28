@@ -21,5 +21,10 @@ namespace CoursePlanner_Backend.Controllers.Repositories.RepositoriesImpl
                 .ThenInclude(i => i.Courses)
                 .ToListAsync();
         }
+
+        public async Task<ActionResult<Section>> GetSection(int id)
+        {
+            return await this.appDbContext.Sections.FirstOrDefaultAsync(i => i.Id == id);
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace CoursePlanner_Backend.Model.DTOs
         public List<CampusDTO> CampusDTOs { get; set; }
         public String PreRequisites { get; set; }
 
+        public List<int> SectionIds { get; set; }
+
         public void ConvertToDTO(Course course)
         {
             //convert the course values to course DTO values
@@ -27,6 +29,7 @@ namespace CoursePlanner_Backend.Model.DTOs
 
             this.FeatureDTOs = new List<FeatureDTO>();
             this.CampusDTOs = new List<CampusDTO>();
+            this.SectionIds = new List<int>();
 
             //loop through these
             foreach (Feature feature in course.Features)
@@ -36,6 +39,10 @@ namespace CoursePlanner_Backend.Model.DTOs
             foreach (Campus campus in course.Campuses)
             {
                 this.CampusDTOs.Add(new CampusDTO { Id = campus.Id, Name = campus.Name });
+            }
+            foreach (Section section in course.Sections)
+            {
+                this.SectionIds.Add(section.Id);
             }
         }
     }
