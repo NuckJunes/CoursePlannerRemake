@@ -214,13 +214,23 @@ export class ScheduleCreateEditComponent {
 
   // Adds/Removes courses to be shown to users for a section, also changes its credit hours
   updateSections(course: CourseResponseDTO, remove: boolean) {
+    console.log(course);
     this.displayedSections.forEach(s => {
-      if(remove && course.sectionIds.find(i => i === s.id)) {
-        s.credit_Current = s.credit_Current - course.credit_hours;
+      if(s.credit_Current === undefined) {
+        s.credit_Current = 0;
+      }
+      if(remove && (course.sectionIds.find(i => i === s.id) !== undefined)) {
+        s.credit_Current = (s.credit_Current / 100) * s.credit_Max;
+        s.credit_Current = ((s.credit_Current - course.credit_hours) / s.credit_Max) * 100;
         s.courses = s.courses.filter(i => (i.Id !== course.id));
-      } else if(!remove) {
+        return;
+      } else if(!remove && (course.sectionIds.find(i => i === s.id) !== undefined)) {
         s.courses.push({Id : course.id, Name : course.name, Description : course.description});
-        s.credit_Current = s.credit_Current + course.credit_hours;
+        console.log(s.credit_Current);
+        s.credit_Current = (s.credit_Current / 100) * s.credit_Max;
+        s.credit_Current = ((s.credit_Current + course.credit_hours) / s.credit_Max) * 100;
+        console.log(s);
+        return;
       }
     });
   }

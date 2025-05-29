@@ -4,6 +4,7 @@ namespace CoursePlanner_Backend.Model.DTOs
 {
     public class SectionResponseDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public double Credit_Min { get; set; }
         public double Credit_Max { get; set; }
@@ -11,6 +12,7 @@ namespace CoursePlanner_Backend.Model.DTOs
 
         public void ConvertToDTO(Section section)
         {
+            this.Id = section.Id;
             this.Name = section.Name;
             this.Credit_Min = section.Credit_Min;
             this.Credit_Max = section.Credit_Max;

@@ -129,11 +129,42 @@ namespace CoursePlanner_Backend.Data
             modelBuilder.Entity<Course>().HasData(MTH331);
             modelBuilder.Entity("CampusCourse").HasData(new { CampusesId = 4, CoursesId = 5 });
 
+            Course STA301 = new Course { Id = 6, Name = "Applied Statistics"
+            ,Description = "A first course in applied stasticis including an intorduction to probability, the development of estimation and hypothesis testing, and a focus on statistical methods and applications. Includes introduction to probability of events, random variable, binomial and normal distributions, mathematical expectation, sampling distributions, estimation, and hypothesis testing. Statistical methods include one and two sample procedures for means and proportions, chi-square tests, analysis of variance, and linear regression. Prerequisiste: MTH151 or MTH249 or MTH251 or MTH252"
+            ,Credit_Hours = 3.0
+            ,Subject = "STA"
+            ,Course_Number = 301
+            ,PreRequisites = ""};
+
+            modelBuilder.Entity<Course>().HasData(STA301);
+            modelBuilder.Entity("CampusCourse").HasData(new { CampusesId = 4, CoursesId = 6 });
+
+            Course STA261 = new Course { Id = 7, Name = "Statistics"
+            ,Description = "Descriptive statistics, basic probability, random variables, binomial and normal probability distributions, tests of hypotheses, regression and correlation, analysis of variance. Emphasis on applications."
+            ,Credit_Hours = 4.0
+            ,Subject = "STA"
+            ,Course_Number = 261
+            ,PreRequisites = ""};
+
+            modelBuilder.Entity<Course>().HasData(STA261);
+            modelBuilder.Entity("CampusCourse").HasData(new { CampusesId = 4, CoursesId = 7 });
+
+            Course ECE345 = new Course { Id = 8, Name = "Introduction to Probability, Statistics, and Random Processes."
+            ,Description = "Introduces probability, statistics, and random processes. Topics include probability theory, discrete and continuous distributinos, sample statistics, central limit theorem, parameter estimation, hypothesis testing, random processes, and application examples. Prerequisite: MTH249 or MTH251."
+            ,Credit_Hours = 3.0
+            ,Subject = "ECE"
+            ,Course_Number = 345
+            ,PreRequisites = ""};
+
+            modelBuilder.Entity<Course>().HasData(ECE345);
+            modelBuilder.Entity("CampusCourse").HasData(new { CampusesId = 4, CoursesId = 8 });
+
             Major software = new Major { Id = 1, Name = "Software Engineering", Graduate = false, College = "College of Computer Science", Credit_Min = 92.0, Credit_Max = 98.0};
             modelBuilder.Entity<Major>().HasData(software);
 
             Section core = new Section { Id = 1, Name = "Core Requirements", Major = software, Credit_Min = 3, Credit_Max = 3, Courses = new List<Course>() {STC135, APC231} };
             Section math = new Section { Id = 2, Name = "Mathematics", Major = software, Credit_Min = 7, Credit_Max = 7, Courses = new List<Course>() {MTH151, MTH231, MTH331} };
+            Section stats = new Section { Id = 3, Name = "Statistics", Major = software, Credit_Min = 3, Credit_Max = 4, Courses = new List<Course>() { STA301, STA261, ECE345 } };
             //modelBuilder.Entity<Section>().HasData(core);
             //modelBuilder.Entity<Section>().HasData(math);
             //modelBuilder.Entity("CourseSection").HasData(
