@@ -64,7 +64,7 @@
               "RelativeDocumentMoniker": "Model\\DTOs\\SectionResponseDTO.cs",
               "ToolTip": "C:\\Users\\batte\\Desktop\\Work\\CoursePlannerRemake\\CoursePlanner_Backend\\Model\\DTOs\\SectionResponseDTO.cs",
               "RelativeToolTip": "Model\\DTOs\\SectionResponseDTO.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwA4AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T14:55:06.51Z",
               "EditorCaption": ""
@@ -187,8 +187,7 @@
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAJsAAAAAAAAAAAAqwKYAAACzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-13T13:40:15.025Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-13T13:40:15.025Z"
             }
           ]
         }

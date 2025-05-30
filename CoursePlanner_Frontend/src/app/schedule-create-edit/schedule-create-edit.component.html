@@ -1,5 +1,14 @@
 <app-navbar></app-navbar>
 <body>
+    @if(loading) {
+        <div class="loading">
+            @if(done) {
+                <p>Success</p>
+            } @else {
+                <mat-spinner></mat-spinner>
+            }
+        </div>
+    }
     <h1>Scheduler</h1>
     <!-- Display all of the courses you can add -->
      <input type="text" [(ngModel)]="scheduleName">
@@ -20,7 +29,7 @@
     <!-- Buttons to change the year/semester of added courses -->
     <div class="changeButtons">
         <mat-button-toggle-group (change)="yearChange($event)">
-            <mat-button-toggle value="1">Year 1</mat-button-toggle>
+            <mat-button-toggle checked="true" value="1">Year 1</mat-button-toggle>
             <mat-button-toggle value="2">Year 2</mat-button-toggle>
             <mat-button-toggle value="3">Year 3</mat-button-toggle>
             <mat-button-toggle value="4">Year 4</mat-button-toggle>
@@ -29,7 +38,7 @@
         </mat-button-toggle-group>
         <br>
         <mat-button-toggle-group (change)="semesterChange($event)">
-            <mat-button-toggle value="Winter">Winter</mat-button-toggle>
+            <mat-button-toggle checked="true" value="Winter">Winter</mat-button-toggle>
             <mat-button-toggle value="Spring">Spring</mat-button-toggle>
             <mat-button-toggle value="Summer">Summer</mat-button-toggle>
             <mat-button-toggle value="Fall">Fall</mat-button-toggle>

@@ -7,6 +7,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { timer } from 'rxjs';
 
 import CourseResponseDTO from '../models/CourseResponseDTO';
 import CourseDTO from '../models/CourseDTO';
@@ -22,7 +24,7 @@ import AccountReturnDTO from '../models/AccountReturnDTO';
 
 @Component({
   selector: 'app-schedule-create-edit',
-  imports: [MatButtonToggleModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule, MatDialogModule, FormsModule],
+  imports: [MatButtonToggleModule, MatProgressSpinnerModule, NgFor, NavbarComponent, MatProgressBarModule, MatSelectModule, MatDialogModule, FormsModule],
   templateUrl: './schedule-create-edit.component.html',
   styleUrl: './schedule-create-edit.component.css'
 })
@@ -53,6 +55,10 @@ export class ScheduleCreateEditComponent {
   campus: Array<String> = [];
   min: number = 0;
   max: number = 1000;
+
+  //Waiting for item to save
+  loading: boolean = false;
+  done: boolean = false;
 
   constructor(private globalData: globalData) {}
 
@@ -286,6 +292,7 @@ export class ScheduleCreateEditComponent {
 
   // Here we save the schedule by sending a PATCH with the scheduleId and schedule
   async save() {
+    this.loading = true;
     try {
       const options = {
         Name: this.scheduleName,
@@ -297,6 +304,9 @@ export class ScheduleCreateEditComponent {
         let scheduleRequest: ScheduleRequestDTO = {
           Name: scheduleResponse.name,
           Classes: scheduleResponse.classes
+        }
+        if(scheduleResponse !== undefined) {
+          this.done = true;
         }
         this.globalData.updateScheduleStatus(scheduleRequest);
         //update user schedules
@@ -336,10 +346,13 @@ export class ScheduleCreateEditComponent {
     } catch(error) {
 
     }
+    timer(2000).subscribe(n => {this.done = false;
+    this.loading = false;})
   }
 
   // Here we create a new schedule by sending a POST with the schedule
   async create() {
+    this.loading = true;
     try{
       const options = {
         Name: this.schedule?.Name,
@@ -362,9 +375,11 @@ export class ScheduleCreateEditComponent {
         }
       });
       let response = await Post('Schedule', [account.id.toString()], options);
-      console.log(response);
       let scheduleResponse: ScheduleResponseDTO = response;
 
+      if(scheduleResponse !== undefined) {
+        this.done = true;
+      }
       if(this.schedule !== undefined) {
           this.schedule.Classes = scheduleResponse.classes;
           this.schedule.Name = scheduleResponse.name;
@@ -384,6 +399,8 @@ export class ScheduleCreateEditComponent {
     } catch (error) {
       console.log(error);
     }
+    timer(2000).subscribe(n => {this.done = false;
+    this.loading = false;})
   }
 
   // Change displayed courses based on which major is selected
