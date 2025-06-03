@@ -1,6 +1,16 @@
-<div>
-    <a id="home" routerLink="/">Home</a> 
-    <a id="schedule" routerLink="/schedule">Schedule</a>
-    <a id="login" routerLink="{{loginProfile}}">{{loginString}}</a>
+<div class="bg-danger h-auto d-flex align-items-center w-100 p-0">
+    <div class="row w-100">
+        <div class="col-sm-6 d-flex flex-row-reverse">
+            <a id="home" routerLink="/">Home</a> 
+        </div>
+        <div class="col-sm-6 d-flex">
+            <div class="col-sm-6 d-flex">
+                <a id="schedule" routerLink="/schedule">Schedule</a>
+            </div>
+            <div class="col-sm-6 d-flex flex-row-reverse">
+                <a id="login" routerLink="{{loginProfile}}">{{loginString}}</a>
+            </div>
+        </div>
+    </div>
 </div>
 

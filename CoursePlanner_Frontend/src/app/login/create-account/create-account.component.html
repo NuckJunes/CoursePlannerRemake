@@ -1,7 +1,14 @@
 <div class="container bg-danger">
-<h1>Create Account</h1>
-<div class="col">
+<div class="col p-5">
 <form [formGroup]="fullForm" (ngSubmit)="create()">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1>Create Account</h1>
+        </div>
+        <div class="col-sm-2 d-flex flex-row-reverse p-0">
+            <button (click)="close()" style="border-radius: 5px;">X</button>
+        </div>
+    </div>
     <div class="row">
         <label for="email">Email</label>
         <input id="email" type="text" matInput formControlName="Email">
@@ -27,7 +34,9 @@
         <input id="confirm" type="text" matInput formControlName="Confirm">
     </div>
     
-    <button type="submit">Create Account</button>
+    <div class="row pt-4 d-flex justify-content-center">
+        <button style="border-radius: 5px; width: 50%;" type="submit">Create Account</button>
+    </div>
 </form>
 </div>
 </div>

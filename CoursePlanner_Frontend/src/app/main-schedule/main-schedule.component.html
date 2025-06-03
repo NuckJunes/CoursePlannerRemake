@@ -1,10 +1,20 @@
 <app-navbar></app-navbar>
-<h1>Schedule</h1>
-@if (loggedIn) {
-    <button (click)="openCreateMenu()">Create Schedule</button>
-    <button (click)="openEditMenu()">Edit Schedule</button>
+<div class="bg-danger h-100 d-flex align-items-center w-100">
+    <div class="row w-100">
+        @if (loggedIn) {
+    <div class="col-sm-6 d-flex justify-content-center">
+        <button (click)="openCreateMenu()">Create Schedule</button>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+        <button (click)="openEditMenu()">Edit Schedule</button>
+    </div>
 } @else {
-    <button matTooltip="Must be Logged In">Create Schedule</button>
-    <button matTooltip="Must be Logged In">Edit Schedule</button>
+    <div class="col-sm-6 d-flex justify-content-center">
+        <button matTooltip="Must be Logged In">Create Schedule</button>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+        <button matTooltip="Must be Logged In">Edit Schedule</button>
+    </div>
 }
-<button>Import Schedule</button>
+    </div>
+</div>

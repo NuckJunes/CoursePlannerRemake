@@ -113,4 +113,8 @@ export class CreateAccountComponent {
       //If response is an error, show user
     }
   }
+
+  close() {
+    this.dialogRef.close();
+  }
 }
